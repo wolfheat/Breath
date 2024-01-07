@@ -1,0 +1,38 @@
+﻿DEVLOG FOR Breath"
+Jan 2024
+
+* IDEAS
+- Make a space game with BreathEdge mechanics, maybe for gamejam.
+
+
+5/1		* Made Base of game with Space theme Skybox, Gravity free movement and gravity inside spacebase
+		* Added Space theme assets for buildings
+		* Added door system for automatically open doors
+6/1		* Fixed issue with wrapping around when looking up and down
+		* Set auto correct every move for player not to fall over - may need better fix
+		* Added simple crosshair to aim when moving
+		* Made mouse last position save when rightclicking and recover position when releasing
+		* Made the Space stop smoother.
+
+		TODO
+		* Automate player entering and exiting building.
+		* Make velocity sideways diminish when moving forward
+		* Stop staggering of gameplay
+		* Still issue with view jumping in certian spots fix
+
+
+		
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 		
+		* USED IN PROJECT
+
+		CHECKLIST FOR BETTER PLAYER EXPERIENCE
+
+		* BUGS, CRASHES, SLOW PERFORMANCE
+		* MISLEADING MARKETING
+		* NOT ENGAGING WITH COMMUNITY
+		* CONFIGURABLE CONTROLS, 
+		* TEXT TO SMALL, 
+		* CONTRAST, 
+		* MISSING FEATURE
+
+------ ------- ------
