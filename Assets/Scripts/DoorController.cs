@@ -6,24 +6,19 @@ public class DoorController : MonoBehaviour
     [SerializeField] Door leftdoor;
     [SerializeField] Door rightdoor;
     [SerializeField] bool useScript;
+    [SerializeField] DoorThrower[] doorThrowers;
 
-    private void OnTriggerEnter(Collider other)
+
+    public void SetThrowTriggersActivation(bool active)
     {
-        if(other.gameObject.GetComponent<Player>() != null)
-        {
-            OpenDoors(true);
-        }
+        foreach (var thrower in doorThrowers)
+            thrower.gameObject.SetActive(active);
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.GetComponent<Player>() != null)
-        {
-            OpenDoors(false);
-        }
-    }
     public void OpenDoors(bool open)
     {
+        if(open)SetThrowTriggersActivation(true);
+
         if (!useScript) return;
         leftdoor.OpenDoor(open);   
         rightdoor.OpenDoor(open);   

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -179,4 +181,27 @@ public class Player : MonoBehaviour
         }        
     }
 
+    internal void ThrowPlayer(DoorThrower doorThrower)
+    {
+        Debug.Log("Request To throw player");
+        StartCoroutine(ThrowPlayerCO(doorThrower));
+    }
+
+    private IEnumerator ThrowPlayerCO(DoorThrower thrower)
+    {
+        // Move player towards trigger, when close enough throw against target
+        rb.velocity = (thrower.transform.position - rb.transform.position).normalized*maxSpeed;
+        float lastDistance = (thrower.transform.position - rb.transform.position).magnitude; 
+        yield return null;
+        float currentDistance = (thrower.transform.position - rb.transform.position).magnitude;
+        while (currentDistance < lastDistance)
+        {
+            lastDistance = (thrower.transform.position - rb.transform.position).magnitude;
+            yield return null;
+            currentDistance = (thrower.transform.position - rb.transform.position).magnitude;
+        }
+        // Now at thrower
+        rb.velocity = (thrower.target.transform.position - rb.transform.position).normalized*maxSpeed;
+        yield return null;
+    }
 }

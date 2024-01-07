@@ -13,13 +13,12 @@ Jan 2024
 		* Added simple crosshair to aim when moving
 		* Made mouse last position save when rightclicking and recover position when releasing
 		* Made the Space stop smoother.
+		* Made velocity sideways diminish when moving forward - May need retweek
+		* Created basic throw in functionality - need tweeking
 
 		TODO
-		* Automate player entering and exiting building.
-		* Make velocity sideways diminish when moving forward
 		* Stop staggering of gameplay
 		* Still issue with view jumping in certian spots fix
-
 
 		
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 		
