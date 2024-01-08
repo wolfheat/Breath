@@ -1,13 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
-
 public class UIController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI speed;
     [SerializeField] GameObject tempHair;
-    
+    [SerializeField] InventoryUI inventoryUI;
+
+
+    public static UIController Instance;
+
+    private void Start()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+    }
 
     public void SetSpeed(Vector3 s)
     {
@@ -21,5 +32,11 @@ public class UIController : MonoBehaviour
     public void HideTempHair()
     {
         tempHair.SetActive(false);
+    }
+
+    public void InventoryChanged()
+    {
+        inventoryUI.UpdateInventory();
+        
     }
 }

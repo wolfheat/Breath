@@ -71,6 +71,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MusicToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""8be20e00-75e0-42f7-8c69-cadbba791b4f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -227,6 +236,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8bf085e0-c712-4c51-8828-32b272ffec6d"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MusicToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -240,6 +260,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_RClick = m_Player.FindAction("RClick", throwIfNotFound: true);
         m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+        m_Player_MusicToggle = m_Player.FindAction("MusicToggle", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -306,6 +327,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RClick;
     private readonly InputAction m_Player_Space;
     private readonly InputAction m_Player_Move;
+    private readonly InputAction m_Player_MusicToggle;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -315,6 +337,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @RClick => m_Wrapper.m_Player_RClick;
         public InputAction @Space => m_Wrapper.m_Player_Space;
         public InputAction @Move => m_Wrapper.m_Player_Move;
+        public InputAction @MusicToggle => m_Wrapper.m_Player_MusicToggle;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -339,6 +362,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @MusicToggle.started += instance.OnMusicToggle;
+            @MusicToggle.performed += instance.OnMusicToggle;
+            @MusicToggle.canceled += instance.OnMusicToggle;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -358,6 +384,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @MusicToggle.started -= instance.OnMusicToggle;
+            @MusicToggle.performed -= instance.OnMusicToggle;
+            @MusicToggle.canceled -= instance.OnMusicToggle;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -382,5 +411,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnRClick(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnMusicToggle(InputAction.CallbackContext context);
     }
 }

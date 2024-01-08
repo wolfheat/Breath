@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -24,7 +25,9 @@ public class Player : MonoBehaviour
     float stopDampening = 6f;
     private Vector2 mouseStoredPosition;
     private const float StopingSpeedLimit = 0.2f;
-    private const float LookSensitivity = 15f;
+    private const float LookSensitivity = 0.15f;
+    private const float RotationLowerLimit = 89;
+    private const float RotationUpperLimit = 271;
 
     private void Start()
     {
@@ -41,7 +44,9 @@ public class Player : MonoBehaviour
         if(other.gameObject.GetComponent<GravityArea>() != null)
         {
             rb.useGravity = true;
-        }else if (other.gameObject.GetComponent<DoorTrigger>() != null)
+            SoundMaster.Instance.ChangeMusicTrack(MusicTrack.Indoor);
+        }
+        else if (other.gameObject.GetComponent<DoorTrigger>() != null)
         {
             other.gameObject.GetComponent<DoorTrigger>().controller.OpenDoors(true);   
         }
@@ -53,6 +58,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.GetComponent<GravityArea>() != null)
         {
             rb.useGravity = false;
+            SoundMaster.Instance.ChangeMusicTrack(MusicTrack.OutDoor);
         }
         else if (other.gameObject.GetComponent<DoorTrigger>() != null)
         {
@@ -107,9 +113,15 @@ public class Player : MonoBehaviour
 
     private void StopRotations()
     {
+        Vector3 startRot = rb.transform.rotation.eulerAngles;
         rb.angularVelocity = Vector3.zero;
         // Set all but Y direction to 0
         rb.transform.rotation = Quaternion.Euler(0, rb.transform.rotation.eulerAngles.y, 0);
+        Vector3 endRot = rb.transform.rotation.eulerAngles;
+        if (Mathf.Abs(startRot.x - endRot.x)>2f)
+        {
+            Debug.Log("Stop Rotations Changed rotations from "+startRot+" to "+endRot);
+        }
 
     }
 
@@ -146,6 +158,7 @@ public class Player : MonoBehaviour
 
     public void Look()
     {
+        // Right button is not held?
         if (!Inputs.Instance.Controls.Player.RClick.IsPressed())
         {
             if (Cursor.visible == true) return;
@@ -158,8 +171,9 @@ public class Player : MonoBehaviour
             return;
         }
 
-        // Hide cursor if changing view
+        // Right button is held
 
+        // Hide cursor if changing view
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -167,17 +181,22 @@ public class Player : MonoBehaviour
         Vector2 mouseMove = Inputs.Instance.Controls.Player.Look.ReadValue<Vector2>();
         if (mouseMove.magnitude != 0)
         {            
-            // Check if target is outside boundaries
-            rb.transform.Rotate(0,  mouseMove[0] * LookSensitivity * Time.deltaTime, 0, Space.Self);
-            // Method to limit looking directly down or up or passing these looking points
-
-            // Still issue with snapping to up or down look for some reason
-            Quaternion oldRot = tilt.localRotation;
-            float oldRotX = (oldRot.eulerAngles.x+180)%360; // Angle set between 0-180
-            float rotationAngle = -mouseMove[1] * LookSensitivity * Time.deltaTime;
-            float resultAngle = (oldRotX+rotationAngle);
-            resultAngle = Mathf.Clamp(resultAngle, 95, 265)-180;
-            tilt.localRotation = Quaternion.Euler(resultAngle,0,0);
+            // ISSUE Lower part of screen goes from 270-360 upper part 0-90. Issue to limit looking up and down past boundaries
+            // 0.675 -> -0.675
+            // 270 -> 90
+            
+            // Looking to the sides
+            rb.transform.Rotate(0,  mouseMove[0] * LookSensitivity, 0, Space.Self);
+            
+            // Looking up and down
+            float oldAngle = tilt.localRotation.eulerAngles.x;
+            float rotationAngle = (-mouseMove[1] * LookSensitivity);
+            float resultAngle = oldAngle+rotationAngle;
+            if (rotationAngle > 0 && oldAngle <= RotationLowerLimit+1 && oldAngle >= RotationLowerLimit-20f && resultAngle >= RotationLowerLimit)
+                rotationAngle = RotationLowerLimit - oldAngle;
+            else if (rotationAngle < 0 && oldAngle >= RotationUpperLimit-1 && oldAngle <= RotationUpperLimit + 20f && resultAngle<= RotationUpperLimit)
+                rotationAngle = RotationUpperLimit - oldAngle;
+            tilt.transform.Rotate(rotationAngle, 0,0,Space.Self);
         }        
     }
 
@@ -189,19 +208,29 @@ public class Player : MonoBehaviour
 
     private IEnumerator ThrowPlayerCO(DoorThrower thrower)
     {
+        // MAybe fixed update is needed cause of physics to have time to update correctly
         // Move player towards trigger, when close enough throw against target
         rb.velocity = (thrower.transform.position - rb.transform.position).normalized*maxSpeed;
-        float lastDistance = (thrower.transform.position - rb.transform.position).magnitude; 
+        Debug.Log("Changing velocity towards thrower position");
+        float lastDistance = (thrower.transform.position - rb.transform.position).magnitude;
         yield return null;
         float currentDistance = (thrower.transform.position - rb.transform.position).magnitude;
+        Debug.Log("Distance change "+ lastDistance+" -> "+ currentDistance);
+
+        // Still not correclty going towrds thow position fix
+
         while (currentDistance < lastDistance)
         {
             lastDistance = (thrower.transform.position - rb.transform.position).magnitude;
             yield return null;
             currentDistance = (thrower.transform.position - rb.transform.position).magnitude;
+            Debug.Log("Distance change " + lastDistance + " -> " + currentDistance);
         }
+        rb.transform.position = thrower.transform.position;
+        Debug.Log("Close set to thrower position" + rb.transform.position);
+        yield return new WaitForFixedUpdate();
         // Now at thrower
-        rb.velocity = (thrower.target.transform.position - rb.transform.position).normalized*maxSpeed;
-        yield return null;
+        rb.velocity = (thrower.target.transform.position - rb.transform.position).normalized*maxSpeed*3;
+        yield return new WaitForFixedUpdate();
     }
 }

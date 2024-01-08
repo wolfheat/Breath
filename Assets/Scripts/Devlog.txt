@@ -15,10 +15,18 @@ Jan 2024
 		* Made the Space stop smoother.
 		* Made velocity sideways diminish when moving forward - May need retweek
 		* Created basic throw in functionality - need tweeking
+7/1		* Think I fixed view limitations, might make better method later
+		* Added soundmaster and music to game
+
 
 		TODO
 		* Stop staggering of gameplay
-		* Still issue with view jumping in certian spots fix
+
+		* Implement inventory
+		* Implement interacting with loose objects
+		* Implement tools to mine etc
+		* Implement Workbench UI
+
 
 		
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 		
