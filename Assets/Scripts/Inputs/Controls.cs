@@ -80,6 +80,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""E"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0ba16e3-de96-48d4-bbf6-4f5b2aed8a4f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -247,6 +256,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""MusicToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b25ddc58-2a0d-4cd9-8efb-5bd58f38a012"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""E"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -261,6 +281,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_MusicToggle = m_Player.FindAction("MusicToggle", throwIfNotFound: true);
+        m_Player_E = m_Player.FindAction("E", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -328,6 +349,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Space;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_MusicToggle;
+    private readonly InputAction m_Player_E;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -338,6 +360,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Space => m_Wrapper.m_Player_Space;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @MusicToggle => m_Wrapper.m_Player_MusicToggle;
+        public InputAction @E => m_Wrapper.m_Player_E;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -365,6 +388,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MusicToggle.started += instance.OnMusicToggle;
             @MusicToggle.performed += instance.OnMusicToggle;
             @MusicToggle.canceled += instance.OnMusicToggle;
+            @E.started += instance.OnE;
+            @E.performed += instance.OnE;
+            @E.canceled += instance.OnE;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -387,6 +413,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MusicToggle.started -= instance.OnMusicToggle;
             @MusicToggle.performed -= instance.OnMusicToggle;
             @MusicToggle.canceled -= instance.OnMusicToggle;
+            @E.started -= instance.OnE;
+            @E.performed -= instance.OnE;
+            @E.canceled -= instance.OnE;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -412,5 +441,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnSpace(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnMusicToggle(InputAction.CallbackContext context);
+        void OnE(InputAction.CallbackContext context);
     }
 }

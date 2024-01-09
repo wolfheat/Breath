@@ -14,7 +14,7 @@ public class SoundMaster : MonoBehaviour
     private bool doPlayMusic = true;
     private bool doPlaySFX=true;
 
-    private float presetVolume = 0.3f;
+    private float presetVolume = 0.03f;
     private float presetSFXStepVolume = 0.3f;
 
     private float totalFadeOutTime = 3.5f;
@@ -93,6 +93,7 @@ public class SoundMaster : MonoBehaviour
             //float percentagePlayed = musicSource.timeSamples / musicSource.clip.samples * 100f;
             musicSource.clip = music[(int)activeMusicTrack];
             musicSource.Play();
+            musicSource.volume = presetVolume;
         }
         else musicSource.Stop(); 
 	}

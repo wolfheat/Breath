@@ -10,6 +10,9 @@ using static UnityEngine.InputSystem.InputAction;
 public class Player : MonoBehaviour
 {
     [SerializeField] UIController uiController;
+    [SerializeField] Inventory inventory;
+    [SerializeField] PlayerPickupAreaController pickupController;
+    [SerializeField] Collider itemCollider;
     [SerializeField] Transform tilt;
     [SerializeField] Rigidbody rb;
     // Free movement of camera with sensitivity
@@ -35,6 +38,7 @@ public class Player : MonoBehaviour
         // set up input actions
         Inputs.Instance.Controls.Player.Click.performed += Click;
         Inputs.Instance.Controls.Player.RClick.performed += RClickPerformed;
+        Inputs.Instance.Controls.Player.E.performed += EPickup;
 
     }
 
@@ -151,9 +155,27 @@ public class Player : MonoBehaviour
         uiController.HideTempHair();
     }
     
+    public void EPickup(CallbackContext context)
+    {
+        Debug.Log("E - Pick up nearby item or interact");
+        // Interact with closest visible item 
+        if(pickupController.ActiveItem != null)
+        {
+            inventory.AddItem(pickupController.ActiveItem);
+            
+            bool didPickUp = pickupController.PickUpActiveItem();
+            Debug.Log("Did Pick Up = "+didPickUp);
+
+            StartCoroutine(ResetItemCollider());
+            // No active item here
+        }
+
+    }
+
     public void Click(CallbackContext context)
     {
         Debug.Log("CLICK");
+        // Raycast from mouse into screen get first item thats interactable
     }
 
     public void Look()
@@ -232,5 +254,12 @@ public class Player : MonoBehaviour
         // Now at thrower
         rb.velocity = (thrower.target.transform.position - rb.transform.position).normalized*maxSpeed*3;
         yield return new WaitForFixedUpdate();
+    }
+
+    public IEnumerator ResetItemCollider()
+    {
+        itemCollider.enabled = false;
+        yield return null;
+        itemCollider.enabled = true;
     }
 }

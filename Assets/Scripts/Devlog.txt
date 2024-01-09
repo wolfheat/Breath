@@ -17,6 +17,17 @@ Jan 2024
 		* Created basic throw in functionality - need tweeking
 7/1		* Think I fixed view limitations, might make better method later
 		* Added soundmaster and music to game
+8/1		* Implemented pickup items with textures as blobs
+		* Added Selectable area that moves to the selected pickable item
+		* E will pick up the selected item if present
+		* Picked up items are now added to inventory
+
+
+		TASK
+		* Implement items that are picked up and inventory registering them
+
+		* Register clicks in game - check for clicking pickableItem in range -  add to inventory
+
 
 
 		TODO
