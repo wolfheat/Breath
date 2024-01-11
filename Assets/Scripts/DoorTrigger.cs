@@ -4,12 +4,10 @@ public class DoorTrigger : MonoBehaviour
 {
     public DoorController controller;
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Player>() != null)
         {
-            Debug.Log("OPEN?");
             controller.OpenDoors(true);            
         }
     }

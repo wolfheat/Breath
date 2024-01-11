@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Plastic
   m_EditorClassIdentifier: 
   itemName: PlasticBlob
-  resource: 4
+  resource: 3
   itemType: 0
+  picture: {fileID: 21300000, guid: 38e1998219baa234187fd1d13fce4070, type: 3}

@@ -128,18 +128,22 @@ public class SoundMaster : MonoBehaviour
 
         switch (type)
 		{
+            // USED 
+            case SFX.PickUp: 
+                sfxSource.PlayOneShot(sfx[0]);
+                break;
+            // --- OLD STUFF
             case SFX.Footstep: 
                 sfxSource.PlayOneShot(PlayRandomFromArray(footstep));
-                break;
-            case SFX.PickUp: 
-                sfxSource.PlayOneShot(sfx[2]);
                 break;
             case SFX.ToolSwing: 
                 //sfxSource.PlayOneShot(PlayRandomFromArray(axe));
                 break;
             case SFX.PlayerDeath: 
                 break;
-			case SFX.MenuStep:
+            // --- OLD STUFF
+
+            case SFX.MenuStep:
                 sfxSource.PlayOneShot(menu[0]);
                 break;
 			case SFX.MenuSelect:

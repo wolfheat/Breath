@@ -21,10 +21,16 @@ Jan 2024
 		* Added Selectable area that moves to the selected pickable item
 		* E will pick up the selected item if present
 		* Picked up items are now added to inventory
-
+10/1	* Inventory is now inhabited automatically 
+		* Made particle system fancier around pickables
+		* Added sound for picking up object
+		* Fixed throw-in/out issue. Now player movement is unallowed during throw phase and velocity is persistent.
+		* Fixed velocity issue when looking up/down
+		* Added tools and animations for using them Idle, Hit and drill
 
 		TASK
-		* Implement items that are picked up and inventory registering them
+		* Add Sounds for using tools / swinging
+		* Implement oxygen usage and tank
 
 		* Register clicks in game - check for clicking pickableItem in range -  add to inventory
 

@@ -8,26 +8,24 @@ public class Door : MonoBehaviour
 
     private Coroutine coroutine;
 
-    private const float DoorSpeed = 1.0f;
-    private float doorDistance = 0;
+    private const float DoorSpeed = 1.6f;
+    private float DoorDistance = 0.1f;
     
     public void OpenDoor(bool open)
     {
         if (coroutine != null)
             StopCoroutine(coroutine);
-        StartCoroutine(OpenCloseCorutine(open?openPosition.position: closedPosition.position));
+        coroutine = StartCoroutine(OpenCloseCorutine(open?openPosition.position: closedPosition.position));
     }
 
     private IEnumerator OpenCloseCorutine(Vector3 targetPosition)
     {
         Vector3 dir = (targetPosition - transform.position);
-        doorDistance = dir.magnitude;
         dir = dir.normalized;
 
         transform.position += dir*DoorSpeed * Time.deltaTime;
-        while ((transform.position -targetPosition).magnitude<doorDistance)
+        while ((transform.position -targetPosition).magnitude > DoorDistance)
         {
-            doorDistance = (transform.position - targetPosition).magnitude;
             transform.position += dir*DoorSpeed*Time.deltaTime;
             yield return null;
         }

@@ -4,6 +4,8 @@ using UnityEngine;
 public class UIController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI speed;
+    [SerializeField] TextMeshProUGUI tilt;
+    [SerializeField] TextMeshProUGUI playerTilt;
     [SerializeField] GameObject tempHair;
     [SerializeField] InventoryUI inventoryUI;
 
@@ -38,5 +40,15 @@ public class UIController : MonoBehaviour
     {
         inventoryUI.UpdateInventory();
         
+    }
+
+    public void SetTilt(float x)
+    {
+        tilt.text = "Tilt: (" + x + ")";
+    }
+
+    public void SetPlayerTilt(Vector3 a)
+    {
+        playerTilt.text = "PLayerTilt: ("+a.x+","+a.y+","+a.z+")";
     }
 }

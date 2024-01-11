@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5094797668439027520}
   - component: {fileID: 1426498131395248728}
   - component: {fileID: 2413071723509979491}
+  - component: {fileID: 8250553767381737995}
   m_Layer: 5
   m_Name: InventoryItem
   m_TagString: Untagged
@@ -38,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 78.962, y: 34.9736}
+  m_SizeDelta: {x: 60, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1426498131395248728
 CanvasRenderer:
@@ -78,6 +79,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8250553767381737995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4093729348456581000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb04d70b36611d478ae8406ec083d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textField: {fileID: 5952182490379246856}
+  image: {fileID: 4330979557234210397}
 --- !u!1 &4652080564909369014
 GameObject:
   m_ObjectHideFlags: 0

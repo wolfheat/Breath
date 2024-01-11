@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Aluminium
   m_EditorClassIdentifier: 
   itemName: AliminiumBlob
-  resource: 2
+  resource: 0
   itemType: 0
+  picture: {fileID: 21300000, guid: 10dcbe85c524bd14ba530d71b0b608eb, type: 3}

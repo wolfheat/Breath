@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//public enum Resource { Al, Cu, Ti, Plastic, Textile, Water, Food };
+
 public class Inventory : MonoBehaviour
 {    
-    private int[] heldResources = new int[] {0,0,0,0,0};
-
+    private int[] heldResources = new int[7];
     public int[] GetResources()
     {
         return heldResources;
@@ -17,6 +19,7 @@ public class Inventory : MonoBehaviour
     }
     public void AddItem(Resource type, int amt)
     {
+        Debug.Log("Trying to pick up resource type "+type+" = index "+type);
         heldResources[(int)type] += amt;
         UpdateInventory();
     }

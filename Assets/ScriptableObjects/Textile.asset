@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Textile
   m_EditorClassIdentifier: 
   itemName: Water
-  resource: 6
+  resource: 4
   itemType: 0
+  picture: {fileID: 21300000, guid: c2c4472d829833041b2cb63bb85acc82, type: 3}
