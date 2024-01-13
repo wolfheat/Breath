@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f05e47d106d2484390bf4b032f9efaa, type: 3}
-  m_Name: crystal
+  m_Name: x 2
   m_EditorClassIdentifier: Assembly-CSharp::DestructableData
-  itemName: Crystal
-  resources: 0200000002000000
-  destructType: 1
+  itemName: 
+  resources: 
+  destructType: 0
   itemType: 1

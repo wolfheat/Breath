@@ -33,27 +33,19 @@ Jan 2024
 		* Player can interact with destructables and remove them
 		* The closest object is now selected  when several are inside view
 		* There is now a difference between breakables
+13/1	* Added asteroids to the game
+		* Destructables now create their content at destruction
 
 
 		TASK
 		* Implement oxygen usage and tank
 		
-		* Generate resources after breaking breakables
-
+		// INDOOR MOVEMENT
 		* Player moving indoor strive to the sides, prob because of friction on colliders FIX
-
-		* Register clicks in game - check for clicking pickableItem in range -  add to inventory
-
 
 
 		TODO
-		* Stop staggering of gameplay
-
-		* Implement inventory
-		* Implement interacting with loose objects
-		* Implement tools to mine etc
 		* Implement Workbench UI
-
 
 		
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 		

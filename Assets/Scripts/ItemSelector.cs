@@ -17,7 +17,7 @@ public class ItemSelector : MonoBehaviour
 
     public void SetToPosition(Transform target)
     {
-        Debug.Log("Setting selector to target");
+        Debug.Log("Setting selector to target"); 
         particleSystem.Play();
         transform.position = target.position;
     }
