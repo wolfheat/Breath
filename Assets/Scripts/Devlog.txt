@@ -27,10 +27,20 @@ Jan 2024
 		* Fixed throw-in/out issue. Now player movement is unallowed during throw phase and velocity is persistent.
 		* Fixed velocity issue when looking up/down
 		* Added tools and animations for using them Idle, Hit and drill
+12/1	* Made movement smoother for player in gravity
+		* Added drill and drill sound, hammer sound
+		* Added additional camera so tools dont penetrate walls or items
+		* Player can interact with destructables and remove them
+		* The closest object is now selected  when several are inside view
+		* There is now a difference between breakables
+
 
 		TASK
-		* Add Sounds for using tools / swinging
 		* Implement oxygen usage and tank
+		
+		* Generate resources after breaking breakables
+
+		* Player moving indoor strive to the sides, prob because of friction on colliders FIX
 
 		* Register clicks in game - check for clicking pickableItem in range -  add to inventory
 

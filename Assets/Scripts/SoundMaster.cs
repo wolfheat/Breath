@@ -6,16 +6,17 @@ public class SoundMaster : MonoBehaviour
 {
     [SerializeField] private AudioClip[] menu;
     [SerializeField] private AudioClip[] sfx;
+    [SerializeField] private AudioClip[] tools;
     [SerializeField] private AudioClip[] footstep;
     [SerializeField] private AudioClip[] music;
 
     private AudioSource musicSource;
     private AudioSource sfxSource;
-    private bool doPlayMusic = true;
+    private bool doPlayMusic = false;
     private bool doPlaySFX=true;
 
     private float presetVolume = 0.03f;
-    private float presetSFXStepVolume = 0.3f;
+    private float presetSFXStepVolume = 0.1f;
 
     private float totalFadeOutTime = 3.5f;
     private float fadeOutMargin = 0.01f;
@@ -106,6 +107,8 @@ public class SoundMaster : MonoBehaviour
 
     public void PlayStepSFX()
     {
+        if (sfxSource.isPlaying)
+            return;
 		sfxSource.PlayOneShot(footstep[Random.Range(0, footstep.Length)]);
 	}
 
@@ -115,7 +118,7 @@ public class SoundMaster : MonoBehaviour
     }
 
 
-    public enum SFX { MenuStep, MenuSelect, MenuError, NoAir, ToolSwing, HitWood, HitMetal, HitPlastic, BreakObject, PickUp, PlayerDeath, Footstep }
+    public enum SFX { MenuStep, MenuSelect, MenuError, NoAir, ToolSwing, HitWood, HitMetal, HitPlastic, Drill, BreakObject, PickUp, PlayerDeath, Footstep }
 
     public void PlaySFX(SFX type, bool playMulti=true)
 	{
@@ -132,12 +135,21 @@ public class SoundMaster : MonoBehaviour
             case SFX.PickUp: 
                 sfxSource.PlayOneShot(sfx[0]);
                 break;
+
+            // TOOLS
+            case SFX.ToolSwing:
+                sfxSource.PlayOneShot(tools[0]);
+                break;
+            case SFX.HitMetal:
+                sfxSource.PlayOneShot(tools[1]);
+                break;
+            case SFX.Drill: 
+                sfxSource.PlayOneShot(tools[2]);
+                break;
+
             // --- OLD STUFF
             case SFX.Footstep: 
                 sfxSource.PlayOneShot(PlayRandomFromArray(footstep));
-                break;
-            case SFX.ToolSwing: 
-                //sfxSource.PlayOneShot(PlayRandomFromArray(axe));
                 break;
             case SFX.PlayerDeath: 
                 break;
@@ -162,4 +174,8 @@ public class SoundMaster : MonoBehaviour
         return array[Random.Range(0, array.Length)];
     }
 
+    public bool FootstepPlaying()
+    {
+        throw new System.NotImplementedException();
+    }
 }

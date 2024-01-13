@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     private const float LookSensitivity = 0.15f;
     private const float RotationLowerLimit = 89;
     private const float RotationUpperLimit = 271;
+    private const float WalkSpeedMinimum = 1.8f;
+    private const float WalkSpeed = 3f;
 
     private Coroutine throwCoroutine;
 
@@ -77,67 +80,73 @@ public class PlayerMovement : MonoBehaviour
         // SPEED BOOSTER MOVEMENT
         boosterAcceleration += move[1] * tilt.forward * accelerationSpeed;
 
-        rb.AddForce(boosterAcceleration * Time.deltaTime, ForceMode.VelocityChange);
+        if (rb.useGravity)// Movement in Gravity
+        {
+            // Limit input to cardinal XZ, Set to fix speed
+            boosterAcceleration = new Vector3(boosterAcceleration.x, 0, boosterAcceleration.z);
+            rb.velocity = boosterAcceleration.normalized*WalkSpeed;
+        }
+        else // Movement in NON-Gravity
+            rb.AddForce(boosterAcceleration * Time.deltaTime, ForceMode.VelocityChange);
+
         // Limit velocity
         if (rb.velocity.magnitude > maxSpeed)
             rb.velocity = rb.velocity.normalized * maxSpeed;
-
+        
+        // Show speed in HUD
         uiController.SetSpeed(rb.velocity);
 
-        // If Not accelerating and above cruise speed dampen the speed down to cruise speed       
+        // CRUISE SPEED LIMITATION       
         if (velocity.magnitude > cruiseSpeed)
-        {
-            // TODO How to make dampening independent on frame speed
-            // Make different dampening in space and inside a spacestation
-            if (boosterAcceleration.magnitude == 0)
-            {
-                float before = rb.velocity.magnitude;
-                rb.velocity *= Mathf.Pow(dampening, Time.deltaTime);
-                if(rb.velocity.magnitude != before)
-                    Debug.Log("Dampening velocity from "+before+" to "+rb.velocity.magnitude);
-                
-            }
-            else
-            {
-                // Limit sideway velocity when using booster
-                
-                Vector3 perpendicularSpeed = Vector3.Dot(rb.velocity.normalized, boosterAcceleration.normalized) * boosterAcceleration.normalized;
+            LimitSpeedToCruiseSpeed();       
 
-                rb.velocity -= perpendicularSpeed * driftDampening * Time.deltaTime;
-                
-            }
-        }
+        // STEP SOUND
+        if (rb.useGravity && rb.velocity.magnitude > WalkSpeedMinimum)
+            SoundMaster.Instance.PlayStepSFX();
 
+        // PLAYER STOP IN PLACE
         if (Inputs.Instance.Controls.Player.Space.ReadValue<float>() != 0)
-            StopInPlace();
+        StopInPlace();
 
         // Limit angular rotations
         StopRotations();
     }
 
-    private void StopRotations()
+    private void LimitSpeedToCruiseSpeed()
     {
-        Vector3 startRot = rb.transform.rotation.eulerAngles;
-        rb.angularVelocity = Vector3.zero;
-        // Set all but Y direction to 0
-        rb.transform.rotation = Quaternion.Euler(0, rb.transform.rotation.eulerAngles.y, 0);
-        Vector3 endRot = rb.transform.rotation.eulerAngles;
-        if (Mathf.Abs(startRot.x - endRot.x) > 2f)
+        // Make different dampening in space and inside a spacestation
+        if (boosterAcceleration.magnitude == 0)
         {
-            Debug.Log("Stop Rotations Changed rotations from " + startRot + " to " + endRot);
+            rb.velocity *= Mathf.Pow(dampening, Time.deltaTime);
+            return;
         }
 
+        // Limit sideway velocity when using booster
+        Vector3 perpendicularSpeed = Vector3.Dot(rb.velocity.normalized, boosterAcceleration.normalized) * boosterAcceleration.normalized;
+        rb.velocity -= perpendicularSpeed * driftDampening * Time.deltaTime;        
+    }
+
+    private void StopRotations()
+    {
+        // Hinder player from falling down
+        Vector3 startRot = rb.transform.rotation.eulerAngles;
+        // Stop current rotation
+        rb.angularVelocity = Vector3.zero;
+        // Reset player to upright position
+        rb.transform.rotation = Quaternion.Euler(0, rb.transform.rotation.eulerAngles.y, 0);
     }
 
     private void StopInPlace()
     {
-        if (rb.velocity.magnitude > StopingSpeedLimit)
+        if (rb.velocity.magnitude <= StopingSpeedLimit)
         {
-            float newVel = rb.velocity.magnitude - stopDampening * Time.deltaTime;
-            rb.velocity = rb.velocity.normalized * newVel;
-        }
-        else
             rb.velocity = Vector3.zero;
+            return;
+        }
+        // Slow Down player
+        float newVel = rb.velocity.magnitude - stopDampening * Time.deltaTime;
+        rb.velocity = rb.velocity.normalized * newVel;
+        
     }
 
     [DllImport("user32.dll")]

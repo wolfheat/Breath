@@ -10,24 +10,35 @@ public class Door : MonoBehaviour
 
     private const float DoorSpeed = 1.6f;
     private float DoorDistance = 0.1f;
-    
+    private float distance;
+
+    private void Start()
+    {
+        distance = (openPosition.position - closedPosition.position).magnitude;
+    }
     public void OpenDoor(bool open)
     {
         if (coroutine != null)
             StopCoroutine(coroutine);
-        coroutine = StartCoroutine(OpenCloseCorutine(open?openPosition.position: closedPosition.position));
+        coroutine = StartCoroutine(open? 
+            OpenCloseCorutine(closedPosition.position,openPosition.position): 
+            OpenCloseCorutine(openPosition.position, closedPosition.position));
     }
 
-    private IEnumerator OpenCloseCorutine(Vector3 targetPosition)
+    private IEnumerator OpenCloseCorutine(Vector3 originPositon, Vector3 targetPosition)
     {
-        Vector3 dir = (targetPosition - transform.position);
-        dir = dir.normalized;
+        Vector3 startPos = transform.position;
+        float distanceLeft = (startPos - targetPosition).magnitude;
+        float totalTime = distance/DoorSpeed;
+        float time = (1-distanceLeft/distance)*totalTime;
 
-        transform.position += dir*DoorSpeed * Time.deltaTime;
-        while ((transform.position -targetPosition).magnitude > DoorDistance)
+        while (true)
         {
-            transform.position += dir*DoorSpeed*Time.deltaTime;
+            time += Time.deltaTime;
+            transform.position = Vector3.Lerp(originPositon,targetPosition,time/totalTime);
             yield return null;
+            if (time > totalTime)
+                break;
         }
         transform.position = targetPosition;
         yield return new WaitForEndOfFrame();

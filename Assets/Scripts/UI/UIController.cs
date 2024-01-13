@@ -24,7 +24,7 @@ public class UIController : MonoBehaviour
 
     public void SetSpeed(Vector3 s)
     {
-        speed.text = "Speed: ("+s.x+","+s.y+","+s.z+")";
+        speed.text = "Speed: ("+s.x.ToString("F")+","+s.y.ToString("F") + ","+s.z.ToString("F") + ")("+s.magnitude.ToString("F") + ")";
     }
     public void ShowTempHairAt(Vector2 s)
     {

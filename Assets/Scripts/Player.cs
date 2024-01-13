@@ -30,11 +30,11 @@ public class Player : MonoBehaviour
     {
         Debug.Log("E - Pick up nearby item or interact");
         // Interact with closest visible item 
-        if(pickupController.ActiveItem != null)
+        if(pickupController.ActiveItem != null && pickupController.ActiveItem is PickableItem)
         {
-            inventory.AddItem(pickupController.ActiveItem);
+            inventory.AddItem(pickupController.ActiveItem as PickableItem);
             
-            bool didPickUp = pickupController.PickUpActiveItem();
+            bool didPickUp = pickupController.InteractWithActiveItem();
             Debug.Log("Did Pick Up = "+didPickUp);
             if (didPickUp)
                 SoundMaster.Instance.PlaySFX(SoundMaster.SFX.PickUp);
@@ -42,18 +42,49 @@ public class Player : MonoBehaviour
             StartCoroutine(ResetItemCollider());
             // No active item here
         }
+        else
+        {
+            Debug.Log("This is not pickable");
+        }
     }
 
     public void Click(CallbackContext context)
     {
-        Debug.Log("CLICK");
         // Raycast from mouse into screen get first item thats interactable
 
-        // If holding shift
-        if (Inputs.Instance.Controls.Player.Shift.ReadValue<float>() != 0)
-            playerAnimationController.SetState(PlayerState.Drill);
-        else
-            playerAnimationController.SetState(PlayerState.Hit);
+        
+        // Detect what tool to use
+        
+        
+        if (pickupController.ActiveItem != null)        
+        {
+            
+            // Check what itemtype it is and if player has the tool
+            if(pickupController.ActiveItem is DestructableItem)
+            {
+
+                DestructableItem destructable = pickupController.ActiveItem as DestructableItem;
+
+                if (destructable.Data.destructType == DestructType.Breakable)
+                {
+                    SoundMaster.Instance.PlaySFX(SoundMaster.SFX.HitMetal);
+                    playerAnimationController.SetState(PlayerState.Hit);
+                }
+                else if (destructable.Data.destructType == DestructType.Drillable)
+                {
+                    SoundMaster.Instance.PlaySFX(SoundMaster.SFX.Drill);
+                    playerAnimationController.SetState(PlayerState.Drill);
+                }
+
+                pickupController.InteractWithActiveItem();
+
+                StartCoroutine(ResetItemCollider());
+            }
+            
+            
+        }
+        
+        
 
 
     }

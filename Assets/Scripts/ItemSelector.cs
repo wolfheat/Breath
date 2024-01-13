@@ -17,12 +17,14 @@ public class ItemSelector : MonoBehaviour
 
     public void SetToPosition(Transform target)
     {
+        Debug.Log("Setting selector to target");
         particleSystem.Play();
         transform.position = target.position;
     }
 
     public void Disable()
     {
+        Debug.Log("Disable selector");
         // Disable selector if not used
         particleSystem.Clear();
         particleSystem.Stop();
