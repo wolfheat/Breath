@@ -7,12 +7,13 @@ public class DestructableItem : Item
     {
         Debug.Log("Interact with this destructable: " + Data.itemName);
 
-        // Create the object contained
-        foreach (Resource r in Data.resources)
-            ItemCreator.Instance.InstantiateTypeAt(r,transform.position);
+        ItemDestructEffect.Instance.PlayTypeAt(ParticleType.Small,transform.position);
 
-        // For now destroy later use pooling
+        foreach (Resource r in Data.resources)
+            ItemCreator.Instance.InstantiateTypeAt(r, transform.position);
+
         Destroy(gameObject);
     }
+
 }
 

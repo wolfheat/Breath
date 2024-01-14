@@ -35,10 +35,13 @@ Jan 2024
 		* There is now a difference between breakables
 13/1	* Added asteroids to the game
 		* Destructables now create their content at destruction
-
+		* Changed some of the LOD for asteroids
+		* Added explosioneffect when destroying objects
+		* Created ToolHolder that changes to correct tool when breaking stuff (boxes= sledgehammer, crystal = drill)
 
 		TASK
 		* Implement oxygen usage and tank
+		* Have base show up on hud if furter away than a specific amount
 		
 		// INDOOR MOVEMENT
 		* Player moving indoor strive to the sides, prob because of friction on colliders FIX

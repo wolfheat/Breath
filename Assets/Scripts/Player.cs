@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] Inventory inventory;
     [SerializeField] PlayerPickupAreaController pickupController;
     [SerializeField] Collider itemCollider;
+    [SerializeField] ToolHolder toolHolder;
     // Free movement of camera with sensitivity
 
     [SerializeField] PlayerAnimationController playerAnimationController;
@@ -69,11 +70,13 @@ public class Player : MonoBehaviour
                 {
                     SoundMaster.Instance.PlaySFX(SoundMaster.SFX.HitMetal);
                     playerAnimationController.SetState(PlayerState.Hit);
+                    toolHolder.ChangeTool(DestructType.Breakable);
                 }
                 else if (destructable.Data.destructType == DestructType.Drillable)
                 {
                     SoundMaster.Instance.PlaySFX(SoundMaster.SFX.Drill);
                     playerAnimationController.SetState(PlayerState.Drill);
+                    toolHolder.ChangeTool(DestructType.Drillable);
                 }
 
                 pickupController.InteractWithActiveItem();
