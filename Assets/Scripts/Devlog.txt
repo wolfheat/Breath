@@ -43,7 +43,7 @@ Jan 2024
 		* Added death notification screen and reset
 		* Added post processing
 		* Implemented player dying
-
+		* Added Healthbar and Oxygenbar, updates by action events
 
 		TASK
 		* Implement oxygen tank UI visuals

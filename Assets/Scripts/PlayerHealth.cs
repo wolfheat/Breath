@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -19,6 +20,9 @@ public class PlayerHealth : MonoBehaviour
     WaitForSeconds secondDelay = new WaitForSeconds(delay);
     public bool IsDead { get; private set; }
 
+    public Action<float,int> OxygenUpdated;
+    public Action HealthUpdated;
+
     private void Start()
     {
         StartCoroutine(UseOxygen());
@@ -29,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
         while (true)
         {
             yield return secondDelay;
+            float startOxygen = oxygen;
 
             if (!playerRb.useGravity)
             {
@@ -62,7 +67,8 @@ public class PlayerHealth : MonoBehaviour
             uiController.UpdateScreenDarkening(1-noOxygenSurvival/ NoOxygenSurvivalMax);
             uiController.SetOxygen(oxygen,MaxOxygen);
 
-            
+            if (oxygen != startOxygen)
+                OxygenUpdated.Invoke(oxygen,MaxOxygen);
 
         }
     }
