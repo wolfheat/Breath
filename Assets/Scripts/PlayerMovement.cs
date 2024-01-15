@@ -8,6 +8,7 @@ using static UnityEngine.InputSystem.InputAction;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
+    [SerializeField] PlayerHealth playerHealth;
     [SerializeField] UIController uiController;
     [SerializeField] Transform tilt;
     // Player moves acording to velocity and acceleration
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     float maxSpeed = 5f;
     float cruiseSpeed = 2f;
     Vector3 velocity = new Vector3();
+    Vector3 lastSafePoint = new Vector3();
     Vector3 boosterAcceleration = new Vector3();
     float accelerationSpeed = 5f;
     float dampening = 0.2f;
@@ -35,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public void Start()
     {
         Inputs.Instance.Controls.Player.RClick.performed += RClickPerformed;
-        
+        lastSafePoint = rb.transform.position;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -60,6 +62,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (playerHealth.IsDead)
+        {
+            Stop();
+            return;
+        }
         Move();
         Look();
     }
@@ -148,6 +155,13 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = rb.velocity.normalized * newVel;
         
     }
+    
+    private void Stop()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        
+    }
 
     [DllImport("user32.dll")]
     public static extern bool SetCursorPos(int X, int Y);
@@ -210,7 +224,8 @@ public class PlayerMovement : MonoBehaviour
 
     internal void ThrowPlayer(DoorThrower doorThrower)
     {
-        Debug.Log("Request To throw player");
+        lastSafePoint = doorThrower.transform.position;
+        Debug.Log("Request To throw player: safePoint set to "+lastSafePoint);
         if(throwCoroutine!=null) StopCoroutine(throwCoroutine);
         throwCoroutine = StartCoroutine(ThrowPlayerCO(doorThrower));
     }
@@ -258,4 +273,10 @@ public class PlayerMovement : MonoBehaviour
         uiController.HideTempHair();
     }
 
+    internal void SetToSafePoint()
+    {
+        Debug.Log("Setting player to safepoint: " + lastSafePoint);
+
+        rb.transform.position = lastSafePoint;
+    }
 }

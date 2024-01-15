@@ -1,13 +1,12 @@
+using System;
 using System.Collections;
-using System.Xml.Schema;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 using static UnityEngine.InputSystem.InputAction;
 public class Player : MonoBehaviour
 {
     [SerializeField] UIController uiController;
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] PlayerHealth playerHealth;
     [SerializeField] Inventory inventory;
     [SerializeField] PlayerPickupAreaController pickupController;
     [SerializeField] Collider itemCollider;
@@ -97,5 +96,11 @@ public class Player : MonoBehaviour
         itemCollider.enabled = false;
         yield return null;
         itemCollider.enabled = true;
+    }
+
+    public void Reset()
+    {
+        playerHealth.Reset();
+        playerMovement.SetToSafePoint();
     }
 }

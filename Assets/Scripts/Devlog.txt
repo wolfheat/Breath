@@ -38,9 +38,18 @@ Jan 2024
 		* Changed some of the LOD for asteroids
 		* Added explosioneffect when destroying objects
 		* Created ToolHolder that changes to correct tool when breaking stuff (boxes= sledgehammer, crystal = drill)
+14/1	* Added Oxygen, Health stats
+		* Added cant breath effects before player dies
+		* Added death notification screen and reset
+		* Added post processing
+		* Implemented player dying
+
 
 		TASK
-		* Implement oxygen usage and tank
+		* Implement oxygen tank UI visuals
+		
+		* Implement oxygen tank equippable and upgradable?
+
 		* Have base show up on hud if furter away than a specific amount
 		
 		// INDOOR MOVEMENT
