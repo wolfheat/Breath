@@ -21,25 +21,32 @@ public class Player : MonoBehaviour
         Debug.Log("Created Player");
         // set up input actions
         Inputs.Instance.Controls.Player.Click.performed += Click;
-        Inputs.Instance.Controls.Player.E.performed += EPickup;       
+        Inputs.Instance.Controls.Player.E.performed += InterractWith;       
 
     }
 
     
-    public void EPickup(CallbackContext context)
+    public void InterractWith(CallbackContext context)
     {
         Debug.Log("E - Pick up nearby item or interact");
         // Interact with closest visible item 
-        if(pickupController.ActiveItem != null && pickupController.ActiveItem is PickableItem)
+        if(pickupController.ActiveInteractable != null)
         {
-            inventory.AddItem(pickupController.ActiveItem as PickableItem);
+            if (pickupController.ActiveInteractable is PickableItem)
+            {
+                inventory.AddItem(pickupController.ActiveInteractable as PickableItem);
             
-            bool didPickUp = pickupController.InteractWithActiveItem();
-            Debug.Log("Did Pick Up = "+didPickUp);
-            if (didPickUp)
-                SoundMaster.Instance.PlaySFX(SoundMaster.SFX.PickUp);
+                bool didPickUp = pickupController.InteractWithActiveItem();
+                Debug.Log("Did Pick Up = "+didPickUp);
+                if (didPickUp)
+                    SoundMaster.Instance.PlaySFX(SoundMaster.SFX.PickUp);
 
-            StartCoroutine(ResetItemCollider());
+                StartCoroutine(ResetItemCollider());
+            }
+            else if (pickupController.ActiveInteractable is Facility)
+            {
+                pickupController.ActiveInteractable.InteractWith();
+            }
             // No active item here
         }
         else
@@ -56,14 +63,14 @@ public class Player : MonoBehaviour
         // Detect what tool to use
         
         
-        if (pickupController.ActiveItem != null)        
+        if (pickupController.ActiveInteractable != null)        
         {
             
             // Check what itemtype it is and if player has the tool
-            if(pickupController.ActiveItem is DestructableItem)
+            if(pickupController.ActiveInteractable is DestructableItem)
             {
 
-                DestructableItem destructable = pickupController.ActiveItem as DestructableItem;
+                DestructableItem destructable = pickupController.ActiveInteractable as DestructableItem;
 
                 if (destructable.Data.destructType == DestructType.Breakable)
                 {

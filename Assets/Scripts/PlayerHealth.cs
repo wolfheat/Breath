@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
     
     private float noOxygenSurvival = 8;
     private const float NoOxygenSurvivalMax = 8;
-    private float oxygen = 1;
+    private float oxygen = 11;
     private const int MaxOxygen = 100;
     
     private const int OxygenUsage = 1;

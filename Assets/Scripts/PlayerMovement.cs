@@ -62,17 +62,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (playerHealth.IsDead)
-        {
-            Stop();
-            return;
-        }
         Move();
         Look();
     }
 
     private void Move()
     {
+        if (playerHealth.IsDead)
+        {
+            Stop();
+            return;
+        }
+
+
         Vector2 move = Inputs.Instance.Controls.Player.Move.ReadValue<Vector2>();
         
         if(throwCoroutine != null)
@@ -160,7 +162,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        
     }
 
     [DllImport("user32.dll")]
@@ -180,6 +181,8 @@ public class PlayerMovement : MonoBehaviour
 
             return;
         }
+        if (playerHealth.IsDead)
+            return;
 
         // Right button is held
 
@@ -267,6 +270,7 @@ public class PlayerMovement : MonoBehaviour
         mouseStoredPosition = (Vector2)Input.mousePosition;
         uiController.ShowTempHairAt(mouseStoredPosition);
     }
+
     public void RegainCursorPosition()
     {
         Mouse.current.WarpCursorPosition(mouseStoredPosition);

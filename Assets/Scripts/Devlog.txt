@@ -44,11 +44,19 @@ Jan 2024
 		* Added post processing
 		* Implemented player dying
 		* Added Healthbar and Oxygenbar, updates by action events
+15/1	* Player can now interact with workbench in space station
+		* E Icon is now showed for pickables and facilities
+		* Added leftclick icon for destructables that require left click
+		* Moved transform point for workbench to be on top
+		* Fixed issue with cursor lost when dying
+		
 
 		TASK
 		* Implement oxygen tank UI visuals
 		
 		* Implement oxygen tank equippable and upgradable?
+
+		* Implements workbench, recipies and construction of tools
 
 		* Have base show up on hud if furter away than a specific amount
 		

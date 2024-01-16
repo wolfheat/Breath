@@ -1,11 +1,5 @@
-using UnityEngine;
 
-public abstract class Item : MonoBehaviour, IInteractable
+public abstract class Item : Interactable
 {
-    public abstract void InteractWith();
-}
-
-public interface IInteractable
-{
-    public void InteractWith();
+    //public abstract override void InteractWith();
 }

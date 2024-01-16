@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     [SerializeField] DeathScreen deathScreen;
     [SerializeField] GameObject tempHair;
     [SerializeField] InventoryUI inventoryUI;
+    [SerializeField] HUDIcons hudIcons;
     [SerializeField] Image image;
     [SerializeField] Player player;
     [SerializeField] PlayerHealth playerHealth;
@@ -34,6 +35,14 @@ public class UIController : MonoBehaviour
     public void SetSpeed(Vector3 s)
     {
         speed.text = "Speed: ("+s.x.ToString("F")+","+s.y.ToString("F") + ","+s.z.ToString("F") + ")("+s.magnitude.ToString("F") + ")";
+    }
+    public void ShowHUDIconAt(HUDIconType type, Interactable follow)
+    {
+        hudIcons.Set(type, follow);
+    }
+    public void HideHUDIcon()
+    {
+        hudIcons.Disable();
     }
     public void ShowTempHairAt(Vector2 s)
     {
@@ -78,4 +87,5 @@ public class UIController : MonoBehaviour
     {
         player.Reset();        
     }
+
 }

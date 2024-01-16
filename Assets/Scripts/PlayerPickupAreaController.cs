@@ -6,10 +6,11 @@ using UnityEngine;
 
 public class PlayerPickupAreaController : MonoBehaviour
 {
-    public Item ActiveItem { get; private set; }
+    public Interactable ActiveInteractable { get; private set; }
     [SerializeField] Player player;
+    [SerializeField] UIController uIController;
 
-    List<Item> items = new List<Item>();
+    List<Interactable> items = new List<Interactable>();
 
     private void FixedUpdate()
     {
@@ -21,21 +22,21 @@ public class PlayerPickupAreaController : MonoBehaviour
 
     public bool InteractWithActiveItem()
     {
-        if(ActiveItem == null) return false;
+        if(ActiveInteractable == null) return false;
         
-        ActiveItem.InteractWith();
-        if(items.Contains(ActiveItem))
-            items.Remove(ActiveItem);
-        ActiveItem = null;
+        ActiveInteractable.InteractWith();
+        if(items.Contains(ActiveInteractable))
+            items.Remove(ActiveInteractable);
+        ActiveInteractable = null;
         SelectClosest();
         return true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Item>() != null)
+        if (other.gameObject.GetComponent<Interactable>() != null)
         {
-            Item newItem = other.gameObject.GetComponent<Item>();
+            Interactable newItem = other.gameObject.GetComponent<Interactable>();
             if (!items.Contains(newItem)) 
                 items.Add(newItem);
             SelectClosest();
@@ -45,13 +46,13 @@ public class PlayerPickupAreaController : MonoBehaviour
     {
         if (items.Count == 0)
         {
-            ActiveItem = null;
+            ActiveInteractable = null;
             SetSelected(null);
             return;
         }
         // Solution checks distance between an item and its associated point thats placed the same distance along the forward direction
 
-        Item closest = items[0];
+        Interactable closest = items[0];
         Vector3 itemDirection = items[0].transform.position - player.transform.position;
         Vector3 pointOnSightLine = itemDirection.magnitude * transform.forward;
         float distanceFromSight = (itemDirection- pointOnSightLine).magnitude;
@@ -81,27 +82,40 @@ public class PlayerPickupAreaController : MonoBehaviour
 
     }
 
-    private void SetSelected(Item closest)
+    private void SetSelected(Interactable closest)
     {
 
-        bool same = ActiveItem == closest;
-        ActiveItem = closest;
-        if (ActiveItem != null)
+        bool same = ActiveInteractable == closest;
+        ActiveInteractable = closest;
+        if (ActiveInteractable != null)
         {
-            if(!same)
+            if (!same)
+            {
                 ItemSelector.Instance.SetToPosition(closest.transform);
+                // Determin screen position here
+
+                if(ActiveInteractable is PickableItem)
+                    uIController.ShowHUDIconAt(HUDIconType.PickUp, ActiveInteractable);
+                else if(ActiveInteractable is DestructableItem)
+                    uIController.ShowHUDIconAt(HUDIconType.LeftClick, ActiveInteractable);
+                else if(ActiveInteractable is Facility)
+                    uIController.ShowHUDIconAt(HUDIconType.Interact, ActiveInteractable);
+                else
+                    uIController.ShowHUDIconAt(HUDIconType.Generic, ActiveInteractable);
+            }
         }
         else
         {
             ItemSelector.Instance.Disable();
+            uIController.HideHUDIcon();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<Item>() != null)
+        if (other.gameObject.GetComponent<Interactable>() != null)
         {
-            Item item = other.gameObject.GetComponent<Item>();
+            Interactable item = other.gameObject.GetComponent<Interactable>();
             if (items.Contains(item))
                 items.Remove(item);            
             StartCoroutine(player.ResetItemCollider());
