@@ -49,7 +49,8 @@ Jan 2024
 		* Added leftclick icon for destructables that require left click
 		* Moved transform point for workbench to be on top
 		* Fixed issue with cursor lost when dying
-		
+16/1	* Made game scale correctly
+		*
 
 		TASK
 		* Implement oxygen tank UI visuals
