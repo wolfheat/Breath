@@ -1,14 +1,12 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] Inventory inventory;
     [SerializeField] TextMeshProUGUI[] texts;
     [SerializeField] InventoryItem inventoryItemPrefab;
     [SerializeField] GameObject inventoryItemHolder;
-    [SerializeField] ItemData[] itemDatas;
+    [SerializeField] ResourceData[] itemDatas;
 
     private void Start()
     {

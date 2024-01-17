@@ -50,7 +50,13 @@ Jan 2024
 		* Moved transform point for workbench to be on top
 		* Fixed issue with cursor lost when dying
 16/1	* Made game scale correctly
-		*
+17/1	* Made Inventory that takes in objects of different sizes
+		* Inventory can place objects in first free space
+
+
+
+		* Make objects movable in inventory
+
 
 		TASK
 		* Implement oxygen tank UI visuals
