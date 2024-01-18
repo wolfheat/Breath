@@ -52,7 +52,7 @@ Jan 2024
 16/1	* Made game scale correctly
 17/1	* Made Inventory that takes in objects of different sizes
 		* Inventory can place objects in first free space
-
+		* Started to make Dragging UI items possible
 
 
 		* Make objects movable in inventory

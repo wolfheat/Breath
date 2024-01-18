@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9172514245985498929}
   - component: {fileID: 1103243908767874432}
-  - component: {fileID: 5529417779319269800}
   - component: {fileID: 4191422988326850592}
   m_Layer: 5
   m_Name: UITile
@@ -47,18 +46,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8160052626381680493}
   m_CullTransparentMesh: 1
---- !u!114 &5529417779319269800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8160052626381680493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464dd4cdfd192e247b919412ad817638, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4191422988326850592
 MonoBehaviour:
   m_ObjectHideFlags: 0

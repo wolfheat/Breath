@@ -82,11 +82,11 @@ public class InventoryGrid : MonoBehaviour
         {
             for (int l = 0; l < item.data.size.y; l++)
             {
-                Debug.Log("Object "+item.data.itemName+" occupy ("+(row+k)+","+(col+l)+")");
+                //Debug.Log("Object "+item.data.itemName+" occupy ("+(row+k)+","+(col+l)+")");
                 grid[row + k, col + l] = item;
             }
         }
-        item.transform.position = gridTiles[row,col].position;
+        item.SetHomePosition(gridTiles[row, col].localPosition);
     }
 
     private bool ItemFits(int row, int col, int x, int y)
@@ -99,7 +99,7 @@ public class InventoryGrid : MonoBehaviour
         {
             for (int l = 0; l < y; l++)
             {
-                if (grid[row+x,col+y]!=null) 
+                if (grid[row+k,col+l]!=null) 
                     return false;
             }     
         }
