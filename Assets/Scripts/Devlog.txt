@@ -53,9 +53,10 @@ Jan 2024
 17/1	* Made Inventory that takes in objects of different sizes
 		* Inventory can place objects in first free space
 		* Started to make Dragging UI items possible
+18/1	* Items can now be moved around the inventory, snapps into place if valid spot
 
 
-		* Make objects movable in inventory
+		* fix moved object not being on top ie moving beneith other objects
 
 
 		TASK

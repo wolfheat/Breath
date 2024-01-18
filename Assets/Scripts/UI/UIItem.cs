@@ -5,8 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
-
-public class UIItem : MonoBehaviour
+public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHandler
 {
     public ItemData data;
     [SerializeField] Image image;
@@ -14,10 +13,12 @@ public class UIItem : MonoBehaviour
     private const int TileSize = 86;
     private const int TileSpace = 4;
     private Vector2 homePosition = new Vector2();
+    public Vector2Int spot = new Vector2Int();
+    private InventoryGrid inventoryGrid;
 
     private void Start()
     {
-        
+        inventoryGrid = FindObjectOfType<InventoryGrid>();
     }
 
     public void UpdatePosition()
@@ -27,9 +28,10 @@ public class UIItem : MonoBehaviour
         transform.position = rect.TransformPoint(position);
     }
 
-    public void SetHomePosition(Vector2 pos)
+    public void SetHomePosition(Vector2 pos,Vector2Int spotIn)
     {
         homePosition = pos;
+        spot = spotIn;
         transform.localPosition = homePosition;
     }
     public void SetData(ItemData dataIn)
@@ -45,7 +47,7 @@ public class UIItem : MonoBehaviour
 
     public void ResetPosition()
     {
-        throw new NotImplementedException();
+        transform.localPosition = homePosition; 
     }
 
     public void StartDrag(InputAction.CallbackContext context)
@@ -76,5 +78,26 @@ public class UIItem : MonoBehaviour
             Debug.Log("Button Released");
            
         }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        transform.position = eventData.position+ offset;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        // Check if dropped position is a valid spot
+        Vector2 drop = eventData.position + offset;
+        Debug.Log("Dropping item at "+ drop);
+        inventoryGrid.RequestMove(this,drop);
+
+    }
+
+    Vector2 offset = new Vector2();
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        offset = (Vector2)transform.position-eventData.position;
+        Debug.Log("Started Dragging object");
     }
 }

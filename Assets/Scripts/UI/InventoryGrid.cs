@@ -63,7 +63,7 @@ public class InventoryGrid : MonoBehaviour
                 if (grid[row, col] != null)
                     continue;
                 Debug.Log("Spot " + row + "," + col + " is free check rest of item size");
-                if (!ItemFits(row,col,item.data.size.x, item.data.size.y))
+                if (!ItemFits(row,col,item.data.size.x, item.data.size.y,item))
                 {
                     Debug.Log("Spot " + row + "," + col + " did not fit");
                     continue;
@@ -86,10 +86,22 @@ public class InventoryGrid : MonoBehaviour
                 grid[row + k, col + l] = item;
             }
         }
-        item.SetHomePosition(gridTiles[row, col].localPosition);
+        item.SetHomePosition(gridTiles[row, col].localPosition,new Vector2Int(row,col));
+    }
+    
+    private void RemovePlacement(UIItem item)
+    {
+        for (int k = 0; k < item.data.size.x; k++)
+        {
+            for (int l = 0; l < item.data.size.y; l++)
+            {
+                //Debug.Log("Object "+item.data.itemName+" occupy ("+(row+k)+","+(col+l)+")");
+                grid[item.spot.x + k, item.spot.y + l] = null;
+            }
+        }
     }
 
-    private bool ItemFits(int row, int col, int x, int y)
+    private bool ItemFits(int row, int col, int x, int y, UIItem item)
     {
         // Outside
         if (row + x - 1 >= grid.GetLength(0) || col + y - 1 >= grid.GetLength(1)) return false;
@@ -99,10 +111,51 @@ public class InventoryGrid : MonoBehaviour
         {
             for (int l = 0; l < y; l++)
             {
-                if (grid[row+k,col+l]!=null) 
-                    return false;
+                if (grid[row+k,col+l]!=null)
+                    if(grid[row + k, col + l]!=item)
+                        return false;
             }     
         }
         return true;
+    }
+
+    public void RequestMove(UIItem uIItem, Vector2 drop)
+    {
+        Debug.Log("Grid recieved request of dropping item at "+drop+" GRID AT: "+ transform.position);
+
+        float scaleCorrection = Screen.height / 1080f;
+        Debug.Log("Reading current game scale:" + scaleCorrection);
+
+        float diffx = (drop.x - transform.position.x)/scaleCorrection;
+        float diffy = (drop.y - transform.position.y)/scaleCorrection;
+        Debug.Log("Drop at spot difference ("+diffx+","+ diffy+")");
+
+        int dx = (int)Math.Round(diffx / Tilesize);
+        int dy = -(int)Math.Round(diffy / Tilesize);
+
+        Debug.Log("GridPos: ("+dx+","+dy+")");
+        if (dx < 0 || dy < 0 || dx >= grid.GetLength(1) || dy >= grid.GetLength(0))
+        {
+            Debug.Log("Outside grid");
+            uIItem.ResetPosition();
+            return;
+        }
+        if(new Vector2Int(dy,dx) == uIItem.spot)
+        {
+            Debug.Log("Same spot = Reset");
+            uIItem.ResetPosition();
+            return;
+        }
+
+        if (ItemFits(dy, dx, uIItem.data.size.x, uIItem.data.size.y,uIItem))
+        {
+            RemovePlacement(uIItem);
+            PlaceAtSpot(dy, dx, uIItem);
+        }
+        else
+        {
+            uIItem.ResetPosition();
+        }
+
     }
 }
