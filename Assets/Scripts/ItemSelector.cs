@@ -3,7 +3,7 @@
 public class ItemSelector : MonoBehaviour
 {
     public static ItemSelector Instance;
-    [SerializeField] ParticleSystem particleSystem;
+    [SerializeField] private ParticleSystem particle;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class ItemSelector : MonoBehaviour
     public void SetToPosition(Transform target)
     {
         Debug.Log("Setting selector to target"); 
-        particleSystem.Play();
+        particle.Play();
         transform.position = target.position;
     }
 
@@ -26,7 +26,7 @@ public class ItemSelector : MonoBehaviour
     {
         Debug.Log("Disable selector");
         // Disable selector if not used
-        particleSystem.Clear();
-        particleSystem.Stop();
+        particle.Clear();
+        particle.Stop();
     }
 }

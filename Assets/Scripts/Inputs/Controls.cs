@@ -107,6 +107,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Tab"",
+                    ""type"": ""Button"",
+                    ""id"": ""949c6c28-0cce-4f05-8b5d-ed7fa29862ee"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -307,6 +316,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Drag"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c7b23be-db39-4283-b294-3def17dd2a63"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -324,6 +344,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_E = m_Player.FindAction("E", throwIfNotFound: true);
         m_Player_Shift = m_Player.FindAction("Shift", throwIfNotFound: true);
         m_Player_Drag = m_Player.FindAction("Drag", throwIfNotFound: true);
+        m_Player_Tab = m_Player.FindAction("Tab", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -394,6 +415,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_E;
     private readonly InputAction m_Player_Shift;
     private readonly InputAction m_Player_Drag;
+    private readonly InputAction m_Player_Tab;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -407,6 +429,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @E => m_Wrapper.m_Player_E;
         public InputAction @Shift => m_Wrapper.m_Player_Shift;
         public InputAction @Drag => m_Wrapper.m_Player_Drag;
+        public InputAction @Tab => m_Wrapper.m_Player_Tab;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -443,6 +466,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Drag.started += instance.OnDrag;
             @Drag.performed += instance.OnDrag;
             @Drag.canceled += instance.OnDrag;
+            @Tab.started += instance.OnTab;
+            @Tab.performed += instance.OnTab;
+            @Tab.canceled += instance.OnTab;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -474,6 +500,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Drag.started -= instance.OnDrag;
             @Drag.performed -= instance.OnDrag;
             @Drag.canceled -= instance.OnDrag;
+            @Tab.started -= instance.OnTab;
+            @Tab.performed -= instance.OnTab;
+            @Tab.canceled -= instance.OnTab;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -502,5 +531,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnE(InputAction.CallbackContext context);
         void OnShift(InputAction.CallbackContext context);
         void OnDrag(InputAction.CallbackContext context);
+        void OnTab(InputAction.CallbackContext context);
     }
 }

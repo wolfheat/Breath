@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1174bad50e510cb40ac230fc19037cf3, type: 3}
-  m_Name: SmallTubes
+  m_Script: {fileID: 11500000, guid: 7675e83aa7c34b441bef3ac25b4f75b5, type: 3}
+  m_Name: Cube Helmet 2
   m_EditorClassIdentifier: 
-  itemName: Small Oxygen Tubes
-  size: {x: 3, y: 1}
-  picture: {fileID: 21300000, guid: c77a7d392602f28448a6ac8a5894a24f, type: 3}
+  itemName: Cube Helmet 2
+  size: {x: 2, y: 2}
+  picture: {fileID: 21300000, guid: fd64e503f87699e4099edbebfd6c8086, type: 3}
+  equipType: 0

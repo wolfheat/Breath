@@ -12,7 +12,6 @@ public class BarController : MonoBehaviour
     private void Start()
     {
         origSize = bar.rect.size;
-        Debug.Log("Original size: "+origSize);
         rect = bar.rect;
     }
     public void SetBar(float value, string textValue)
@@ -20,6 +19,6 @@ public class BarController : MonoBehaviour
         text.text = textValue;
         //text.text = (int)value+"/"+maxValue;
         float size = bar.rect.size.x;
-        bar.sizeDelta = new Vector2(value*origSize.x,origSize.y);
+        bar.sizeDelta = new Vector2(-1212*(1-value),0);
     }
 }

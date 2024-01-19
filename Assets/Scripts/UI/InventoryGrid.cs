@@ -4,9 +4,9 @@ using UnityEngine;
 using static UnityEditor.Progress;
 
 public enum UIItemSizes{size3x3, size3x2, size2x2, size2x1, size1x1 }
-
 public class InventoryGrid : MonoBehaviour
 {
+    [SerializeField] private EquipedGrid equipped;
     [SerializeField] private GameObject inventoryGridTilePrefab;
     [SerializeField] private GameObject tileParent;
     [SerializeField] private GameObject itemHolder;
@@ -39,10 +39,8 @@ public class InventoryGrid : MonoBehaviour
     {
         foreach (var item in heldItemsData)
         {
-            Debug.Log("Creating held item of size "+ item.size);
             UIItem newItem = Instantiate(uiItemPrefab,itemHolder.transform);
             newItem.SetData(item);
-            Debug.Log("item is: " + newItem);
             heldItems.Add(newItem);
         }
 
@@ -53,7 +51,7 @@ public class InventoryGrid : MonoBehaviour
         }
     }
 
-    private void PlaceItemAtFirstFreeSpot(UIItem item)
+    public void PlaceItemAtFirstFreeSpot(UIItem item)
     {
         for (int row = 0; row < grid.GetLength(0) ; row++)
         {
@@ -86,10 +84,11 @@ public class InventoryGrid : MonoBehaviour
                 grid[row + k, col + l] = item;
             }
         }
-        item.SetHomePosition(gridTiles[row, col].localPosition,new Vector2Int(row,col));
+        item.SetHomePositionAndSpot(gridTiles[row, col].localPosition,new Vector2Int(row,col));
+        equipped.RemoveIfEquipped(item);
     }
     
-    private void RemovePlacement(UIItem item)
+    public void RemovePlacement(UIItem item)
     {
         for (int k = 0; k < item.data.size.x; k++)
         {
@@ -101,7 +100,22 @@ public class InventoryGrid : MonoBehaviour
         }
     }
 
-    private bool ItemFits(int row, int col, int x, int y, UIItem item)
+    public bool ItemFitsAny(UIItem item)
+    {
+        for (int row = 0; row < grid.GetLength(0); row++)
+        {
+            for (int col = 0; col < grid.GetLength(1); col++)
+            {
+                if (ItemFits(row, col, item.data.size.x, item.data.size.y, item))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public bool ItemFits(int row, int col, int x, int y, UIItem item)
     {
         // Outside
         if (row + x - 1 >= grid.GetLength(0) || col + y - 1 >= grid.GetLength(1)) return false;
@@ -121,6 +135,7 @@ public class InventoryGrid : MonoBehaviour
 
     public void RequestMove(UIItem uIItem, Vector2 drop)
     {
+        // Check if equipped
         Debug.Log("Grid recieved request of dropping item at "+drop+" GRID AT: "+ transform.position);
 
         float scaleCorrection = Screen.height / 1080f;
@@ -137,6 +152,17 @@ public class InventoryGrid : MonoBehaviour
         if (dx < 0 || dy < 0 || dx >= grid.GetLength(1) || dy >= grid.GetLength(0))
         {
             Debug.Log("Outside grid");
+            if(dx >= grid.GetLength(1))
+            {
+                Debug.Log("Trying to place in Equiped");
+                bool placed = equipped.TryPlaceItem(uIItem);
+                if (placed)
+                {
+                    Debug.Log("Item was Equiped");
+                    return;
+                }
+
+            }
             uIItem.ResetPosition();
             return;
         }
@@ -149,6 +175,7 @@ public class InventoryGrid : MonoBehaviour
 
         if (ItemFits(dy, dx, uIItem.data.size.x, uIItem.data.size.y,uIItem))
         {
+            if(uIItem.IsInInventory())
             RemovePlacement(uIItem);
             PlaceAtSpot(dy, dx, uIItem);
         }

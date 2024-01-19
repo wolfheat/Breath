@@ -54,9 +54,18 @@ Jan 2024
 		* Inventory can place objects in first free space
 		* Started to make Dragging UI items possible
 18/1	* Items can now be moved around the inventory, snapps into place if valid spot
+19/1	* Inventory is toggleable
+		* Item moved while disabling the inventory is reset
+		* Items moved are now placed on the top
+		* Items can now swap if space exists in inventory
 
+		* Rewrite inventory?
 
-		* fix moved object not being on top ie moving beneith other objects
+		* Make certain items equippable and set specific slot
+		
+		Check for slot type when equipping item
+
+		If participating in jam deadline 29jan (IGU Winter Jam 2024)
 
 
 		TASK

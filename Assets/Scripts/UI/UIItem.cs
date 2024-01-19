@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
@@ -12,7 +11,7 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     [SerializeField] RectTransform rect;
     private const int TileSize = 86;
     private const int TileSpace = 4;
-    private Vector2 homePosition = new Vector2();
+    public Vector2 homePosition = new Vector2();
     public Vector2Int spot = new Vector2Int();
     private InventoryGrid inventoryGrid;
 
@@ -28,10 +27,16 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
         transform.position = rect.TransformPoint(position);
     }
 
-    public void SetHomePosition(Vector2 pos,Vector2Int spotIn)
+    public void SetHomePositionAndSpot(Vector2 pos,Vector2Int spotIn)
     {
-        homePosition = pos;
         spot = spotIn;
+        SetHomePosition(pos);
+    }
+    
+    public void SetHomePosition(Vector2 pos)
+    {
+        Debug.Log("Item local home position set "+pos);
+        homePosition = pos;
         transform.localPosition = homePosition;
     }
     public void SetData(ItemData dataIn)
@@ -47,37 +52,8 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
 
     public void ResetPosition()
     {
+        Debug.Log("Item position reset");
         transform.localPosition = homePosition; 
-    }
-
-    public void StartDrag(InputAction.CallbackContext context)
-    {
-        Debug.Log("StartDrag " + gameObject.GetInstanceID()+" "+gameObject.name);
-    }
-    public void EndDrag(InputAction.CallbackContext context)
-    {
-        Debug.Log("EndDrag "+gameObject.GetInstanceID());
-    }
-    public void Drag(InputAction.CallbackContext context)
-    {
-
-        if (context.started && context.action.name=="Drag")
-        {
-            Debug.Log("Button Pressed Down");
-            
-        }
-        else if (context.performed)
-        {
-           
-            //Debug.Log("Drag");
-            
-        }
-        else if (context.canceled)
-        {
-            
-            Debug.Log("Button Released");
-           
-        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -85,12 +61,19 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
         transform.position = eventData.position+ offset;
     }
 
+    public void SetParent(Transform p)
+    {
+        transform.SetParent(p);
+    }
     public void OnEndDrag(PointerEventData eventData)
     {
         // Check if dropped position is a valid spot
         Vector2 drop = eventData.position + offset;
         Debug.Log("Dropping item at "+ drop);
+
+
         inventoryGrid.RequestMove(this,drop);
+        DragObject.Instance.UnSetDragedItem();
 
     }
 
@@ -99,5 +82,11 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     {
         offset = (Vector2)transform.position-eventData.position;
         Debug.Log("Started Dragging object");
+        DragObject.Instance.SetDragedItem(this);
+    }
+
+    internal bool IsInInventory()
+    {
+        return spot!=new Vector2Int(-1,-1);
     }
 }
