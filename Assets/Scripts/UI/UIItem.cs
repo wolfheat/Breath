@@ -12,7 +12,9 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     private const int TileSize = 86;
     private const int TileSpace = 4;
     public Vector2 homePosition = new Vector2();
-    public Vector2Int spot = new Vector2Int();
+
+    public Vector2Int Spot { get; private set; } = new Vector2Int(-1, -1);
+
     private InventoryGrid inventoryGrid;
 
     private void Start()
@@ -29,7 +31,8 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
 
     public void SetHomePositionAndSpot(Vector2 pos,Vector2Int spotIn)
     {
-        spot = spotIn;
+        Debug.Log("Setting spot to "+spotIn);
+        Spot = spotIn;
         SetHomePosition(pos);
     }
     
@@ -85,8 +88,8 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
         DragObject.Instance.SetDragedItem(this);
     }
 
-    internal bool IsInInventory()
+    public bool IsInInventory()
     {
-        return spot!=new Vector2Int(-1,-1);
+        return Spot != new Vector2Int(-1,-1);
     }
 }

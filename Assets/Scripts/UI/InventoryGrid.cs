@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public enum UIItemSizes{size3x3, size3x2, size2x2, size2x1, size1x1 }
 
@@ -51,7 +52,7 @@ public class InventoryGrid : MonoBehaviour
 
         foreach (var item in heldItems)
         {
-            Debug.Log("item is: "+item);
+            Debug.Log("item is: "+item+" Spot "+item.Spot);
             bool didPlace = PlaceItemAtFirstFreeSpot(item);
             if(!didPlace)
                 Debug.Log("Could not place item "+item.data.itemName+" in inventory");
@@ -74,17 +75,22 @@ public class InventoryGrid : MonoBehaviour
                 }
             }
         }
-        return false;
-        
+        return false;        
     }
 
-    private void PlaceAtSpot(int row, int col, UIItem item)
+    public void PlaceAtSpot(int row, int col, UIItem item)
     {
+        if (item.IsInInventory())
+        {
+            Debug.Log("Removing Items placement Spot: "+item.Spot);
+            RemovePlacement(item);
+        }
         for (int k = 0; k < item.data.size.x; k++)
         {
             for (int l = 0; l < item.data.size.y; l++)
             {
                 grid[row + k, col + l] = item;
+                Debug.Log("Placing item at (" + (row + k) + "," + (col + l) + ")");
             }
         }
         item.SetHomePositionAndSpot(gridTiles[row, col].localPosition,new Vector2Int(row,col));
@@ -98,25 +104,25 @@ public class InventoryGrid : MonoBehaviour
             for (int l = 0; l < item.data.size.y; l++)
             {
                 //Debug.Log("Object "+item.data.itemName+" occupy ("+(row+k)+","+(col+l)+")");
-                grid[item.spot.x + k, item.spot.y + l] = null;
+                grid[item.Spot.x + k, item.Spot.y + l] = null;
             }
         }
     }
 
-    public bool PlaceItemAnywhere(UIItem item)
+    public bool PlaceItemAnywhere(UIItem item, bool alsoPlace = true)
     {
         for (int row = 0; row < grid.GetLength(0); row++)
         {
             for (int col = 0; col < grid.GetLength(1); col++)
             {
-                if (ItemFits(row, col, item.data.size.x, item.data.size.y, item))
+                if (ItemFits(row, col, item.data.size.x, item.data.size.y, item, alsoPlace))
                     return true;
             }
         }
         return false;
     }
 
-    public bool ItemFits(int row, int col, int x, int y, UIItem item)
+    public bool ItemFits(int row, int col, int x, int y, UIItem item,bool alsoPlace=true)
     {
         // Outside
         if (row + x - 1 >= grid.GetLength(0) || col + y - 1 >= grid.GetLength(1)) return false;
@@ -127,10 +133,14 @@ public class InventoryGrid : MonoBehaviour
                 if (grid[row+k,col+l]!=null)
                     if(grid[row + k, col + l]!=item)
                         return false;
+
+                Debug.Log("No item at (" + (row + k) + "," + (col + l) + ") item: "+ grid[row + k, col + l]);
             }     
         }
-        Debug.Log("Item "+item.data.itemName+" fits at spot ["+row +","+col+"] grid = ["+grid.GetLength(0)+","+ grid.GetLength(1)+"]");
-        PlaceAtSpot(row, col, item);
+        Debug.Log("Item "+item.data.itemName+" fits at Spot ["+row +","+col+"] grid = ["+grid.GetLength(0)+","+ grid.GetLength(1)+"]");
+        
+        if(alsoPlace)
+            PlaceAtSpot(row, col, item);
         return true;
     }
 
@@ -138,16 +148,16 @@ public class InventoryGrid : MonoBehaviour
     {
         // Check if equipped
 
-        // Determine grid index where item was dropped
-        (int dx, int dy) = DeriveGridIndex(drop);
+        // Drop Point (grid index)
+        (int col, int row) = DeriveGridIndex(drop);
 
-        Debug.Log("GridPos: ("+dx+","+dy+")");
-        if (dx < 0 || dy < 0 || dx >= grid.GetLength(1) || dy >= grid.GetLength(0))
+        // Outside grid
+        if (col < 0 || row < 0 || col >= grid.GetLength(1) || row >= grid.GetLength(0))
         {
-            Debug.Log("Outside grid");
-            if(dx >= grid.GetLength(1))
+
+            // Equipping 
+            if(col >= grid.GetLength(1))
             {
-                Debug.Log("Trying to place in Equiped");
                 bool placed = equipped.TryPlaceItem(uIItem);
                 if (placed)
                 {
@@ -156,30 +166,27 @@ public class InventoryGrid : MonoBehaviour
                 }
 
             }
-            uIItem.ResetPosition();
-            return;
-        }
-        if(new Vector2Int(dy,dx) == uIItem.spot)
-        {
-            Debug.Log("Same spot = Reset");
+
+            // Not Equipping
             uIItem.ResetPosition();
             return;
         }
 
-        if (ItemFits(dy, dx, uIItem.data.size.x, uIItem.data.size.y,uIItem))
+        // Same Spot
+        if(new Vector2Int(row,col) == uIItem.Spot)
         {
-            if(uIItem.IsInInventory())
-            RemovePlacement(uIItem);
-            PlaceAtSpot(dy, dx, uIItem);
-        }
-        else
-        {
+            Debug.Log("Same Spot = Reset");
             uIItem.ResetPosition();
+            return;
         }
+
+        // New Spot (place or reset)
+        if (!ItemFits(row, col, uIItem.data.size.x, uIItem.data.size.y,uIItem))
+            uIItem.ResetPosition();
 
     }
 
-    private (int dx, int dy) DeriveGridIndex(Vector2 drop)
+    private (int col, int row) DeriveGridIndex(Vector2 drop)
     {
         Debug.Log("Grid recieved request of dropping item at " + drop + " GRID AT: " + transform.position);
 
@@ -188,11 +195,11 @@ public class InventoryGrid : MonoBehaviour
 
         float diffx = (drop.x - transform.position.x) / scaleCorrection;
         float diffy = (drop.y - transform.position.y) / scaleCorrection;
-        Debug.Log("Drop at spot difference (" + diffx + "," + diffy + ")");
+        Debug.Log("Drop at Spot difference (" + diffx + "," + diffy + ")");
 
-        int dx = (int)Math.Round(diffx / Tilesize);
-        int dy = -(int)Math.Round(diffy / Tilesize);
-        return (dx, dy);
+        int col = (int)Math.Round(diffx / Tilesize);
+        int row = -(int)Math.Round(diffy / Tilesize);
+        return (col, row);
 
     }
 }

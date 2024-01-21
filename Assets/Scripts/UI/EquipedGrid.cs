@@ -18,26 +18,33 @@ public class EquipedGrid : MonoBehaviour
             EquipableData data = (item.data as EquipableData);
             int itemType = (int)data.equipType;
             Debug.Log("Placing data that is equipable "+data.itemName);
-            if (items[itemType] != null)
+            UIItem used = items[itemType];
+            Debug.Log("Used:  "+used);
+
+            if (used)
             {
-                if(item == items[itemType])
+                if(item == used)
                 {
                     item.ResetPosition();
                     return true;
                 }
 
-                UIItem used = items[itemType];
-                Debug.Log("Spot contains one item: "+ items[itemType].data.itemName);
-                
+                Debug.Log("Spot contains one item: "+ used.data.itemName);
+
+                grid.RemovePlacement(item);
+
                 if (grid.PlaceItemAnywhere(used))
                 {
-                    EquipItem(item);
-                    
+                    EquipItem(item);                    
                     return true;
                 }
+                // Reset the items placement
+                grid.PlaceAtSpot(item.Spot.x,item.Spot.y, item);
                 return false;
             }
             Debug.Log("No item in equipable so can equip" + data.itemName);
+
+            grid.RemovePlacement(item);
             EquipItem(item);
             return true;
         }
@@ -46,28 +53,31 @@ public class EquipedGrid : MonoBehaviour
 
     public void RemoveIfEquipped(UIItem item)
     {
+        // Check if even equippable item
         if (item.data.itemType != ItemType.Equipable)
             return;
+
+        // Get item type
         EquipableData data = (item.data as EquipableData);
         int type = (int)data.equipType;
-        if (items[type] == item)
-        {
-            //remove
-            items[type] = null;
-        }
 
+        // remove if present
+        if (items[type] == item)
+            items[type] = null;
     }
 
     private void EquipItem(UIItem item)
     {
-        if (item.data is not EquipableData) return;
+        if (item.data is not EquipableData)
+        {
+            Debug.LogWarning("This hould never happen");
+            return; // should never happen
+        }
 
         Debug.Log("Equipping item since its Equipable" + item.data.itemName);
 
         EquipableData data = (item.data as EquipableData);
         int itemType = (int)data.equipType;
-
-        grid.RemovePlacement(item);
 
         Debug.Log("Item at pos" + item.transform.localPosition);
 

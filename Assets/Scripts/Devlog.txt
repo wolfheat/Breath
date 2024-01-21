@@ -59,6 +59,7 @@ Jan 2024
 		* Items moved are now placed on the top
 		* Items can now swap if space exists in inventory
 20/1	* Small adjustements to inventory made
+		* Some more adjustements
 
 		* Rewrite inventory?
 
