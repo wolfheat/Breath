@@ -28,17 +28,11 @@ public class EquipedGrid : MonoBehaviour
 
                 UIItem used = items[itemType];
                 Debug.Log("Spot contains one item: "+ items[itemType].data.itemName);
-                bool canSwap = grid.ItemFitsAny(item);
-                if (canSwap)
+                
+                if (grid.PlaceItemAnywhere(used))
                 {
-                    Debug.Log("item can be swapped!");
-
                     EquipItem(item);
                     
-
-                    //Used item gets to inventory
-                    grid.PlaceItemAtFirstFreeSpot(used);                    
-
                     return true;
                 }
                 return false;

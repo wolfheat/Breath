@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public enum UIItemSizes{size3x3, size3x2, size2x2, size2x1, size1x1 }
+
 public class InventoryGrid : MonoBehaviour
 {
     [SerializeField] private EquipedGrid equipped;
@@ -21,6 +21,14 @@ public class InventoryGrid : MonoBehaviour
     private const float Tilesize = 89;
     private void Start()
     {
+        CreateInventoryBackgroundGrid();
+
+        // Occupy With held items
+        Occupy();
+    }
+
+    private void CreateInventoryBackgroundGrid()
+    {
         for (int row = 0; row < grid.GetLength(0); row++)
         {
             for (int col = 0; col < grid.GetLength(1); col++)
@@ -30,9 +38,6 @@ public class InventoryGrid : MonoBehaviour
                 gridTiles[row, col] = gridTile.transform;
             }
         }
-
-        // Occupy With held items
-        Occupy();
     }
 
     private void Occupy()
@@ -47,30 +52,29 @@ public class InventoryGrid : MonoBehaviour
         foreach (var item in heldItems)
         {
             Debug.Log("item is: "+item);
-            PlaceItemAtFirstFreeSpot(item);
+            bool didPlace = PlaceItemAtFirstFreeSpot(item);
+            if(!didPlace)
+                Debug.Log("Could not place item "+item.data.itemName+" in inventory");
         }
     }
 
-    public void PlaceItemAtFirstFreeSpot(UIItem item)
+    public bool PlaceItemAtFirstFreeSpot(UIItem item)
     {
         for (int row = 0; row < grid.GetLength(0) ; row++)
         {
             for (int col = 0; col < grid.GetLength(1); col++)
             {
-                //Check grid position
+                //Check if grid start position is free
                 if (grid[row, col] != null)
                     continue;
-                Debug.Log("Spot " + row + "," + col + " is free check rest of item size");
-                if (!ItemFits(row,col,item.data.size.x, item.data.size.y,item))
+                // Check if entire item fits here, if so place it
+                if (ItemFits(row,col,item.data.size.x, item.data.size.y,item))
                 {
-                    Debug.Log("Spot " + row + "," + col + " did not fit");
-                    continue;
+                    return true;
                 }
-                Debug.Log("Spot " + row + "," + col + " fits!");
-                PlaceAtSpot(row,col,item);
-                return;
             }
         }
+        return false;
         
     }
 
@@ -80,7 +84,6 @@ public class InventoryGrid : MonoBehaviour
         {
             for (int l = 0; l < item.data.size.y; l++)
             {
-                //Debug.Log("Object "+item.data.itemName+" occupy ("+(row+k)+","+(col+l)+")");
                 grid[row + k, col + l] = item;
             }
         }
@@ -100,16 +103,14 @@ public class InventoryGrid : MonoBehaviour
         }
     }
 
-    public bool ItemFitsAny(UIItem item)
+    public bool PlaceItemAnywhere(UIItem item)
     {
         for (int row = 0; row < grid.GetLength(0); row++)
         {
             for (int col = 0; col < grid.GetLength(1); col++)
             {
                 if (ItemFits(row, col, item.data.size.x, item.data.size.y, item))
-                {
                     return true;
-                }
             }
         }
         return false;
@@ -119,8 +120,6 @@ public class InventoryGrid : MonoBehaviour
     {
         // Outside
         if (row + x - 1 >= grid.GetLength(0) || col + y - 1 >= grid.GetLength(1)) return false;
-        Debug.Log("Object fits inside because ending at "+(row+x-1)+","+ (col + y - 1));
-        Debug.Log("size is  "+grid.GetLength(0)+","+ grid.GetLength(1));
         for (int k = 0; k < x; k++)
         {
             for (int l = 0; l < y; l++)
@@ -130,23 +129,17 @@ public class InventoryGrid : MonoBehaviour
                         return false;
             }     
         }
+        Debug.Log("Item "+item.data.itemName+" fits at spot ["+row +","+col+"] grid = ["+grid.GetLength(0)+","+ grid.GetLength(1)+"]");
+        PlaceAtSpot(row, col, item);
         return true;
     }
 
     public void RequestMove(UIItem uIItem, Vector2 drop)
     {
         // Check if equipped
-        Debug.Log("Grid recieved request of dropping item at "+drop+" GRID AT: "+ transform.position);
 
-        float scaleCorrection = Screen.height / 1080f;
-        Debug.Log("Reading current game scale:" + scaleCorrection);
-
-        float diffx = (drop.x - transform.position.x)/scaleCorrection;
-        float diffy = (drop.y - transform.position.y)/scaleCorrection;
-        Debug.Log("Drop at spot difference ("+diffx+","+ diffy+")");
-
-        int dx = (int)Math.Round(diffx / Tilesize);
-        int dy = -(int)Math.Round(diffy / Tilesize);
+        // Determine grid index where item was dropped
+        (int dx, int dy) = DeriveGridIndex(drop);
 
         Debug.Log("GridPos: ("+dx+","+dy+")");
         if (dx < 0 || dy < 0 || dx >= grid.GetLength(1) || dy >= grid.GetLength(0))
@@ -183,6 +176,23 @@ public class InventoryGrid : MonoBehaviour
         {
             uIItem.ResetPosition();
         }
+
+    }
+
+    private (int dx, int dy) DeriveGridIndex(Vector2 drop)
+    {
+        Debug.Log("Grid recieved request of dropping item at " + drop + " GRID AT: " + transform.position);
+
+        float scaleCorrection = Screen.height / 1080f;
+        Debug.Log("Reading current game scale:" + scaleCorrection);
+
+        float diffx = (drop.x - transform.position.x) / scaleCorrection;
+        float diffy = (drop.y - transform.position.y) / scaleCorrection;
+        Debug.Log("Drop at spot difference (" + diffx + "," + diffy + ")");
+
+        int dx = (int)Math.Round(diffx / Tilesize);
+        int dy = -(int)Math.Round(diffy / Tilesize);
+        return (dx, dy);
 
     }
 }

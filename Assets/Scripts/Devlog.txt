@@ -58,6 +58,7 @@ Jan 2024
 		* Item moved while disabling the inventory is reset
 		* Items moved are now placed on the top
 		* Items can now swap if space exists in inventory
+20/1	* Small adjustements to inventory made
 
 		* Rewrite inventory?
 
