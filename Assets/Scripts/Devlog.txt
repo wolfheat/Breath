@@ -58,14 +58,22 @@ Jan 2024
 		* Item moved while disabling the inventory is reset
 		* Items moved are now placed on the top
 		* Items can now swap if space exists in inventory
-20/1	* Small adjustements to inventory made
+21/1	* Small adjustements to inventory made
 		* Some more adjustements
 		* Right click now equips/unequips
 		* Look disabled when UI is active
 		* Added drowning sound when out of breath, music stops (make it fade?) resumed when regaining health
+				
+		* Make music volume fade when no oxygen
+		* Have a hand or nothing show when not using tool?
+		* Change stop motion to Left Alt and use space as Up and left ctrl as down
 
-		
-		* Make music volume fade when no oxygen, add breath sound
+		* Enable jumping indoors?
+		* Implement helmet, suit and booster
+		* Make equipment craftable
+		* Make recipes for workbench
+		* Make tool icons show on hud for which tools player got
+		* have some crates require better sledgehammer, chrystals that need better drill etc
 
 
 		If participating in jam deadline 29jan (IGU Winter Jam 2024)
