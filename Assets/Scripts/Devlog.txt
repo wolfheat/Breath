@@ -64,8 +64,8 @@ Jan 2024
 		* Look disabled when UI is active
 		* Added drowning sound when out of breath, music stops (make it fade?) resumed when regaining health
 
+		
 		* Make music volume fade when no oxygen, add breath sound
-
 
 
 		If participating in jam deadline 29jan (IGU Winter Jam 2024)
