@@ -53,6 +53,8 @@ public class EquipedGrid : MonoBehaviour
 
     public void RemoveIfEquipped(UIItem item)
     {
+        Debug.Log("Removing equipped item data if equipped" + item.data.itemName);
+
         // Check if even equippable item
         if (item.data.itemType != ItemType.Equipable)
             return;
@@ -63,7 +65,26 @@ public class EquipedGrid : MonoBehaviour
 
         // remove if present
         if (items[type] == item)
+        {
+            Debug.Log("Removing equipped item data!");
             items[type] = null;
+        }
+    }
+    
+    public bool IsEquipped(UIItem item)
+    {
+        // Check if an equippable item
+        if (item.data.itemType != ItemType.Equipable)
+            return false;
+
+        // Get item type
+        EquipableData data = (item.data as EquipableData);
+        int type = (int)data.equipType;
+
+        // is this the item
+        if (items[type] == item)
+            return true;
+        return false;
     }
 
     private void EquipItem(UIItem item)

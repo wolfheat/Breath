@@ -2,9 +2,10 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 
-public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHandler
+public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHandler, IPointerClickHandler
 {
     public ItemData data;
     [SerializeField] Image image;
@@ -20,6 +21,7 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     private void Start()
     {
         inventoryGrid = FindObjectOfType<InventoryGrid>();
+
     }
 
     public void UpdatePosition()
@@ -59,6 +61,19 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
         transform.localPosition = homePosition; 
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Right)
+        {
+            inventoryGrid.RequestEquip(this);
+        }
+        else if (eventData.button == PointerEventData.InputButton.Middle)
+            Debug.Log("Middle clicking "+data.itemName);
+        else
+            Debug.Log("Clicking " + data.itemName);
+
+    }
+    
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = eventData.position+ offset;
@@ -92,4 +107,5 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     {
         return Spot != new Vector2Int(-1,-1);
     }
+
 }

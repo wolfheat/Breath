@@ -60,6 +60,8 @@ Jan 2024
 		* Items can now swap if space exists in inventory
 20/1	* Small adjustements to inventory made
 		* Some more adjustements
+		* Right click now equips/unequips
+
 
 		* Rewrite inventory?
 

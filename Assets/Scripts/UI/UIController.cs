@@ -21,6 +21,7 @@ public class UIController : MonoBehaviour
 
 
     public static UIController Instance;
+    public static bool UIActive { get; set; }
 
     private void Start()
     {

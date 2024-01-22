@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Inputs : MonoBehaviour
 {
-
     public Controls Controls { get; set; }
+    public InputAction Actions { get; set; }
 
     public static Inputs Instance { get; private set; }
 

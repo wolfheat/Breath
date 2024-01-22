@@ -169,6 +169,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void Look()
     {
+        if (UIController.UIActive)
+            return;
+
         // Right button is not held?
         if (!Inputs.Instance.Controls.Player.RClick.IsPressed())
         {
@@ -267,6 +270,9 @@ public class PlayerMovement : MonoBehaviour
     // Input handling
     public void RClickPerformed(CallbackContext context)
     {
+        if (UIController.UIActive) 
+            return;
+
         mouseStoredPosition = (Vector2)Input.mousePosition;
         uiController.ShowTempHairAt(mouseStoredPosition);
     }

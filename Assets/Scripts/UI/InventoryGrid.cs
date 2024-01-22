@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public enum UIItemSizes{size3x3, size3x2, size2x2, size2x1, size1x1 }
 
@@ -90,7 +90,7 @@ public class InventoryGrid : MonoBehaviour
             for (int l = 0; l < item.data.size.y; l++)
             {
                 grid[row + k, col + l] = item;
-                Debug.Log("Placing item at (" + (row + k) + "," + (col + l) + ")");
+                //Debug.Log("Placing item at (" + (row + k) + "," + (col + l) + ")");
             }
         }
         item.SetHomePositionAndSpot(gridTiles[row, col].localPosition,new Vector2Int(row,col));
@@ -134,7 +134,7 @@ public class InventoryGrid : MonoBehaviour
                     if(grid[row + k, col + l]!=item)
                         return false;
 
-                Debug.Log("No item at (" + (row + k) + "," + (col + l) + ") item: "+ grid[row + k, col + l]);
+                //Debug.Log("No item at (" + (row + k) + "," + (col + l) + ") item: "+ grid[row + k, col + l]);
             }     
         }
         Debug.Log("Item "+item.data.itemName+" fits at Spot ["+row +","+col+"] grid = ["+grid.GetLength(0)+","+ grid.GetLength(1)+"]");
@@ -143,7 +143,23 @@ public class InventoryGrid : MonoBehaviour
             PlaceAtSpot(row, col, item);
         return true;
     }
+    public bool RequestEquip(UIItem item)
+    {
+        Debug.Log("Try equip item "+item.data.itemName);
+        if (equipped.IsEquipped(item))
+        {
+            Debug.Log("Item is already equipped "+item.data.itemName);
+            if (PlaceItemAnywhere(item))
+            {
+                Debug.Log("Item is placed on grid "+item.data.itemName);
 
+                equipped.RemoveIfEquipped(item);
+                return true;
+            }
+        }
+        equipped.TryPlaceItem(item);
+        return true;
+    }
     public void RequestMove(UIItem uIItem, Vector2 drop)
     {
         // Check if equipped
@@ -154,7 +170,6 @@ public class InventoryGrid : MonoBehaviour
         // Outside grid
         if (col < 0 || row < 0 || col >= grid.GetLength(1) || row >= grid.GetLength(0))
         {
-
             // Equipping 
             if(col >= grid.GetLength(1))
             {
@@ -168,21 +183,17 @@ public class InventoryGrid : MonoBehaviour
             }
 
             // Not Equipping
-            uIItem.ResetPosition();
             return;
         }
 
-        // Same Spot
+        // Same Spot 
         if(new Vector2Int(row,col) == uIItem.Spot)
-        {
-            Debug.Log("Same Spot = Reset");
-            uIItem.ResetPosition();
             return;
-        }
 
         // New Spot (place or reset)
-        if (!ItemFits(row, col, uIItem.data.size.x, uIItem.data.size.y,uIItem))
-            uIItem.ResetPosition();
+        ItemFits(row, col, uIItem.data.size.x, uIItem.data.size.y, uIItem);
+        //if (!ItemFits(row, col, uIItem.data.size.x, uIItem.data.size.y,uIItem))
+        //uIItem.ResetPosition();
 
     }
 
@@ -202,4 +213,6 @@ public class InventoryGrid : MonoBehaviour
         return (col, row);
 
     }
+
+    
 }
