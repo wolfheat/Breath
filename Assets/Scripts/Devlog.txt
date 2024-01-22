@@ -63,7 +63,12 @@ Jan 2024
 		* Right click now equips/unequips
 		* Look disabled when UI is active
 		* Added drowning sound when out of breath, music stops (make it fade?) resumed when regaining health
-				
+22/1	* Items in inventory does now scale to fit in equipped, rescales when moved away from equipped
+		* Resources set to transparent for better ui
+		* Items now scale correctly in equipped and centers
+		* Item limited with rightclick to not trigger duplicate
+		* Space changed to go upwards, Left Ctrl goes down, Left Alt now stop player in place
+
 		* Make music volume fade when no oxygen
 		* Have a hand or nothing show when not using tool?
 		* Change stop motion to Left Alt and use space as Up and left ctrl as down

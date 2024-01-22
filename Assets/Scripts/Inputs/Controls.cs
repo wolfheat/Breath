@@ -116,6 +116,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UpDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""73623088-9056-4a3f-96f1-a925029c0e8f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftAlt"",
+                    ""type"": ""Button"",
+                    ""id"": ""5f2606c5-a95a-475a-bb0c-fbfa441850af"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -327,6 +345,50 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Tab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""UpDown"",
+                    ""id"": ""462af9bd-d549-4066-9630-e0d21b7c6431"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpDown"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""89006ac7-93d1-4438-ba43-7bbcea3c2ca0"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""84dceeee-11e9-457b-91b7-c968c85737d7"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b15658f7-42e2-437b-8583-6786a5d50b97"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftAlt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -345,6 +407,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Shift = m_Player.FindAction("Shift", throwIfNotFound: true);
         m_Player_Drag = m_Player.FindAction("Drag", throwIfNotFound: true);
         m_Player_Tab = m_Player.FindAction("Tab", throwIfNotFound: true);
+        m_Player_UpDown = m_Player.FindAction("UpDown", throwIfNotFound: true);
+        m_Player_LeftAlt = m_Player.FindAction("LeftAlt", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -416,6 +480,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Shift;
     private readonly InputAction m_Player_Drag;
     private readonly InputAction m_Player_Tab;
+    private readonly InputAction m_Player_UpDown;
+    private readonly InputAction m_Player_LeftAlt;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -430,6 +496,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Shift => m_Wrapper.m_Player_Shift;
         public InputAction @Drag => m_Wrapper.m_Player_Drag;
         public InputAction @Tab => m_Wrapper.m_Player_Tab;
+        public InputAction @UpDown => m_Wrapper.m_Player_UpDown;
+        public InputAction @LeftAlt => m_Wrapper.m_Player_LeftAlt;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -469,6 +537,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Tab.started += instance.OnTab;
             @Tab.performed += instance.OnTab;
             @Tab.canceled += instance.OnTab;
+            @UpDown.started += instance.OnUpDown;
+            @UpDown.performed += instance.OnUpDown;
+            @UpDown.canceled += instance.OnUpDown;
+            @LeftAlt.started += instance.OnLeftAlt;
+            @LeftAlt.performed += instance.OnLeftAlt;
+            @LeftAlt.canceled += instance.OnLeftAlt;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -503,6 +577,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Tab.started -= instance.OnTab;
             @Tab.performed -= instance.OnTab;
             @Tab.canceled -= instance.OnTab;
+            @UpDown.started -= instance.OnUpDown;
+            @UpDown.performed -= instance.OnUpDown;
+            @UpDown.canceled -= instance.OnUpDown;
+            @LeftAlt.started -= instance.OnLeftAlt;
+            @LeftAlt.performed -= instance.OnLeftAlt;
+            @LeftAlt.canceled -= instance.OnLeftAlt;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -532,5 +612,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnShift(InputAction.CallbackContext context);
         void OnDrag(InputAction.CallbackContext context);
         void OnTab(InputAction.CallbackContext context);
+        void OnUpDown(InputAction.CallbackContext context);
+        void OnLeftAlt(InputAction.CallbackContext context);
     }
 }

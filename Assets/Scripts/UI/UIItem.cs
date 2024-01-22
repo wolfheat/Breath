@@ -1,8 +1,7 @@
-﻿using System;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 
 public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHandler, IPointerClickHandler
@@ -12,8 +11,12 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     [SerializeField] RectTransform rect;
     private const int TileSize = 86;
     private const int TileSpace = 4;
+    private Vector2 baseRectSize;
+    private Vector2 equippedRectSize;
+    private Vector2 currentRectSize;
     public Vector2 homePosition = new Vector2();
 
+    public Vector2 EquippedRectOffset { get; private set; }
     public Vector2Int Spot { get; private set; } = new Vector2Int(-1, -1);
 
     private InventoryGrid inventoryGrid;
@@ -35,46 +38,77 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     {
         //Debug.Log("Setting spot to "+spotIn);
         Spot = spotIn;
-        SetHomePosition(pos);
-    }
-    
-    public void SetHomePosition(Vector2 pos)
-    {
-        //Debug.Log("Item local home position set "+pos);
-        homePosition = pos;
+        if(Spot == new Vector2Int(-1,-1))
+            homePosition = pos+EquippedRectOffset;
+        else
+            homePosition = pos;
         transform.localPosition = homePosition;
+
+        ResetPosition();
     }
+
     public void SetData(ItemData dataIn)
     {
         data = dataIn;
+        baseRectSize = new Vector2(data.size.y * TileSize + (data.size.y - 1) * TileSpace, data.size.x * TileSize + (data.size.x - 1) * TileSpace);
+        SetToBaseRectSize();
+    }
+    
+    public void SetData(ItemData dataIn, Vector2 equippedSize)
+    {
+        equippedRectSize = new Vector2(equippedSize.x, equippedSize.y);
+        EquippedRectOffset = new Vector2(-equippedSize.x / 2, equippedSize.y / 2);
+        SetData(dataIn);
+    }
+
+    private void SetToBaseRectSize()
+    {
+        currentRectSize = baseRectSize;
         UpdateItem();
+    }
+
+    private void DetermineRectSize()
+    {
+        //Check if equipped
+        if(Spot == new Vector2Int(-1,-1))
+            currentRectSize = equippedRectSize;
+        else
+            currentRectSize = baseRectSize;
     }
     private void UpdateItem()
     {
-        rect.sizeDelta = new Vector2(data.size.y * TileSize + (data.size.y - 1) * TileSpace, data.size.x * TileSize + (data.size.x - 1) * TileSpace);
+        rect.sizeDelta = currentRectSize;
         image.sprite = data.picture;
     }
 
     public void ResetPosition()
     {
         //Debug.Log("Item position reset");
-        transform.localPosition = homePosition; 
+        transform.localPosition = homePosition;
+        DetermineRectSize();
+        UpdateItem();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if(eventData.button == PointerEventData.InputButton.Right)
         {
+            // Limit player from clicking on the switched item in same click unsetting a swap
+            if (inventoryGrid.ClickTimerLimited)
+                return;
+            StartCoroutine(inventoryGrid.ClickTimerLimiter());
             inventoryGrid.RequestEquip(this);
         }
         else if (eventData.button == PointerEventData.InputButton.Middle)
             Debug.Log("Middle clicking "+data.itemName);
 
     }
-    
+
     public void OnDrag(PointerEventData eventData)
     {
+
         transform.position = eventData.position+ offset;
+        SetToBaseRectSize();
     }
 
     public void SetParent(Transform p)
@@ -106,4 +140,8 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
         return Spot != new Vector2Int(-1,-1);
     }
 
+    public void SetNormalRectScale()
+    {
+        SetToBaseRectSize();
+    }
 }

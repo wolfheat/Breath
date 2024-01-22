@@ -8,6 +8,16 @@ public class EquipedGrid : MonoBehaviour
     [SerializeField] GameObject[] itemspots;
     private UIItem[] items = new UIItem[5];
 
+    public Vector2 GetItemRectSize(ItemData data)
+    {
+        EquipableData equipableData = (EquipableData)data;
+        float equipheight = itemspots[(int)equipableData.equipType].GetComponent<RectTransform>().rect.size.y;
+        // Determine items scale in equipped
+        float ratio = data.picture.rect.size.x/data.picture.rect.size.y;
+        Debug.Log("Image ratio = "+ratio);
+        return new Vector2(equipheight*ratio,equipheight);
+            
+    }
 
     public bool TryPlaceItem(UIItem item)
     {
@@ -70,7 +80,7 @@ public class EquipedGrid : MonoBehaviour
             items[type] = null;
         }
     }
-    
+
     public bool IsEquipped(UIItem item)
     {
         // Check if an equippable item
@@ -103,6 +113,10 @@ public class EquipedGrid : MonoBehaviour
         //Debug.Log("Item at pos" + item.transform.localPosition);
 
         //Debug.Log("Item set to itemspot " + itemspots[itemType].name+" which is at "+ itemspots[itemType].transform.localPosition);
+
+        // Determin offset
+
+
         item.SetHomePositionAndSpot(itemspots[itemType].transform.localPosition,new Vector2Int(-1,-1));
 
         //Debug.Log("Item at pos after " + item.transform.localPosition);

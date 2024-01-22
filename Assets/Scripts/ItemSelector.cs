@@ -24,7 +24,7 @@ public class ItemSelector : MonoBehaviour
 
     public void Disable()
     {
-        Debug.Log("Disable selector");
+        Debug.Log("Selector Lost Target");
         // Disable selector if not used
         particle.Clear();
         particle.Stop();

@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public enum UIItemSizes{size3x3, size3x2, size2x2, size2x1, size1x1 }
 
@@ -43,10 +43,17 @@ public class InventoryGrid : MonoBehaviour
 
     private void Occupy()
     {
-        foreach (var item in heldItemsData)
+        foreach (var data in heldItemsData)
         {
             UIItem newItem = Instantiate(uiItemPrefab,itemHolder.transform);
-            newItem.SetData(item);
+            if(data is EquipableData)
+            {
+                Vector2 rectSize = equipped.GetItemRectSize(data);
+                newItem.SetData(data,rectSize);
+
+            }
+            else
+                newItem.SetData(data);
             heldItems.Add(newItem);
         }
 
@@ -213,6 +220,12 @@ public class InventoryGrid : MonoBehaviour
         return (col, row);
 
     }
+    public bool ClickTimerLimited { get; private set; }
+    public IEnumerator ClickTimerLimiter()
+    {
+        ClickTimerLimited = true;
+        yield return new WaitForSeconds(0.15f);
+        ClickTimerLimited = false;
+    }
 
-    
 }

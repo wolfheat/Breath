@@ -89,10 +89,14 @@ public class PlayerMovement : MonoBehaviour
         // SPEED BOOSTER MOVEMENT
         boosterAcceleration += move[1] * tilt.forward * accelerationSpeed;
 
+        float upDown = Inputs.Instance.Controls.Player.UpDown.ReadValue<float>();
+        boosterAcceleration += upDown * transform.up * accelerationSpeed;
+
+
         if (rb.useGravity)// Movement in Gravity
         {
             // Limit input to cardinal XZ, Set to fix speed
-            boosterAcceleration = new Vector3(boosterAcceleration.x, 0, boosterAcceleration.z);
+            //boosterAcceleration = new Vector3(boosterAcceleration.x, 0, boosterAcceleration.z);
             rb.velocity = boosterAcceleration.normalized*WalkSpeed;
         }
         else // Movement in NON-Gravity
@@ -114,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
             SoundMaster.Instance.PlayStepSFX();
 
         // PLAYER STOP IN PLACE
-        if (Inputs.Instance.Controls.Player.Space.ReadValue<float>() != 0)
+        if (Inputs.Instance.Controls.Player.LeftAlt.ReadValue<float>() != 0)
         StopInPlace();
 
         // Limit angular rotations
