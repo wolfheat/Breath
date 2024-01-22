@@ -43,7 +43,15 @@ public class PlayerHealth : MonoBehaviour
                 }
                 else
                 {
-                    if(noOxygenSurvival > 0)
+                    if (noOxygenSurvival == NoOxygenSurvivalMax)
+                    {
+                        // Starting to "drown"
+                        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.Drowning);
+                        SoundMaster.Instance.FadeMusic();
+
+                    }
+
+                    if (noOxygenSurvival > 0)
                         noOxygenSurvival -= delay;
                     else
                     {
@@ -58,6 +66,9 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
+                // Stops drowning clip from playing
+                SoundMaster.Instance.StopSFX();
+
                 noOxygenSurvival = NoOxygenSurvivalMax;
                 if (oxygen < MaxOxygen)
                     oxygen += OxygenRefillSpeed* delay;
@@ -78,5 +89,6 @@ public class PlayerHealth : MonoBehaviour
         noOxygenSurvival = NoOxygenSurvivalMax;
         oxygen = MaxOxygen;
         IsDead = false;
+        SoundMaster.Instance.ResumeMusic();
     }
 }

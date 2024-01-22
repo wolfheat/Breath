@@ -33,14 +33,14 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
 
     public void SetHomePositionAndSpot(Vector2 pos,Vector2Int spotIn)
     {
-        Debug.Log("Setting spot to "+spotIn);
+        //Debug.Log("Setting spot to "+spotIn);
         Spot = spotIn;
         SetHomePosition(pos);
     }
     
     public void SetHomePosition(Vector2 pos)
     {
-        Debug.Log("Item local home position set "+pos);
+        //Debug.Log("Item local home position set "+pos);
         homePosition = pos;
         transform.localPosition = homePosition;
     }
@@ -57,7 +57,7 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
 
     public void ResetPosition()
     {
-        Debug.Log("Item position reset");
+        //Debug.Log("Item position reset");
         transform.localPosition = homePosition; 
     }
 
@@ -69,8 +69,6 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
         }
         else if (eventData.button == PointerEventData.InputButton.Middle)
             Debug.Log("Middle clicking "+data.itemName);
-        else
-            Debug.Log("Clicking " + data.itemName);
 
     }
     
@@ -87,7 +85,7 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     {
         // Check if dropped position is a valid spot
         Vector2 drop = eventData.position + offset;
-        Debug.Log("Dropping item at "+ drop);
+        //Debug.Log("Dropping item at "+ drop);
 
 
         inventoryGrid.RequestMove(this,drop);
@@ -99,7 +97,7 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     public void OnBeginDrag(PointerEventData eventData)
     {
         offset = (Vector2)transform.position-eventData.position;
-        Debug.Log("Started Dragging object");
+        //Debug.Log("Started Dragging object");
         DragObject.Instance.SetDragedItem(this);
     }
 

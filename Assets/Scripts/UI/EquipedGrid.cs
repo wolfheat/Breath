@@ -17,9 +17,9 @@ public class EquipedGrid : MonoBehaviour
         {
             EquipableData data = (item.data as EquipableData);
             int itemType = (int)data.equipType;
-            Debug.Log("Placing data that is equipable "+data.itemName);
+            //Debug.Log("Placing data that is equipable "+data.itemName);
             UIItem used = items[itemType];
-            Debug.Log("Used:  "+used);
+            //Debug.Log("Used:  "+used);
 
             if (used)
             {
@@ -29,7 +29,7 @@ public class EquipedGrid : MonoBehaviour
                     return true;
                 }
 
-                Debug.Log("Spot contains one item: "+ used.data.itemName);
+                // Debug.Log("Spot contains one item: "+ used.data.itemName);
 
                 grid.RemovePlacement(item);
 
@@ -42,7 +42,7 @@ public class EquipedGrid : MonoBehaviour
                 grid.PlaceAtSpot(item.Spot.x,item.Spot.y, item);
                 return false;
             }
-            Debug.Log("No item in equipable so can equip" + data.itemName);
+            //Debug.Log("No item in equipable so can equip" + data.itemName);
 
             grid.RemovePlacement(item);
             EquipItem(item);
@@ -53,7 +53,7 @@ public class EquipedGrid : MonoBehaviour
 
     public void RemoveIfEquipped(UIItem item)
     {
-        Debug.Log("Removing equipped item data if equipped" + item.data.itemName);
+        //Debug.Log("Removing equipped item data if equipped" + item.data.itemName);
 
         // Check if even equippable item
         if (item.data.itemType != ItemType.Equipable)
@@ -66,7 +66,7 @@ public class EquipedGrid : MonoBehaviour
         // remove if present
         if (items[type] == item)
         {
-            Debug.Log("Removing equipped item data!");
+            // Debug.Log("Removing equipped item data!");
             items[type] = null;
         }
     }
@@ -95,17 +95,17 @@ public class EquipedGrid : MonoBehaviour
             return; // should never happen
         }
 
-        Debug.Log("Equipping item since its Equipable" + item.data.itemName);
+        //Debug.Log("Equipping item since its Equipable" + item.data.itemName);
 
         EquipableData data = (item.data as EquipableData);
         int itemType = (int)data.equipType;
 
-        Debug.Log("Item at pos" + item.transform.localPosition);
+        //Debug.Log("Item at pos" + item.transform.localPosition);
 
-        Debug.Log("Item set to itemspot " + itemspots[itemType].name+" which is at "+ itemspots[itemType].transform.localPosition);
+        //Debug.Log("Item set to itemspot " + itemspots[itemType].name+" which is at "+ itemspots[itemType].transform.localPosition);
         item.SetHomePositionAndSpot(itemspots[itemType].transform.localPosition,new Vector2Int(-1,-1));
 
-        Debug.Log("Item at pos after " + item.transform.localPosition);
+        //Debug.Log("Item at pos after " + item.transform.localPosition);
 
         items[itemType] = item;
     }

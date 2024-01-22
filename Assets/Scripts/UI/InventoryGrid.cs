@@ -52,7 +52,7 @@ public class InventoryGrid : MonoBehaviour
 
         foreach (var item in heldItems)
         {
-            Debug.Log("item is: "+item+" Spot "+item.Spot);
+            //Debug.Log("item is: "+item+" Spot "+item.Spot);
             bool didPlace = PlaceItemAtFirstFreeSpot(item);
             if(!didPlace)
                 Debug.Log("Could not place item "+item.data.itemName+" in inventory");
@@ -82,7 +82,7 @@ public class InventoryGrid : MonoBehaviour
     {
         if (item.IsInInventory())
         {
-            Debug.Log("Removing Items placement Spot: "+item.Spot);
+            //Debug.Log("Removing Items placement Spot: "+item.Spot);
             RemovePlacement(item);
         }
         for (int k = 0; k < item.data.size.x; k++)
@@ -137,21 +137,21 @@ public class InventoryGrid : MonoBehaviour
                 //Debug.Log("No item at (" + (row + k) + "," + (col + l) + ") item: "+ grid[row + k, col + l]);
             }     
         }
-        Debug.Log("Item "+item.data.itemName+" fits at Spot ["+row +","+col+"] grid = ["+grid.GetLength(0)+","+ grid.GetLength(1)+"]");
-        
-        if(alsoPlace)
+        //Debug.Log("Item "+item.data.itemName+" fits at Spot ["+row +","+col+"] grid = ["+grid.GetLength(0)+","+ grid.GetLength(1)+"]");
+
+        if (alsoPlace)
             PlaceAtSpot(row, col, item);
         return true;
     }
     public bool RequestEquip(UIItem item)
     {
-        Debug.Log("Try equip item "+item.data.itemName);
+        //Debug.Log("Try equip item "+item.data.itemName);
         if (equipped.IsEquipped(item))
         {
-            Debug.Log("Item is already equipped "+item.data.itemName);
+            //Debug.Log("Item is already equipped "+item.data.itemName);
             if (PlaceItemAnywhere(item))
             {
-                Debug.Log("Item is placed on grid "+item.data.itemName);
+                //Debug.Log("Item is placed on grid "+item.data.itemName);
 
                 equipped.RemoveIfEquipped(item);
                 return true;
@@ -199,14 +199,14 @@ public class InventoryGrid : MonoBehaviour
 
     private (int col, int row) DeriveGridIndex(Vector2 drop)
     {
-        Debug.Log("Grid recieved request of dropping item at " + drop + " GRID AT: " + transform.position);
+        //Debug.Log("Grid recieved request of dropping item at " + drop + " GRID AT: " + transform.position);
 
         float scaleCorrection = Screen.height / 1080f;
-        Debug.Log("Reading current game scale:" + scaleCorrection);
+        //Debug.Log("Reading current game scale:" + scaleCorrection);
 
         float diffx = (drop.x - transform.position.x) / scaleCorrection;
         float diffy = (drop.y - transform.position.y) / scaleCorrection;
-        Debug.Log("Drop at Spot difference (" + diffx + "," + diffy + ")");
+        //Debug.Log("Drop at Spot difference (" + diffx + "," + diffy + ")");
 
         int col = (int)Math.Round(diffx / Tilesize);
         int row = -(int)Math.Round(diffy / Tilesize);

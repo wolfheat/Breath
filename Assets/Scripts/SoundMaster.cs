@@ -9,6 +9,7 @@ public class SoundMaster : MonoBehaviour
     [SerializeField] private AudioClip[] tools;
     [SerializeField] private AudioClip[] footstep;
     [SerializeField] private AudioClip[] music;
+    [SerializeField] private AudioClip[] noises;
 
     private AudioSource musicSource;
     private AudioSource sfxSource;
@@ -118,7 +119,7 @@ public class SoundMaster : MonoBehaviour
     }
 
 
-    public enum SFX { MenuStep, MenuSelect, MenuError, NoAir, ToolSwing, HitWood, HitMetal, HitPlastic, Drill, BreakObject, PickUp, PlayerDeath, Footstep }
+    public enum SFX { MenuStep, MenuSelect, MenuError, NoAir, ToolSwing, HitWood, HitMetal, HitPlastic, Drill, BreakObject, PickUp, PlayerDeath, Footstep, Drowning }
 
     public void PlaySFX(SFX type, bool playMulti=true)
 	{
@@ -134,6 +135,9 @@ public class SoundMaster : MonoBehaviour
             // USED 
             case SFX.PickUp: 
                 sfxSource.PlayOneShot(sfx[0]);
+                break;
+            case SFX.Drowning: 
+                sfxSource.PlayOneShot(noises[0]);
                 break;
 
             // TOOLS
@@ -177,5 +181,14 @@ public class SoundMaster : MonoBehaviour
     public bool FootstepPlaying()
     {
         throw new System.NotImplementedException();
+    }
+
+    public void ResumeMusic()
+    {
+        PlayMusic();
+    }
+    public void FadeMusic()
+    {
+        musicSource.Stop();
     }
 }

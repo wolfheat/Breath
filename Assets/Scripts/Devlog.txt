@@ -61,16 +61,14 @@ Jan 2024
 20/1	* Small adjustements to inventory made
 		* Some more adjustements
 		* Right click now equips/unequips
+		* Look disabled when UI is active
+		* Added drowning sound when out of breath, music stops (make it fade?) resumed when regaining health
+
+		* Make music volume fade when no oxygen, add breath sound
 
 
-		* Rewrite inventory?
-
-		* Make certain items equippable and set specific slot
-		
-		Check for slot type when equipping item
 
 		If participating in jam deadline 29jan (IGU Winter Jam 2024)
-
 
 		TASK
 		* Implement oxygen tank UI visuals
