@@ -2,7 +2,7 @@
 public enum ItemType { Resource, Breakable, Other, Advanced,
     Equipable
 }
-public enum Resource { Al, Cu, Ti, Plastic, Textile, Water, Food };
+public enum Resource { Al, Cu, Plastic, Textile, Ti, Water, Food };
 
 public abstract class ItemData : ScriptableObject
 {

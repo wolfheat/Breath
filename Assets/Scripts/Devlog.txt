@@ -68,18 +68,24 @@ Jan 2024
 		* Items now scale correctly in equipped and centers
 		* Item limited with rightclick to not trigger duplicate
 		* Space changed to go upwards, Left Ctrl goes down, Left Alt now stop player in place
+		* Music volume fades when no oxygen
+		* Indoors movement tweak
+		* Made player larger
+		* Added Crafting menu
 
-		* Make music volume fade when no oxygen
+		* Limit Inventory from being shown when crafting is active, maybe close crafting if tab is pressed
+		* Close with either TAB, ESC, and a Close button
+		* Have popup showing whats needed to craft each item in crafing menu
+
 		* Have a hand or nothing show when not using tool?
-		* Change stop motion to Left Alt and use space as Up and left ctrl as down
 
-		* Enable jumping indoors?
 		* Implement helmet, suit and booster
 		* Make equipment craftable
 		* Make recipes for workbench
 		* Make tool icons show on hud for which tools player got
 		* have some crates require better sledgehammer, chrystals that need better drill etc
 
+		* Enable jumping indoors? nah?
 
 		If participating in jam deadline 29jan (IGU Winter Jam 2024)
 

@@ -28,13 +28,16 @@ public class Player : MonoBehaviour
     
     public void InterractWith(CallbackContext context)
     {
-        Debug.Log("E - Pick up nearby item or interact");
+        Debug.Log("E - Pick up nearby item or interact ");
         // Interact with closest visible item 
         if(pickupController.ActiveInteractable != null)
         {
             if (pickupController.ActiveInteractable is PickableItem)
             {
-                inventory.AddItem(pickupController.ActiveInteractable as PickableItem);
+                Debug.Log("Interactable is " + pickupController.ActiveInteractable.name);
+                PickableItem item = (PickableItem)pickupController.ActiveInteractable;
+                Debug.Log("Pickable is "+ item.name);
+                inventory.AddItem(item);
             
                 bool didPickUp = pickupController.InteractWithActiveItem();
                 Debug.Log("Did Pick Up = "+didPickUp);

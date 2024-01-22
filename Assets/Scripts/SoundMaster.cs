@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public enum MusicTrack { Indoor, OutDoor };
@@ -61,7 +62,7 @@ public class SoundMaster : MonoBehaviour
     private void MuteToggle(InputAction.CallbackContext context)
     {
 		doPlayMusic = !doPlayMusic;
-        Debug.Log("Music: "+doPlayMusic);
+        Debug.Log("Music Enabled: "+doPlayMusic);
 		if (doPlayMusic) PlayMusic();
 		else
 		{
@@ -117,7 +118,7 @@ public class SoundMaster : MonoBehaviour
     {
         sfxSource.Stop();
     }
-
+    
 
     public enum SFX { MenuStep, MenuSelect, MenuError, NoAir, ToolSwing, HitWood, HitMetal, HitPlastic, Drill, BreakObject, PickUp, PlayerDeath, Footstep, Drowning }
 
@@ -187,8 +188,20 @@ public class SoundMaster : MonoBehaviour
     {
         PlayMusic();
     }
-    public void FadeMusic()
+    public void FadeMusic(float time=1f)
     {
+        StartCoroutine(MusicFade(time));
+    }
+    public IEnumerator MusicFade(float time)
+    {
+        float changePerSecond = musicSource.volume / time;
+        while (musicSource.volume > 0)
+        {
+            musicSource.volume -= changePerSecond*Time.deltaTime;
+            yield return null;
+        }
+        musicSource.volume = presetVolume;
         musicSource.Stop();
+
     }
 }

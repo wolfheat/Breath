@@ -14,12 +14,14 @@ public class PlayerMovement : MonoBehaviour
     // Player moves acording to velocity and acceleration
     private Vector2 mouseStoredPosition;
 // Max speed
+    float minSpeed = 3f;    
     float maxSpeed = 5f;
     float cruiseSpeed = 2f;
     Vector3 velocity = new Vector3();
     Vector3 lastSafePoint = new Vector3();
     Vector3 boosterAcceleration = new Vector3();
-    float accelerationSpeed = 5f;
+    float boosterAccelerationSpeed = 5f;
+    float walkingAccelerationSpeed = 1f;
     float dampening = 0.2f;
     float stopDampening = 6f;
     float driftDampening = 25f;
@@ -29,8 +31,11 @@ public class PlayerMovement : MonoBehaviour
     private const float LookSensitivity = 0.15f;
     private const float RotationLowerLimit = 89;
     private const float RotationUpperLimit = 271;
-    private const float WalkSpeedMinimum = 1.8f;
-    private const float WalkSpeed = 3f;
+    private const float WalkSpeedMinimum = 0.3f;
+    private const float WalkSpeed = 1.5f;
+
+    private const float InDoorDrag = 5f;
+    private const float OutDoorDrag = 0.3f;
 
     private Coroutine throwCoroutine;
 
@@ -48,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
             rb.useGravity = true;
             SoundMaster.Instance.ChangeMusicTrack(MusicTrack.Indoor);
         }
+        
     }
 
     private void OnTriggerExit(Collider other)
@@ -83,48 +89,89 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        boosterAcceleration = new();
         // SIDEWAY MOVEMENT
-        boosterAcceleration = move[0] * transform.right * accelerationSpeed;
+        boosterAcceleration = move[0] * transform.right;
         // SPEED BOOSTER MOVEMENT
-        boosterAcceleration += move[1] * tilt.forward * accelerationSpeed;
+        boosterAcceleration += move[1] * tilt.forward;
 
-        float upDown = Inputs.Instance.Controls.Player.UpDown.ReadValue<float>();
-        boosterAcceleration += upDown * transform.up * accelerationSpeed;
-
-
-        if (rb.useGravity)// Movement in Gravity
-        {
-            // Limit input to cardinal XZ, Set to fix speed
-            //boosterAcceleration = new Vector3(boosterAcceleration.x, 0, boosterAcceleration.z);
-            rb.velocity = boosterAcceleration.normalized*WalkSpeed;
-        }
-        else // Movement in NON-Gravity
-            rb.AddForce(boosterAcceleration * Time.deltaTime, ForceMode.VelocityChange);
-
-        // Limit velocity
-        if (rb.velocity.magnitude > maxSpeed)
-            rb.velocity = rb.velocity.normalized * maxSpeed;
         
+
+        if (rb.useGravity)
+        {
+            //remove up and down
+            boosterAcceleration = new Vector3(boosterAcceleration.x, 0, boosterAcceleration.z);
+            
+            // Movement in Gravity            
+            Vector3 planeParts = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            Vector3 result = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            
+            rb.AddForce(boosterAcceleration.normalized * walkingAccelerationSpeed, ForceMode.VelocityChange);
+
+            if (planeParts.magnitude < WalkSpeedMinimum && boosterAcceleration.magnitude>0)
+            {
+                Debug.Log("X");
+            }
+
+            planeParts = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            if (planeParts.magnitude > WalkSpeed)
+            {
+                rb.velocity = planeParts.normalized * WalkSpeed + rb.velocity.y * Vector3.up;
+            }
+
+            /*
+            if (boosterAcceleration.magnitude>0)
+                rb.velocity = boosterAcceleration.normalized * minSpeed + rb.velocity.y * Vector3.up;
+            else
+                rb.velocity = rb.velocity.y * Vector3.up;
+        }
+        else if (planeParts.magnitude > maxSpeed)
+            rb.velocity = planeParts.normalized * maxSpeed+rb.velocity.y*Vector3.up;
+        */
+            DampenSpeedInDoors();
+
+            // STEP SOUND
+            if (planeParts.magnitude > WalkSpeedMinimum)
+                SoundMaster.Instance.PlayStepSFX();
+
+        }
+        else
+        {
+            float upDown = Inputs.Instance.Controls.Player.UpDown.ReadValue<float>();
+            boosterAcceleration += upDown * transform.up;
+
+            // Movement in NON-Gravity
+            rb.AddForce(boosterAcceleration.normalized * boosterAccelerationSpeed * Time.deltaTime, ForceMode.VelocityChange);
+            // Limit velocity
+            if (rb.velocity.magnitude > maxSpeed)
+                rb.velocity = rb.velocity.normalized * maxSpeed;
+
+            // CRUISE SPEED LIMITATION       
+            if (velocity.magnitude > cruiseSpeed)
+                LimitSpeedToCruiseSpeed(); 
+
+            // PLAYER STOP IN PLACE
+            if (Inputs.Instance.Controls.Player.LeftAlt.ReadValue<float>() != 0)
+            StopInPlace();
+        }
+
         // Show speed in HUD
         uiController.SetSpeed(rb.velocity);
-
-        // CRUISE SPEED LIMITATION       
-        if (velocity.magnitude > cruiseSpeed)
-            LimitSpeedToCruiseSpeed();       
-
-        // STEP SOUND
-        if (rb.useGravity && rb.velocity.magnitude > WalkSpeedMinimum)
-            SoundMaster.Instance.PlayStepSFX();
-
-        // PLAYER STOP IN PLACE
-        if (Inputs.Instance.Controls.Player.LeftAlt.ReadValue<float>() != 0)
-        StopInPlace();
 
         // Limit angular rotations
         StopRotations();
     }
 
+    private bool StandingOnCollider()
+    {
+        bool hitCollider = Physics.Raycast(transform.position, Vector3.down, 1f);
+        return hitCollider;
+    }
+
+    private void DampenSpeedInDoors()
+    {
+        rb.velocity *= Mathf.Pow(dampening, Time.deltaTime);
+    }
+    
     private void LimitSpeedToCruiseSpeed()
     {
         // Make different dampening in space and inside a spacestation
@@ -134,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        // Limit sideway velocity when using booster
+        // Limit sideway velocity when using booster - Experimental
         Vector3 perpendicularSpeed = Vector3.Dot(rb.velocity.normalized, boosterAcceleration.normalized) * boosterAcceleration.normalized;
         rb.velocity -= perpendicularSpeed * driftDampening * Time.deltaTime;        
     }
