@@ -74,12 +74,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if (playerHealth.IsDead)
+        if (playerHealth.IsDead || UIController.CraftingActive)
         {
             Stop();
             return;
         }
-
 
         Vector2 move = Inputs.Instance.Controls.Player.Move.ReadValue<Vector2>();
         
@@ -220,7 +219,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Look()
     {
-        if (UIController.UIActive)
+        if (UIController.InventoryActive || UIController.CraftingActive)
             return;
 
         // Right button is not held?
@@ -321,7 +320,7 @@ public class PlayerMovement : MonoBehaviour
     // Input handling
     public void RClickPerformed(CallbackContext context)
     {
-        if (UIController.UIActive) 
+        if (UIController.InventoryActive) 
             return;
 
         mouseStoredPosition = (Vector2)Input.mousePosition;

@@ -71,7 +71,27 @@ Jan 2024
 		* Music volume fades when no oxygen
 		* Indoors movement tweak
 		* Made player larger
-		* Added Crafting menu
+		* Added Crafting menu -
+23/1	* Crafting menu now has recipies
+		* Crafting menu updates on mouseover
+		* Crafting menu popup shows recipe requirements
+		* Made info popup animate
+		* Crating menu is populated entirely from data
+
+
+		* Incorporate tools and equipments into gameplay
+		* Make Tools spots equip
+
+		* If player cant create item or pick one up due to inventory space - make sound error and visual notice
+		* Create and place on table if no space?
+
+		* Update entire craft menu for whats craftable? - MAYBE
+		* 
+
+		* Have check for what player has resources to create and if there is space in inventory?
+
+
+
 
 		* Limit Inventory from being shown when crafting is active, maybe close crafting if tab is pressed
 		* Close with either TAB, ESC, and a Close button

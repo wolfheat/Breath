@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7675e83aa7c34b441bef3ac25b4f75b5, type: 3}
-  m_Name: Cube Helmet
+  m_Script: {fileID: 11500000, guid: 3d98baecf49c73d4ea08abfd34ccb229, type: 3}
+  m_Name: Bread
   m_EditorClassIdentifier: 
-  itemName: Cube Helmet
-  size: {x: 2, y: 2}
-  picture: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  equipType: 0
+  itemName: Bread
+  size: {x: 1, y: 1}
+  picture: {fileID: 2011394619, guid: 80f111c6cd7a9bc44a3274eef9c2d999, type: 3}
+  healthRegain: 100

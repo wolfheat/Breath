@@ -1,20 +1,55 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class CraftButton : MonoBehaviour
+public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] GameObject subMenu;
+    public GameObject subMenu;
+    [SerializeField] RecipeData recipeData;
+    public Image image;
     public int ButtonID { get; set; }
 
+
+    public void SetData(RecipeData data)
+    {
+        recipeData = data;
+        SetImage(data.result.picture);
+    }
+    public void SetImage(Sprite sprite)
+    {
+        image.sprite = sprite;
+    }
     public void Click()
     {
-        if(subMenu)
-            CraftingUI.Instance.EnableBaseCrafting(ButtonID);
-        else
-            Debug.Log("This button crafts!");
+        if (subMenu) return;
+
+
+        bool afford = Inventory.Instance.CanAfford(recipeData);
+        
     }
 
     public void ActivateSubMenu(bool set)
     {
         subMenu.SetActive(set);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!subMenu)
+        {
+            CraftingUI.Instance.ShowInfo(recipeData);
+        }
+        else
+        {
+            //Open submenu
+            CraftingUI.Instance.EnableBaseCrafting(ButtonID);
+        }
+
+
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        CraftingUI.Instance.HideInfo();
     }
 }

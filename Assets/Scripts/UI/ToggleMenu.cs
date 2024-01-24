@@ -1,23 +1,22 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class ToggleInventory : MonoBehaviour
+public class ToggleMenu : MonoBehaviour
 {
     [SerializeField] GameObject panel;
 
+    public bool IsActive { get { return panel.activeSelf; }}
+
     private void Start()
     {
-        Inputs.Instance.Controls.Player.Tab.started += Toggle;
         panel.SetActive(false);
 
     }
 
-    public void Toggle(InputAction.CallbackContext context)
+    public void Toggle()
     {
         if (panel.activeSelf)
             DragObject.Instance.UnSetDragedItem();
         panel.SetActive(!panel.activeSelf);
-        UIController.UIActive = panel.activeSelf;
         //Debug.Log("UIActive set to "+UIController.UIActive);
     }
 }

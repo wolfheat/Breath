@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public enum EquipType{Head,Body,Feet,Tank,Booster};
+public enum EquipType{Head,Body,Feet,Tank,Booster,Hammer,Drill,Gun,Sword};
 public class EquipedGrid : MonoBehaviour
 {
     [SerializeField] InventoryGrid grid;

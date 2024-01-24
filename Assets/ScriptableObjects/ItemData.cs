@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-public enum ItemType { Resource, Breakable, Other, Advanced,
-    Equipable
-}
+public enum ItemType { Resource, Breakable, Other, Advanced, Equipable,Consumable}
 public enum Resource { Al, Cu, Plastic, Textile, Ti, Water, Food };
 
 public abstract class ItemData : ScriptableObject

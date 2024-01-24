@@ -9,6 +9,21 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {    
     private int[] heldResources = new int[7];
+
+
+    public static Inventory Instance;
+
+    private void Start()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+
+    }
+
     public int[] GetResources()
     {
         return heldResources;
@@ -32,5 +47,17 @@ public class Inventory : MonoBehaviour
     private void UpdateInventory()
     {
         UIController.Instance.InventoryChanged();
+    }
+
+    public bool CanAfford(RecipeData recipeData)
+    {
+        Debug.Log("Checking if player can affor recipe "+recipeData.recipeName);
+        foreach(var item in recipeData.ingredienses)
+        {
+            int owns = heldResources[(int)item.resource];
+            Debug.Log("Costs: "+item.itemName+" amt: ?"+" player owns amount: "+owns);
+
+        }
+        return true;
     }
 }

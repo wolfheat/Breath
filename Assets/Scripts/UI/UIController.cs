@@ -1,6 +1,6 @@
-using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
@@ -13,7 +13,12 @@ public class UIController : MonoBehaviour
     [SerializeField] Volume volume;
     [SerializeField] DeathScreen deathScreen;
     [SerializeField] GameObject tempHair;
+
     [SerializeField] InventoryUI inventoryUI;
+    [SerializeField] ToggleMenu inventoryToggle;
+    [SerializeField] CraftingUI craftingUI;
+    [SerializeField] ToggleMenu craftingToggle;
+
     [SerializeField] HUDIcons hudIcons;
     [SerializeField] Image image;
     [SerializeField] Player player;
@@ -21,7 +26,8 @@ public class UIController : MonoBehaviour
 
 
     public static UIController Instance;
-    public static bool UIActive { get; set; }
+    public static bool InventoryActive { get { return Instance.inventoryToggle.IsActive; } }
+    public static bool CraftingActive { get { return Instance.craftingToggle.IsActive; }}
 
     private void Start()
     {
@@ -31,6 +37,33 @@ public class UIController : MonoBehaviour
             return;
         }
         Instance = this;
+
+    }
+
+    public void OnEnable()
+    {        
+        Inputs.Instance.Controls.Player.Tab.started += Toggle;
+    }
+    
+    public void OnDisable()
+    {
+        
+        Inputs.Instance.Controls.Player.Tab.started -= Toggle;
+    }
+
+
+    public void Toggle(InputAction.CallbackContext context)
+    {
+        // Request To toggle inventory
+        if (craftingToggle.IsActive)
+        {
+            craftingUI.Reset();
+            craftingToggle.Toggle();
+        }
+        else
+        {
+            inventoryToggle.Toggle();
+        }
     }
 
     public void SetSpeed(Vector3 s)

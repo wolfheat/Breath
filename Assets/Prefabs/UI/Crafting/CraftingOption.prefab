@@ -138,14 +138,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5036225, g: 0.5471698, b: 0.46715912, a: 0.7529412}
+  m_Color: {r: 0.5036225, g: 0.5471698, b: 0.46715912, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: fe7fb88292803a246991664b4f9fb255, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -168,6 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subMenu: {fileID: 0}
+  recipeData: {fileID: 0}
+  image: {fileID: 7986687008754259660}
 --- !u!114 &4733909399199999498
 MonoBehaviour:
   m_ObjectHideFlags: 0
