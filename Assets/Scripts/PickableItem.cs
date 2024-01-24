@@ -1,7 +1,7 @@
 using UnityEngine;
 public class PickableItem : Item
 {
-    public ResourceData Data;
+    public ItemData Data;
 
     public override void InteractWith()
     {

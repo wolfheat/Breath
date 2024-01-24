@@ -6,7 +6,7 @@ public class EquipedGrid : MonoBehaviour
 {
     [SerializeField] InventoryGrid grid;
     [SerializeField] GameObject[] itemspots;
-    private UIItem[] items = new UIItem[5];
+    private UIItem[] items = new UIItem[9];
 
     public Vector2 GetItemRectSize(ItemData data)
     {

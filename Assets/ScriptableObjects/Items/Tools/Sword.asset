@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7675e83aa7c34b441bef3ac25b4f75b5, type: 3}
-  m_Name: Weapon
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  itemName: Weapon
-  size: {x: 3, y: 1}
+  itemName: Sword
+  size: {x: 3, y: 2}
   picture: {fileID: -620436329, guid: 80f111c6cd7a9bc44a3274eef9c2d999, type: 3}
-  equipType: 5
+  equipType: 8

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class CraftingUI : MonoBehaviour
@@ -76,6 +75,7 @@ public class CraftingUI : MonoBehaviour
         if (!activeWorkbench)
         {
             Debug.LogWarning("Cant create item, no active workbench");
+            HUDMessage.Instance.ShowMessage("no active workbench");
             return;
         }
         HideInfo();

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Shovel
   m_EditorClassIdentifier: 
   itemName: Shovel
-  size: {x: 3, y: 1}
+  size: {x: 3, y: 2}
   picture: {fileID: -1969943059, guid: 80f111c6cd7a9bc44a3274eef9c2d999, type: 3}
   equipType: 5

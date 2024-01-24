@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Items/EquipableData", fileName ="ItemX")]
-public class EquipableData : ItemAdvancedData
+[CreateAssetMenu(menuName = "Items/EquipableData", fileName ="Equippable")]
+public class EquipableData : ObjectData
 {
     public override ItemType itemType { get; } = ItemType.Equipable;
     public EquipType equipType;

@@ -25,7 +25,7 @@ public class InventoryGrid : MonoBehaviour
         CreateInventoryBackgroundGrid();
 
         // Occupy With held items
-        Occupy();
+        OccupyWithInitialItems();
     }
 
     private void CreateInventoryBackgroundGrid()
@@ -41,29 +41,38 @@ public class InventoryGrid : MonoBehaviour
         }
     }
 
-    private void Occupy()
+    private void OccupyWithInitialItems()
     {
         foreach (var data in heldItemsData)
         {
-            UIItem newItem = Instantiate(uiItemPrefab,itemHolder.transform);
-            if(data is EquipableData)
-            {
-                Vector2 rectSize = equipped.GetItemRectSize(data);
-                newItem.SetData(data,rectSize);
-
-            }
-            else
-                newItem.SetData(data);
-            heldItems.Add(newItem);
+            bool didAd = AddItemToInventory(data);
         }
+    }
 
-        foreach (var item in heldItems)
+    public bool AddItemToInventory(ItemData data)
+    {
+        UIItem newItem = Instantiate(uiItemPrefab, itemHolder.transform);
+        if(data is EquipableData)
         {
-            //Debug.Log("item is: "+item+" Spot "+item.Spot);
-            bool didPlace = PlaceItemAtFirstFreeSpot(item);
-            if(!didPlace)
-                Debug.Log("Could not place item "+item.data.itemName+" in inventory");
+            Vector2 rectSize = equipped.GetItemRectSize(data);
+            newItem.SetData(data, rectSize);
         }
+        else
+        {
+            // Add resources differently?
+            newItem.SetData(data);
+        }
+
+        bool didPlace = PlaceItemAtFirstFreeSpot(newItem);
+        if (!didPlace)
+        {
+            Debug.Log("Could not place item " + newItem.data.itemName + " in inventory");
+            HUDMessage.Instance.ShowMessage("Item does not fit");
+            Destroy(newItem.gameObject);
+            return false;
+        }
+        heldItems.Add(newItem);
+        return true;
     }
 
     public bool PlaceItemAtFirstFreeSpot(UIItem item)

@@ -41,12 +41,16 @@ public class Player : MonoBehaviour
                 Debug.Log("Interactable is " + pickupController.ActiveInteractable.name);
                 PickableItem item = (PickableItem)pickupController.ActiveInteractable;
                 Debug.Log("Pickable is "+ item.name);
-                inventory.AddItem(item);
-            
-                bool didPickUp = pickupController.InteractWithActiveItem();
-                Debug.Log("Did Pick Up = "+didPickUp);
+
+                bool didPickUp = inventory.AddItem(item);
                 if (didPickUp)
+                {
+                    pickupController.InteractWithActiveItem();
                     SoundMaster.Instance.PlaySFX(SoundMaster.SFX.PickUp);
+                    Debug.Log("Did Pick Up = " + didPickUp);
+                }
+                else
+                    Debug.Log("Could Not Pick Up "+item.Data.itemName);
 
                 StartCoroutine(ResetItemCollider());
             }

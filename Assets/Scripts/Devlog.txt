@@ -82,37 +82,21 @@ Jan 2024
 		* E press when crafting menu now closes the menu
 		* Crafting can now be initiated
 		* Crafting takes time and has particle effects and produced item is placed on a plate
-
-
-		* Crafted items are placed on a plate on workbench
-
 		* Workbench is not interactable when crafting is ongoing or an item is placed on the plate
+		* Items can be picked up if there is space in inventory
+		* Fixed issue where mouse is hidden when in crafting menu
+		* If player cant create item or pick one up due to inventory space - HUD message is shown
 
+		
+		* Have check for what player has resources to create and if there is space in inventory?
 
 		* Incorporate tools and equipments into gameplay
 		* Make Tools spots equip
-
-		* If player cant create item or pick one up due to inventory space - make sound error and visual notice
-		* Create and place on table if no space?
-
-		* Update entire craft menu for whats craftable? - MAYBE
-		* 
-
-		* Have check for what player has resources to create and if there is space in inventory?
-
-
-
-
-		* Limit Inventory from being shown when crafting is active, maybe close crafting if tab is pressed
-		* Close with either TAB, ESC, and a Close button
-		* Have popup showing whats needed to craft each item in crafing menu
-
 		* Have a hand or nothing show when not using tool?
 
-		* Implement helmet, suit and booster
-		* Make equipment craftable
-		* Make recipes for workbench
+		* Implement helmet, suit and booster with its functions
 		* Make tool icons show on hud for which tools player got
+		
 		* have some crates require better sledgehammer, chrystals that need better drill etc
 
 		* Enable jumping indoors? nah?

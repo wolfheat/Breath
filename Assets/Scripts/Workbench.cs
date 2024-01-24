@@ -7,9 +7,11 @@ public class Workbench : Facility
     private CraftingUI craftingUI;
     private ToggleMenu craftingMenu;
     [SerializeField] private ParticleSystem craftingEffects;
+    [SerializeField] private PickableItem genericPrefab;
+    [SerializeField] private GameObject craftingPoint;
 
     private bool isCrafting = false;
-    private bool hasItem = false;
+    private bool HasItem { get { return craftingPoint.transform.childCount > 0;} }
 
     private void OnEnable()
     {
@@ -21,10 +23,12 @@ public class Workbench : Facility
         if (isCrafting)
         {
             Debug.Log("Can not interact with workbench, crafting item!");
+            HUDMessage.Instance.ShowMessage("Workbench is busy");
             return;
-        }else if (hasItem)
+        }else if (HasItem)
         {
             Debug.Log("Can not interact with workbench, item on plate!");
+            HUDMessage.Instance.ShowMessage("Remove item before crafting");
             return;
         }
         // if(!craftingMenu.IsActive) // Used to make E only open the menu not close it, changed it so it can be both opened and closed with E
@@ -51,8 +55,8 @@ public class Workbench : Facility
 
 
         Debug.Log("Placing Item "+itemData.itemName+" ont the plate");
-        hasItem = true;
-
+        PickableItem item = Instantiate(genericPrefab, craftingPoint.transform);
+        item.Data = itemData;
     }
 
     public void CraftCompleted()

@@ -214,9 +214,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void Look()
     {
-        if (UIController.InventoryActive || UIController.CraftingActive)
-            return;
-
         // Right button is not held?
         if (!Inputs.Instance.Controls.Player.RClick.IsPressed())
         {
@@ -226,9 +223,13 @@ public class PlayerMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
 
             RegainCursorPosition();
-
             return;
         }
+
+        // Disables Right button to work when in UI or dead
+        if (UIController.InventoryActive || UIController.CraftingActive)
+            return;
+
         if (playerHealth.IsDead)
             return;
 
@@ -315,7 +316,7 @@ public class PlayerMovement : MonoBehaviour
     // Input handling
     public void RClickPerformed(CallbackContext context)
     {
-        if (UIController.InventoryActive) 
+        if (UIController.InventoryActive || UIController.CraftingActive) 
             return;
 
         mouseStoredPosition = (Vector2)Input.mousePosition;

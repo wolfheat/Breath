@@ -31,6 +31,10 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             CraftingUI.Instance.CraftItem(recipeData.result);
 
         }
+        else
+        {
+            HUDMessage.Instance.ShowMessage("Insufficent resources");
+        }
         
     }
 

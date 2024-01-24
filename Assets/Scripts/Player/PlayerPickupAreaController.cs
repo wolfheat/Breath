@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
-using UnityEditorInternal.VersionControl;
 using UnityEngine;
 
 public class PlayerPickupAreaController : MonoBehaviour

@@ -9,7 +9,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {    
     private int[] heldResources = new int[7];
-
+    [SerializeField] InventoryGrid grid;
 
     public static Inventory Instance;
 
@@ -28,15 +28,35 @@ public class Inventory : MonoBehaviour
     {
         return heldResources;
     }
-    public void AddItem(PickableItem item)
+    public bool AddItem(PickableItem item)
     {
-        AddItem(item.Data.resource, 1);
+        // Add item depending on type?
+        if(item.Data is ResourceData)
+        {
+            ResourceData data = (ResourceData)item.Data;
+            bool didAdd = AddItem(data.resource, 1);
+            return didAdd;
+        }else if(item.Data is ObjectData)
+        {
+            ObjectData data = (ObjectData)item.Data;
+            bool didAdd = AddItem(data);
+            return didAdd;
+        }
+        return false;
     }
-    public void AddItem(Resource type, int amt)
+    public bool AddItem(ObjectData data)
+    {
+        Debug.Log("Trying to pick up object!");
+
+        bool addedToInventory = grid.AddItemToInventory(data);
+        return addedToInventory;
+    }
+    public bool AddItem(Resource type, int amt)
     {
         Debug.Log("Trying to pick up resource type "+type+" = index "+type);
         heldResources[(int)type] += amt;
         UpdateInventory();
+        return true;
     }
     public void RemoveItem(Resource type, int amt)
     {
