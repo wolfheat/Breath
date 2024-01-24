@@ -77,8 +77,10 @@ Jan 2024
 		* Crafting menu popup shows recipe requirements
 		* Made info popup animate
 		* Crating menu is populated entirely from data -
-		* Added animation to opening inventory
+		* Added animation to opening inventory -
+24/1
 
+		* Figure out why crafting menu wont close when pressing tab
 
 		* Incorporate tools and equipments into gameplay
 		* Make Tools spots equip

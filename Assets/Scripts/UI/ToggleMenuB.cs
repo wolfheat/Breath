@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ToggleMenu : MonoBehaviour
+public class ToggleMenuB : MonoBehaviour
 {
     [SerializeField] GameObject panel;
     [SerializeField] Animator animator;
@@ -40,7 +40,7 @@ public class ToggleMenu : MonoBehaviour
         if (doMakeVisible)
             panel.SetActive(true);
 
-        animator.Play(doMakeVisible ? "MakeVisible" : "MakeInVisible");
+        //animator.Play(doMakeVisible ? "MakeVisible" : "MakeInVisible");
 
     }
     public void AnimationComplete()
