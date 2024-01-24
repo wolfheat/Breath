@@ -76,7 +76,8 @@ Jan 2024
 		* Crafting menu updates on mouseover
 		* Crafting menu popup shows recipe requirements
 		* Made info popup animate
-		* Crating menu is populated entirely from data
+		* Crating menu is populated entirely from data -
+		* Added animation to opening inventory
 
 
 		* Incorporate tools and equipments into gameplay

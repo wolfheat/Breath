@@ -34,20 +34,20 @@ public class RecipeInfo : MonoBehaviour
         recipeResult.OccupyByData(activeRecipe.result);
 
     }
+    private void MakeVisible(bool doMakeVisible)
+    {
+        if (doMakeVisible)
+            panel.SetActive(true);
+
+        animator.Play(doMakeVisible ? "MakeVisible" : "MakeInVisible");
+
+    }
+
 
     public void AnimationComplete()
     {
         if (animator.GetCurrentAnimatorStateInfo(0).speed < 0)
             panel.SetActive(false);
-
-    }
-
-    private void MakeVisible(bool doMakeVisible)
-    {
-        if(doMakeVisible)
-            panel.SetActive(true);
-
-        animator.Play(doMakeVisible?"MakeVisible":"MakeInVisible");
 
     }
 
