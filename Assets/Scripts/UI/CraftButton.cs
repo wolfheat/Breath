@@ -25,6 +25,12 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
 
         bool afford = Inventory.Instance.CanAfford(recipeData);
+        if (afford)
+        {
+            Debug.Log("Player can afford Remove requirements and start producing item");
+            CraftingUI.Instance.CraftItem(recipeData.result);
+
+        }
         
     }
 

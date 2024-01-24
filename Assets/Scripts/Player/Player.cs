@@ -32,7 +32,11 @@ public class Player : MonoBehaviour
         // Interact with closest visible item 
         if(pickupController.ActiveInteractable != null)
         {
-            if (pickupController.ActiveInteractable is PickableItem)
+            if (pickupController.ActiveInteractable is Facility)
+            {
+                pickupController.ActiveInteractable.InteractWith();
+            }
+            else if (pickupController.ActiveInteractable is PickableItem)
             {
                 Debug.Log("Interactable is " + pickupController.ActiveInteractable.name);
                 PickableItem item = (PickableItem)pickupController.ActiveInteractable;
@@ -45,10 +49,6 @@ public class Player : MonoBehaviour
                     SoundMaster.Instance.PlaySFX(SoundMaster.SFX.PickUp);
 
                 StartCoroutine(ResetItemCollider());
-            }
-            else if (pickupController.ActiveInteractable is Facility)
-            {
-                pickupController.ActiveInteractable.InteractWith();
             }
             // No active item here
         }

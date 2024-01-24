@@ -17,7 +17,7 @@ public class UIController : MonoBehaviour
     [SerializeField] InventoryUI inventoryUI;
     [SerializeField] ToggleMenu inventoryToggle;
     [SerializeField] CraftingUI craftingUI;
-    [SerializeField] ToggleMenuB craftingToggle;
+    [SerializeField] ToggleMenu craftingToggle;
 
     [SerializeField] HUDIcons hudIcons;
     [SerializeField] Image image;
@@ -59,7 +59,7 @@ public class UIController : MonoBehaviour
         {
             Debug.Log("Trying to Toggle inventory but crafting is active");
             craftingUI.Reset();
-            craftingToggle.HideRecipe();
+            craftingToggle.HideMenu();
         }
         else
         {

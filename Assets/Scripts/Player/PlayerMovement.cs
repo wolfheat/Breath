@@ -106,11 +106,6 @@ public class PlayerMovement : MonoBehaviour
             
             rb.AddForce(boosterAcceleration.normalized * walkingAccelerationSpeed, ForceMode.VelocityChange);
 
-            if (planeParts.magnitude < WalkSpeedMinimum && boosterAcceleration.magnitude>0)
-            {
-                Debug.Log("X");
-            }
-
             planeParts = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             if (planeParts.magnitude > WalkSpeed)
             {

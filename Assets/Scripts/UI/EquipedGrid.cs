@@ -14,7 +14,7 @@ public class EquipedGrid : MonoBehaviour
         float equipheight = itemspots[(int)equipableData.equipType].GetComponent<RectTransform>().rect.size.y;
         // Determine items scale in equipped
         float ratio = data.picture.rect.size.x/data.picture.rect.size.y;
-        Debug.Log("Image ratio = "+ratio);
+        //Debug.Log("Image ratio = "+ratio);
         return new Vector2(equipheight*ratio,equipheight);
             
     }

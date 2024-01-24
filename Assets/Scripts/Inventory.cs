@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour
         foreach(var item in recipeData.ingredienses)
         {
             int owns = heldResources[(int)item.resource];
-            Debug.Log("Costs: "+item.itemName+" amt: ?"+" player owns amount: "+owns);
+            //Debug.Log("Costs: "+item.itemName+" amt: ?"+" player owns amount: "+owns);
 
         }
         return true;

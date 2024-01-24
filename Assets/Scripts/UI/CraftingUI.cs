@@ -11,7 +11,9 @@ public class CraftingUI : MonoBehaviour
 
     [SerializeField] CraftButton subButtonPrefab;
     [SerializeField] AllRecipesData allRecipesData;
+    [SerializeField] ToggleMenu toggle;
 
+    private Workbench activeWorkbench;
 
     public static CraftingUI Instance;
 
@@ -69,6 +71,19 @@ public class CraftingUI : MonoBehaviour
         EnableBaseCrafting(-1);
     }
 
+    public void CraftItem(ItemData itemData)
+    {
+        if (!activeWorkbench)
+        {
+            Debug.LogWarning("Cant create item, no active workbench");
+            return;
+        }
+        HideInfo();
+        toggle.HideMenu();
+        activeWorkbench.CraftItem(itemData);
+
+
+    }
     public void HideInfo()
     {
         recipeInfo.HideRecipe();
@@ -76,5 +91,9 @@ public class CraftingUI : MonoBehaviour
     public void ShowInfo(RecipeData recipeData)
     {
         recipeInfo.ShowRecipe(recipeData);
+    }
+    public void SetActiveWorkbench(Workbench workbench)
+    {
+         activeWorkbench = workbench;
     }
 }

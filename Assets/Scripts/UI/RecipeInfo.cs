@@ -18,7 +18,6 @@ public class RecipeInfo : MonoBehaviour
 
     public void HideRecipe()
     {
-        StopAllCoroutines();
         MakeVisible(false);
     }
     public void ShowRecipe(RecipeData data)

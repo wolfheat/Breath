@@ -78,9 +78,16 @@ Jan 2024
 		* Made info popup animate
 		* Crating menu is populated entirely from data -
 		* Added animation to opening inventory -
-24/1
+24/1	* Fixed crafting menu closing when tab is pressed
+		* E press when crafting menu now closes the menu
+		* Crafting can now be initiated
+		* Crafting takes time and has particle effects and produced item is placed on a plate
 
-		* Figure out why crafting menu wont close when pressing tab
+
+		* Crafted items are placed on a plate on workbench
+
+		* Workbench is not interactable when crafting is ongoing or an item is placed on the plate
+
 
 		* Incorporate tools and equipments into gameplay
 		* Make Tools spots equip
