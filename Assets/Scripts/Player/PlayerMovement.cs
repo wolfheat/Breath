@@ -124,8 +124,8 @@ public class PlayerMovement : MonoBehaviour
             DampenSpeedInDoors();
 
             // STEP SOUND
-            if (planeParts.magnitude > WalkSpeedMinimum)
-                SoundMaster.Instance.PlayStepSFX();
+            //if (planeParts.magnitude > WalkSpeedMinimum)
+                //SoundMaster.Instance.PlayStepSFX();
 
         }
         else

@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
     private const int OxygenUsage = 1;
     private const int OxygenRefillSpeed = 10;
     private const float delay = 0.1f;
-    WaitForSeconds secondDelay = new WaitForSeconds(delay);
+    WaitForSeconds coroutineDelay = new WaitForSeconds(delay);
     public bool IsDead { get; private set; }
 
     public Action<float,int> OxygenUpdated;
@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
     {
         while (true)
         {
-            yield return secondDelay;
+            yield return coroutineDelay;
             float startOxygen = oxygen;
 
             if (!playerRb.useGravity)
@@ -66,10 +66,15 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
-                // Stops drowning clip from playing
-                SoundMaster.Instance.StopSFX();
+                if (noOxygenSurvival < NoOxygenSurvivalMax)
+                {
+                    // Stops drowning clip from playing
+                    if (oxygen == 0)
+                        SoundMaster.Instance.StopSFX();
 
-                noOxygenSurvival = NoOxygenSurvivalMax;
+                    noOxygenSurvival = Math.Min(NoOxygenSurvivalMax, noOxygenSurvival + OxygenRefillSpeed * delay);
+                }
+
                 if (oxygen < MaxOxygen)
                     oxygen += OxygenRefillSpeed* delay;
             }

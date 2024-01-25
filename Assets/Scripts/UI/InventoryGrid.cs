@@ -67,7 +67,7 @@ public class InventoryGrid : MonoBehaviour
         if (!didPlace)
         {
             Debug.Log("Could not place item " + newItem.data.itemName + " in inventory");
-            HUDMessage.Instance.ShowMessage("Item does not fit");
+            HUDMessage.Instance.ShowMessage("Not enough inventory space");
             Destroy(newItem.gameObject);
             return false;
         }

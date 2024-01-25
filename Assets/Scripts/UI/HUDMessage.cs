@@ -24,5 +24,6 @@ public class HUDMessage : MonoBehaviour
     {
         text.text = message;
         animator.Play("ShowMessage");
+        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.HUDError);
     }
 }

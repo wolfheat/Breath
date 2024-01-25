@@ -82,16 +82,19 @@ Jan 2024
 		* E press when crafting menu now closes the menu
 		* Crafting can now be initiated
 		* Crafting takes time and has particle effects and produced item is placed on a plate
-		* Workbench is not interactable when crafting is ongoing or an item is placed on the plate
+		* Workbench is not interactable when crafting is ongoing or an item is placed on the plate -
 		* Items can be picked up if there is space in inventory
 		* Fixed issue where mouse is hidden when in crafting menu
-		* If player cant create item or pick one up due to inventory space - HUD message is shown
-
+		* If player cant create item or pick one up due to inventory space - HUD message is shown -
+		* Sound issue fixed, sound playing indoors
 		
-		* Have check for what player has resources to create and if there is space in inventory?
+		* Have check for what player has resources to create?
 
 		* Incorporate tools and equipments into gameplay
 		* Make Tools spots equip
+
+		* Have red toolTip show if missing correct tool to destruct item?
+
 		* Have a hand or nothing show when not using tool?
 
 		* Implement helmet, suit and booster with its functions
@@ -110,7 +113,7 @@ Jan 2024
 
 		* Implements workbench, recipies and construction of tools
 
-		* Have base show up on hud if furter away than a specific amount
+		* Have base show up on hud if further away than a specific amount
 		
 		// INDOOR MOVEMENT
 		* Player moving indoor strive to the sides, prob because of friction on colliders FIX

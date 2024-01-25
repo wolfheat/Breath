@@ -48,7 +48,13 @@ public class Workbench : Facility
     private const float CraftingTime = 2f;
     private IEnumerator CraftingDelay(ItemData itemData)
     {
+
+        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.Crafting);
+        yield return new WaitForSeconds(0.2f);
+        //SoundMaster.Instance.PlaySFX(SoundMaster.SFX.CraftingB);
         yield return new WaitForSeconds(CraftingTime);
+
+        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.CraftComplete);
 
         Debug.Log("Crafting Complete");
         CraftCompleted();
