@@ -94,15 +94,30 @@ Jan 2024
 		* Fixed issue with NaN some UI items dislocated
 		* Inventory now has descriptive names for items
 		* Added info what tools needed if trying to destruct something without it
-		* Started Expansion by placing a Second Station
+		* Started Expansion by placing a Second Station - 
+		* Updated Inventory background
+		* Sledgehammer, Drill UI graphics added
 
+		* Fix 2D graphics for
+			- Gun
+			- Sword?
+			- Helmet
+			- Thruster
+			- Tank
+			- Boots
 
+		* Make Boss - maybe start with blob and change if time
+		* Make win screen if killing boss
+
+		* Make player able to drop items, place boxes?
 		* Incorporate tools and equipments into gameplay
 		* Need to make tubes update players max oxygen
 		* Need to make helmet, suit and boots update players max oxygen
 		
 		TODO
 		* Remove inventory stuff when used for crafting
+		* Clean project to limit game size
+
 
 		* Create Start Menu
 		* Settings? Maybe just M for mute music?
