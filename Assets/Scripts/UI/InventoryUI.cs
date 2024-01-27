@@ -4,6 +4,7 @@ public class InventoryUI : MonoBehaviour
 {
     [SerializeField] Inventory inventory;
     [SerializeField] TextMeshProUGUI[] texts;
+    [SerializeField] TextMeshProUGUI[] itemNames;
     [SerializeField] InventoryItem inventoryItemPrefab;
     [SerializeField] GameObject inventoryItemHolder;
     [SerializeField] ResourceData[] itemDatas;
@@ -19,7 +20,7 @@ public class InventoryUI : MonoBehaviour
         for (int i=0; i< itemDatas.Length; i++)
         {
             InventoryItem item = Instantiate(inventoryItemPrefab, inventoryItemHolder.transform);
-            item.image.sprite = itemDatas[i].picture;
+            item.SetItem(itemDatas[i].picture, "0", itemDatas[i].itemName);
             texts[i] = item.textField;
         }
         UpdateInventory();

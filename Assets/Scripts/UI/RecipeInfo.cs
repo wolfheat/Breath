@@ -1,8 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
+
 public class RecipeInfo : MonoBehaviour
 {
     [SerializeField] RecipeItem recipeItemPrefab;
@@ -11,61 +12,84 @@ public class RecipeInfo : MonoBehaviour
     [SerializeField] GameObject panel;
     [SerializeField] RecipeItem recipeResult;
     [SerializeField] Animator animator;
+    [SerializeField] Inventory inventory;
 
     private List<RecipeItem> recipeItems = new();
 
+    public Action CloseComplete;
+    public bool IsActive { get { return panel.activeSelf; } }
+
+    public bool panelOpen = false;
     RecipeData activeRecipe;
 
-    public void HideRecipe()
+    public void CloseMenu()
     {
+        Debug.Log("Closing INFO menu");
         MakeVisible(false);
     }
     public void ShowRecipe(RecipeData data)
     {
+        Debug.Log("Showing INFO");
+        
         MakeVisible(true);
 
         activeRecipe = data;
         // Display this recipe
         recipeName.text = data.recipeName;
-        ClearItems();
-        PlaceIngrediences();
+        bool canCreateResult = PlaceIngrediences();
 
-        recipeResult.OccupyByData(activeRecipe.result);
+        recipeResult.OccupyByData(activeRecipe.result,canCreateResult);
 
     }
     private void MakeVisible(bool doMakeVisible)
     {
-        if (doMakeVisible)
-            panel.SetActive(true);
-
-        animator.Play(doMakeVisible ? "MakeVisible" : "MakeInVisible");
-
+        
+        panelOpen = doMakeVisible;
+        animator.CrossFade(doMakeVisible ? "MakeVisible" : "MakeInVisible",0.1f);
     }
 
 
-    public void AnimationComplete()
+    private bool PlaceIngrediences()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).speed < 0)
-            panel.SetActive(false);
-
-    }
-
-    private void PlaceIngrediences()
-    {
-        foreach (var ingredience in activeRecipe.ingredienses) 
+        bool canCreate = true;
+        ClearItems();
+        for (int i=0; i<activeRecipe.ingredienses.Length; i++) 
         {
-            RecipeItem item = Instantiate(recipeItemPrefab,ingredienceHolder.transform);
-            item.OccupyByData(ingredience);
-            recipeItems.Add(item);
+            RecipeAmount ingredienceData = activeRecipe.ingredienses[i];
+            RecipeItem item = GetNextRecipeItem(i);
+            item.gameObject.SetActive(true);
+            int playerHas = inventory.GetResources()[(int)ingredienceData.resourceData.resource];
+            item.OccupyByData(ingredienceData.resourceData, ingredienceData.amount, playerHas);
+            if(ingredienceData.amount>playerHas)
+                canCreate = false;
         }
+        return canCreate;
+    }
+
+    private RecipeItem GetNextRecipeItem(int i)
+    {
+        if (i + 1 > recipeItems.Count)
+        {
+            RecipeItem item;
+            item = Instantiate(recipeItemPrefab, ingredienceHolder.transform);
+            recipeItems.Add(item);
+            return item;
+        }
+        return recipeItems[i];
     }
 
     private void ClearItems()
     {
         foreach (var item in recipeItems)
         {
-            Destroy(item.gameObject);
+            item.gameObject.SetActive(false);
         }
-        recipeItems.Clear();
+    }
+    
+    // ANIMATIONS
+    public void AnimationComplete()
+    {
+        Debug.Log("Hiding INFO Completed");
+        CloseComplete.Invoke();
     }
 }

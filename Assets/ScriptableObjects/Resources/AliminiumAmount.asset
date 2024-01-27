@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e2fc273767a1384c974341113887358, type: 3}
-  m_Name: Food
+  m_Script: {fileID: 11500000, guid: 2087f4976dd11c246a40269fc0a8221c, type: 3}
+  m_Name: AliminiumAmount
   m_EditorClassIdentifier: 
-  itemName: Food
+  itemName: 
   size: {x: 1, y: 1}
-  picture: {fileID: 21300000, guid: d7169b3f73271be4ba2d933b3dbd6d87, type: 3}
-  resource: 6
-  amount: 1
+  picture: {fileID: 0}
+  resource: 0
+  amount: 2

@@ -16,3 +16,4 @@ MonoBehaviour:
   size: {x: 1, y: 1}
   picture: {fileID: 21300000, guid: 01c9c9eb88f69b141b6ea21d718e4789, type: 3}
   resource: 4
+  amount: 1

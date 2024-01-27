@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Small Suit
   ingredienses:
-  - {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
-  - {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
-  - {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
-  - {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
+  - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
+    amount: 3
+  - resourceData: {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
+    amount: 3
+  - resourceData: {fileID: 11400000, guid: 5106ce07b2876bf4b8fa3999c56fd3e5, type: 2}
+    amount: 3
   result: {fileID: 11400000, guid: b51d102373ca47f4daa59fa955fb7eb0, type: 2}

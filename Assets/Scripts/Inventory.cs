@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
 {    
     private int[] heldResources = new int[7];
     [SerializeField] InventoryGrid grid;
+    [SerializeField] EquipedGrid equiped;
 
     public static Inventory Instance;
 
@@ -22,6 +23,14 @@ public class Inventory : MonoBehaviour
         }
         Instance = this;
 
+        heldResources[5]= 4;
+
+    }
+
+    public bool PlayerHasEquipped(DestructType destructType)
+    {
+        int destructTypeAsToolIndex = (int)destructType + 5;
+        return equiped.HasItemOfTypeEquipped(destructTypeAsToolIndex);
     }
 
     public int[] GetResources()
@@ -71,11 +80,16 @@ public class Inventory : MonoBehaviour
 
     public bool CanAfford(RecipeData recipeData)
     {
-        Debug.Log("Checking if player can affor recipe "+recipeData.recipeName);
-        foreach(var item in recipeData.ingredienses)
+        Debug.Log("Checking if player can afford recipe "+recipeData.recipeName);
+        foreach(var resourceAmt in recipeData.ingredienses)
         {
-            int owns = heldResources[(int)item.resource];
-            //Debug.Log("Costs: "+item.itemName+" amt: ?"+" player owns amount: "+owns);
+
+            int owns = heldResources[(int)resourceAmt.resourceData.resource];
+            Debug.Log(resourceAmt.resourceData.itemName +" costs: "+ resourceAmt.amount+ " player owns amount: "+owns);
+            if (resourceAmt.amount > owns)
+            {
+                return false;
+            }
 
         }
         return true;

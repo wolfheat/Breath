@@ -106,9 +106,9 @@ public class InventoryGrid : MonoBehaviour
             for (int l = 0; l < item.data.size.y; l++)
             {
                 grid[row + k, col + l] = item;
-                //Debug.Log("Placing item at (" + (row + k) + "," + (col + l) + ")");
             }
         }
+        Debug.Log("Placing item "+item+" at grid "+ gridTiles[row, col]);
         item.SetHomePositionAndSpot(gridTiles[row, col].localPosition,new Vector2Int(row,col));
         equipped.RemoveIfEquipped(item);
     }

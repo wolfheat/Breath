@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         
         if(throwCoroutine != null)
         {
-            if (move.magnitude != 0) Debug.Log("Can not move while being thrown");
+            //if (move.magnitude != 0) Debug.Log("Can not move while being thrown");
             return;
         }
 

@@ -87,23 +87,37 @@ Jan 2024
 		* Fixed issue where mouse is hidden when in crafting menu
 		* If player cant create item or pick one up due to inventory space - HUD message is shown -
 		* Sound issue fixed, sound playing indoors
-		
-		* Have check for what player has resources to create?
+26/1	* Rewrote Crafting menu system (Still need rework, but might have to go with this for the jam)
+		* Fixed raycast issue with text		
+		* Recipies now take in an amount?
+		* Player need to own requirement items to be able to craft?
+		* Fixed issue with NaN some UI items dislocated
+		* Inventory now has descriptive names for items
+		* Added info what tools needed if trying to destruct something without it
+		* Started Expansion by placing a Second Station
+
 
 		* Incorporate tools and equipments into gameplay
-		* Make Tools spots equip
+		* Need to make tubes update players max oxygen
+		* Need to make helmet, suit and boots update players max oxygen
+		
+		TODO
+		* Remove inventory stuff when used for crafting
 
-		* Have red toolTip show if missing correct tool to destruct item?
-
-		* Have a hand or nothing show when not using tool?
+		* Create Start Menu
+		* Settings? Maybe just M for mute music?
+		* Credits?
 
 		* Implement helmet, suit and booster with its functions
-		* Make tool icons show on hud for which tools player got
-		
-		* have some crates require better sledgehammer, chrystals that need better drill etc
+
+		* Add smoke effect when crafting object appears - OPTIONAL
+		* Make tool icons show on hud for which tools player got - OPTIONAL
+		* Have red toolTip show if missing correct tool to destruct item? - OPTIONAL
+		* Have a hand or nothing show when not using tool? - OPTIONAL
+		* have some crates require better sledgehammer, chrystals that need better drill etc - OPTIONAL
 
 		* Enable jumping indoors? nah?
-
+		
 		If participating in jam deadline 29jan (IGU Winter Jam 2024)
 
 		TASK

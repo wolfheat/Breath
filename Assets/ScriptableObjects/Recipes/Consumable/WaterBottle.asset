@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Water Bottle
   ingredienses:
-  - {fileID: 11400000, guid: db73a40b6b9878945ba06e51bb38a5fd, type: 2}
-  - {fileID: 11400000, guid: db73a40b6b9878945ba06e51bb38a5fd, type: 2}
+  - resourceData: {fileID: 11400000, guid: db73a40b6b9878945ba06e51bb38a5fd, type: 2}
+    amount: 2
   result: {fileID: 11400000, guid: 9496f11aa5ccfb046b8529539c1e8187, type: 2}

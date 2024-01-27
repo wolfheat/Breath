@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Small Boots
   ingredienses:
-  - {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
-  - {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
-  - {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
-  - {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
+  - resourceData: {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
+    amount: 1
   result: {fileID: 11400000, guid: cf3b600e183b6d54ebf8eda914d8bdcb, type: 2}

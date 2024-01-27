@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public enum EquipType{Head,Body,Feet,Tank,Booster,Hammer,Drill,Gun,Sword};
 public class EquipedGrid : MonoBehaviour
@@ -81,6 +82,10 @@ public class EquipedGrid : MonoBehaviour
         }
     }
 
+    public bool HasItemOfTypeEquipped(int type)
+    {
+        return items[type] != null;
+    }
     public bool IsEquipped(UIItem item)
     {
         // Check if an equippable item

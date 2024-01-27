@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class CraftingUI : MonoBehaviour
@@ -14,6 +15,8 @@ public class CraftingUI : MonoBehaviour
 
     private Workbench activeWorkbench;
 
+    private bool WaitingForRecipeToHide = false;
+
     public static CraftingUI Instance;
 
     private void Awake()
@@ -24,6 +27,9 @@ public class CraftingUI : MonoBehaviour
             return;
         }
         Instance = this;
+
+        // Subscribe to Info Closing Event
+        recipeInfo.CloseComplete += RecipeHasBeenClosed;
     }
 
     private void Start()
@@ -56,7 +62,6 @@ public class CraftingUI : MonoBehaviour
         EnableBaseCrafting(-1);
     }
 
-
     public void EnableBaseCrafting(int id)
     {
         for (int i = 0;i < baseCraftingButtons.Count;i++)
@@ -67,6 +72,7 @@ public class CraftingUI : MonoBehaviour
 
     public void Reset()
     {
+        WaitingForRecipeToHide = false;
         EnableBaseCrafting(-1);
     }
 
@@ -75,18 +81,42 @@ public class CraftingUI : MonoBehaviour
         if (!activeWorkbench)
         {
             Debug.LogWarning("Cant create item, no active workbench");
-            HUDMessage.Instance.ShowMessage("no active workbench");
+            HUDMessage.Instance.ShowMessage("No active workbench");
             return;
         }
-        HideInfo();
-        toggle.HideMenu();
+        CloseCraftingMenu();
+
         activeWorkbench.CraftItem(itemData);
-
-
     }
-    public void HideInfo()
+
+    public void ToggleCraftingMenu()
     {
-        recipeInfo.HideRecipe();
+        if (toggle.IsActive)
+            CloseCraftingMenu();
+        else
+            toggle.Toggle();
+    }
+    public void CloseCraftingMenu()
+    {
+        if (recipeInfo.IsActive)
+        {
+            Debug.Log("Recipe Info is active");
+            WaitingForRecipeToHide = true;
+            recipeInfo.CloseMenu();    
+        }else
+            toggle.HideMenu();
+    }
+
+    public void HideInfoOnly()
+    {
+        Debug.Log("Hiding Recipe Info, panel active:"+recipeInfo.panelOpen);
+        if (recipeInfo.panelOpen)
+        {
+
+            WaitingForRecipeToHide=false;
+            recipeInfo.CloseMenu();
+        }
+        else Debug.Log("Disregard mouse exit cause already closing menu");
     }
     public void ShowInfo(RecipeData recipeData)
     {
@@ -96,4 +126,16 @@ public class CraftingUI : MonoBehaviour
     {
          activeWorkbench = workbench;
     }
+
+    // ACTIONS
+    public void RecipeHasBeenClosed()
+    {
+        Debug.Log("Recipe has been closed");
+
+        EnableBaseCrafting(-1);
+
+        if (WaitingForRecipeToHide)
+            toggle.HideMenu();
+    }
+
 }

@@ -20,6 +20,8 @@ public class Workbench : Facility
     }
     public override void InteractWith()
     {
+        Debug.Log("Interact with workbench!");
+
         if (isCrafting)
         {
             Debug.Log("Can not interact with workbench, crafting item!");
@@ -31,9 +33,10 @@ public class Workbench : Facility
             HUDMessage.Instance.ShowMessage("Remove item before crafting");
             return;
         }
-        // if(!craftingMenu.IsActive) // Used to make E only open the menu not close it, changed it so it can be both opened and closed with E
+
         craftingUI.SetActiveWorkbench(this);
-        craftingMenu.Toggle();
+        craftingUI.ToggleCraftingMenu();
+
     }
 
     public void CraftItem(ItemData itemData)

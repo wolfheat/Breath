@@ -79,6 +79,13 @@ public class Player : MonoBehaviour
 
                 DestructableItem destructable = pickupController.ActiveInteractable as DestructableItem;
 
+                // Check what type the object is and if player has the tool
+                if (inventory.PlayerHasEquipped(destructable.Data.destructType))
+                {
+                    Debug.Log("Player can break this object");
+                }else
+                    HUDMessage.Instance.ShowMessage("Equip a "+ Enum.GetName(typeof(EquipType), (int)destructable.Data.destructType+5));
+
                 if (destructable.Data.destructType == DestructType.Breakable)
                 {
                     SoundMaster.Instance.PlaySFX(SoundMaster.SFX.HitMetal);

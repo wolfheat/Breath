@@ -54,12 +54,13 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             //Open submenu
             CraftingUI.Instance.EnableBaseCrafting(ButtonID);
         }
-
-
     }
 
     public void OnPointerExit(PointerEventData eventData)
-    {
-        CraftingUI.Instance.HideInfo();
+    {        
+        if (!subMenu)
+        {
+            CraftingUI.Instance.HideInfoOnly();
+        }
     }
 }

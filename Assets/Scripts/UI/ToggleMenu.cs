@@ -15,7 +15,7 @@ public class ToggleMenu : MonoBehaviour
 
     public void Toggle()
     {
-        //Debug.Log("Toggle Request, panel is active: "+ panel.activeSelf+" ID:"+gameObject.GetInstanceID());
+        Debug.Log("Toggle Request, panel is active: "+ panel.activeSelf+" ID:"+gameObject.GetInstanceID());
 
         if (panel.activeSelf)
             DragObject.Instance.UnSetDragedItem();
