@@ -67,9 +67,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 9012371f699ad50498ef96ebcc5bc90d, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -93,4 +93,3 @@ MonoBehaviour:
   image: {fileID: 1289410907415080893}
   rect: {fileID: 6770186706710974917}
   homePosition: {x: 0, y: 0}
-  spot: {x: 0, y: 0}

@@ -13,16 +13,21 @@ MonoBehaviour:
   m_Name: AllRecipes
   m_EditorClassIdentifier: 
   toolRecipes:
-  - {fileID: 11400000, guid: c8fdb6c9dd0cf3d45ac9588113ef23ee, type: 2}
+  - {fileID: 11400000, guid: 2005a67a24c988942b07e9ba9b2b66f0, type: 2}
+  - {fileID: 11400000, guid: c3a92a35e265040418e54ee9f6a091f0, type: 2}
+  - {fileID: 11400000, guid: 72e8a02336622604b981554b430c2aec, type: 2}
   - {fileID: 11400000, guid: 402fe2ea2123a8c43a2798cc8c4acaef, type: 2}
   foodRecipes:
+  - {fileID: 11400000, guid: 05b0f4207fa422a45b4e1abd71bf5388, type: 2}
   - {fileID: 11400000, guid: 2fdb84e3f5b82a54ab7cefe34ca8fd82, type: 2}
   - {fileID: 11400000, guid: ae0c24de4eb5aa44d89aa2db532ea562, type: 2}
   - {fileID: 11400000, guid: 5c70f19bd1bebfd4ea9c71c00fa58d9d, type: 2}
-  - {fileID: 11400000, guid: 05b0f4207fa422a45b4e1abd71bf5388, type: 2}
+  - {fileID: 11400000, guid: 7d42e3bdf8fd4354599e7270bf5cd20c, type: 2}
   armorRecipes:
-  - {fileID: 11400000, guid: fa6f0f21fbecc154ab4182dfa5470f9a, type: 2}
   - {fileID: 11400000, guid: abcae98276ccce74f8cc98cf9e13c657, type: 2}
-  - {fileID: 11400000, guid: f158dbe7149d6b644b4430435daab8d8, type: 2}
+  - {fileID: 11400000, guid: 7c00747c1bedca04e9b7aa69856b0e90, type: 2}
   - {fileID: 11400000, guid: 15aa6d60fc030f44abfe5f99a6adb539, type: 2}
+  - {fileID: 11400000, guid: e205a1c5c035dfb4b877f52932e58922, type: 2}
+  - {fileID: 11400000, guid: a5c696606d26261449c03c12b517c7b7, type: 2}
+  - {fileID: 11400000, guid: 59a489e6546031c44b7ea74237911260, type: 2}
   resourceRecipes: []

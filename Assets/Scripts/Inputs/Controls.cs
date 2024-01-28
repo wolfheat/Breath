@@ -134,6 +134,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LCtrl"",
+                    ""type"": ""Button"",
+                    ""id"": ""6a5daa60-6c9a-4b89-9ac3-adfe150dab45"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -389,6 +398,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""LeftAlt"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7cdb06a-f259-44aa-b111-86db2f625062"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LCtrl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -409,6 +429,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Tab = m_Player.FindAction("Tab", throwIfNotFound: true);
         m_Player_UpDown = m_Player.FindAction("UpDown", throwIfNotFound: true);
         m_Player_LeftAlt = m_Player.FindAction("LeftAlt", throwIfNotFound: true);
+        m_Player_LCtrl = m_Player.FindAction("LCtrl", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -482,6 +503,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Tab;
     private readonly InputAction m_Player_UpDown;
     private readonly InputAction m_Player_LeftAlt;
+    private readonly InputAction m_Player_LCtrl;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -498,6 +520,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Tab => m_Wrapper.m_Player_Tab;
         public InputAction @UpDown => m_Wrapper.m_Player_UpDown;
         public InputAction @LeftAlt => m_Wrapper.m_Player_LeftAlt;
+        public InputAction @LCtrl => m_Wrapper.m_Player_LCtrl;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -543,6 +566,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @LeftAlt.started += instance.OnLeftAlt;
             @LeftAlt.performed += instance.OnLeftAlt;
             @LeftAlt.canceled += instance.OnLeftAlt;
+            @LCtrl.started += instance.OnLCtrl;
+            @LCtrl.performed += instance.OnLCtrl;
+            @LCtrl.canceled += instance.OnLCtrl;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -583,6 +609,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @LeftAlt.started -= instance.OnLeftAlt;
             @LeftAlt.performed -= instance.OnLeftAlt;
             @LeftAlt.canceled -= instance.OnLeftAlt;
+            @LCtrl.started -= instance.OnLCtrl;
+            @LCtrl.performed -= instance.OnLCtrl;
+            @LCtrl.canceled -= instance.OnLCtrl;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -614,5 +643,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnTab(InputAction.CallbackContext context);
         void OnUpDown(InputAction.CallbackContext context);
         void OnLeftAlt(InputAction.CallbackContext context);
+        void OnLCtrl(InputAction.CallbackContext context);
     }
 }

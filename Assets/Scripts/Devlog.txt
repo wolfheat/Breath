@@ -97,39 +97,35 @@ Jan 2024
 		* Started Expansion by placing a Second Station - 
 		* Updated Inventory background
 		* Sledgehammer, Drill UI graphics added
+27/1	* Added graphics for Gun,Helmet,Suit,Thruster,Tanks,Boots
+		* Added graphics for FirstAidKit, Bread, Waterbottle, Cake, Potion
+		* Added info text in inventory for players max, HP, Speed, and O2
+		* Implemented Gears to have effect on health and Oxygen
+		* UI bars are now updated automatically when changing gear
+		* Player can only swap equipments in gravity
+		* Dropped boxes Shift + Click now use gravity and move around
+		* Issue where player can start crafting multiple items fixed
+		* Player can now use consumables to gain health
+		* Warning is shown if trying to consuma at full health
+		* Items are now removed when used for crafting
 
-		* Fix 2D graphics for
-			- Gun
-			- Sword?
-			- Helmet
-			- Thruster
-			- Tank
-			- Boots
 
 		* Make Boss - maybe start with blob and change if time
 		* Make win screen if killing boss
 
-		* Make player able to drop items, place boxes?
-		* Incorporate tools and equipments into gameplay
-		* Need to make tubes update players max oxygen
-		* Need to make helmet, suit and boots update players max oxygen
-		
 		TODO
-		* Remove inventory stuff when used for crafting
 		* Clean project to limit game size
-
 
 		* Create Start Menu
 		* Settings? Maybe just M for mute music?
 		* Credits?
-
-		* Implement helmet, suit and booster with its functions
 
 		* Add smoke effect when crafting object appears - OPTIONAL
 		* Make tool icons show on hud for which tools player got - OPTIONAL
 		* Have red toolTip show if missing correct tool to destruct item? - OPTIONAL
 		* Have a hand or nothing show when not using tool? - OPTIONAL
 		* have some crates require better sledgehammer, chrystals that need better drill etc - OPTIONAL
+		* Have dropped items slow down movement when disturbed - OPTIONAL
 
 		* Enable jumping indoors? nah?
 		

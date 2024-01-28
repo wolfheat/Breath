@@ -8,6 +8,7 @@ public class RecipeInfo : MonoBehaviour
 {
     [SerializeField] RecipeItem recipeItemPrefab;
     [SerializeField] TextMeshProUGUI recipeName;
+    [SerializeField] TextMeshProUGUI recipeInfo;
     [SerializeField] GameObject ingredienceHolder;
     [SerializeField] GameObject panel;
     [SerializeField] RecipeItem recipeResult;
@@ -36,6 +37,7 @@ public class RecipeInfo : MonoBehaviour
         activeRecipe = data;
         // Display this recipe
         recipeName.text = data.recipeName;
+        recipeInfo.text = data.recipeInfo;
         bool canCreateResult = PlaceIngrediences();
 
         recipeResult.OccupyByData(activeRecipe.result,canCreateResult);

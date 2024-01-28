@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] UIController uiController;
     [SerializeField] PlayerMovement playerMovement;
-    [SerializeField] PlayerHealth playerHealth;
+    [SerializeField] PlayerStats playerHealth;
     [SerializeField] Inventory inventory;
     [SerializeField] PlayerPickupAreaController pickupController;
     [SerializeField] Collider itemCollider;

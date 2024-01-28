@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e8cf3f67d1d0ce46a27e5ad4f85821e, type: 3}
-  m_Name: SmallBoots
+  m_Name: SledgeHammer
   m_EditorClassIdentifier: 
-  recipeName: Small Boots
+  recipeName: Sledgehammer
   ingredienses:
-  - resourceData: {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
+  - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
+    amount: 8
+  - resourceData: {fileID: 11400000, guid: 4d3df6625a15c3d4192a699548321332, type: 2}
     amount: 1
-  result: {fileID: 11400000, guid: cf3b600e183b6d54ebf8eda914d8bdcb, type: 2}
+  result: {fileID: 11400000, guid: 74180c4c7c16a8241a215280d559a047, type: 2}
+  recipeInfo: Sledgehammer - Used to destroy storage containers.

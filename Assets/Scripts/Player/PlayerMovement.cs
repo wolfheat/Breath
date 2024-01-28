@@ -3,14 +3,18 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Progress;
 using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
-    [SerializeField] PlayerHealth playerHealth;
+    [SerializeField] PlayerStats playerStats;
     [SerializeField] UIController uiController;
     [SerializeField] Transform tilt;
+    [SerializeField] private PickableItem genericPrefab;
+
+    public bool InGravity { get { return rb.useGravity; } }
     // Player moves acording to velocity and acceleration
     private Vector2 mouseStoredPosition;
 // Max speed
@@ -74,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if (playerHealth.IsDead || UIController.CraftingActive)
+        if (playerStats.IsDead || UIController.CraftingActive)
         {
             Stop();
             return;
@@ -136,11 +140,11 @@ public class PlayerMovement : MonoBehaviour
             // Movement in NON-Gravity
             rb.AddForce(boosterAcceleration.normalized * boosterAccelerationSpeed * Time.deltaTime, ForceMode.VelocityChange);
             // Limit velocity
-            if (rb.velocity.magnitude > maxSpeed)
-                rb.velocity = rb.velocity.normalized * maxSpeed;
+            if (rb.velocity.magnitude > playerStats.MaxSpeed)
+                rb.velocity = rb.velocity.normalized * playerStats.MaxSpeed;
 
             // CRUISE SPEED LIMITATION       
-            if (velocity.magnitude > cruiseSpeed)
+            if (rb.velocity.magnitude > playerStats.MaxSpeed/2f)
                 LimitSpeedToCruiseSpeed(); 
 
             // PLAYER STOP IN PLACE
@@ -171,13 +175,16 @@ public class PlayerMovement : MonoBehaviour
         // Make different dampening in space and inside a spacestation
         if (boosterAcceleration.magnitude == 0)
         {
+            Debug.Log("Limit velocity!");
             rb.velocity *= Mathf.Pow(dampening, Time.deltaTime);
             return;
         }
 
         // Limit sideway velocity when using booster - Experimental
+        /*
         Vector3 perpendicularSpeed = Vector3.Dot(rb.velocity.normalized, boosterAcceleration.normalized) * boosterAcceleration.normalized;
         rb.velocity -= perpendicularSpeed * driftDampening * Time.deltaTime;        
+        */
     }
 
     private void StopRotations()
@@ -230,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
         if (UIController.InventoryActive || UIController.CraftingActive)
             return;
 
-        if (playerHealth.IsDead)
+        if (playerStats.IsDead)
             return;
 
         // Right button is held
@@ -329,10 +336,17 @@ public class PlayerMovement : MonoBehaviour
         uiController.HideTempHair();
     }
 
-    internal void SetToSafePoint()
+    public void SetToSafePoint()
     {
         Debug.Log("Setting player to safepoint: " + lastSafePoint);
 
         rb.transform.position = lastSafePoint;
+    }
+
+    public void CreateItemBox(ItemData data)
+    {
+        Debug.Log("Creating box in front of player");
+        PickableItem box = Instantiate(genericPrefab, transform.position + transform.forward*2, Quaternion.identity);
+        box.Data = data;
     }
 }

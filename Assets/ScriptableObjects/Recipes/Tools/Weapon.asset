@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8cf3f67d1d0ce46a27e5ad4f85821e, type: 3}
   m_Name: Weapon
   m_EditorClassIdentifier: 
-  recipeName: Weapon
+  recipeName: Sword
   ingredienses:
   - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
     amount: 8
   - resourceData: {fileID: 11400000, guid: 4d3df6625a15c3d4192a699548321332, type: 2}
     amount: 1
   result: {fileID: 11400000, guid: e3fcf0d91aa81d441a521c9fcc1ba645, type: 2}
+  recipeInfo: Sword - Used for looking bad ass strolling about the universe.

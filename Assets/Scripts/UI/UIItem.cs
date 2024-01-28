@@ -91,13 +91,37 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if(eventData.button == PointerEventData.InputButton.Left && Inputs.Instance.Controls.Player.Shift.IsPressed())
+        {
+            Debug.Log("Request Drop this item");
+            inventoryGrid.DropItem(this);
+            return;
+        }
         if(eventData.button == PointerEventData.InputButton.Right)
         {
             // Limit player from clicking on the switched item in same click unsetting a swap
+            /*
             if (inventoryGrid.ClickTimerLimited)
                 return;
             StartCoroutine(inventoryGrid.ClickTimerLimiter());
-            inventoryGrid.RequestEquip(this);
+            */
+
+            if(data.itemType == ItemType.Equipable)
+                inventoryGrid.RequestEquip(this);
+            else if(data.itemType == ItemType.Consumable)
+            {
+                if (PlayerStats.Instance.AtMaxHealth)
+                {
+                    HUDMessage.Instance.ShowMessage("Already at max health!");
+                    return;
+                }
+                ConsumableData consumeData = (ConsumableData)data;
+                Debug.Log("Consumed "+data.itemType);
+                PlayerStats.Instance.Consume(consumeData);
+                // Try consume
+                inventoryGrid.RemoveFromInventory(this);
+            }
+
         }
         else if (eventData.button == PointerEventData.InputButton.Middle)
             Debug.Log("Middle clicking "+data.itemName);

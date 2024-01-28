@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LCtrl",
+                    "type": "Button",
+                    "id": "6a5daa60-6c9a-4b89-9ac3-adfe150dab45",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -365,6 +374,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "LeftAlt",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e7cdb06a-f259-44aa-b111-86db2f625062",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LCtrl",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

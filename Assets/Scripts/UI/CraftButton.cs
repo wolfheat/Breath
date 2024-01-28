@@ -29,6 +29,7 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             Debug.Log("Player can afford Remove requirements and start producing item");
             CraftingUI.Instance.CraftItem(recipeData.result);
+            Inventory.Instance.RemoveItems(recipeData.ingredienses);
 
         }
         else

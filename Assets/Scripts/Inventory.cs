@@ -6,6 +6,7 @@ using UnityEngine;
 
 //public enum Resource { Al, Cu, Ti, Plastic, Textile, Water, Food };
 
+
 public class Inventory : MonoBehaviour
 {    
     private int[] heldResources = new int[7];
@@ -13,6 +14,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] EquipedGrid equiped;
 
     public static Inventory Instance;
+
+
 
     private void Start()
     {
@@ -24,6 +27,15 @@ public class Inventory : MonoBehaviour
         Instance = this;
 
         heldResources[5]= 4;
+
+        equiped.EquipmentChanged += UpdateEquipment;
+
+    }
+
+    private void UpdateEquipment()
+    {
+        Debug.Log("Update equipment");
+
 
     }
 
@@ -93,5 +105,13 @@ public class Inventory : MonoBehaviour
 
         }
         return true;
+    }
+
+    internal void RemoveItems(RecipeAmount[] ingredienses)
+    {
+        foreach(var recipeAmount in ingredienses)
+        {
+            RemoveItem(recipeAmount.resourceData.resource,recipeAmount.amount);
+        }
     }
 }

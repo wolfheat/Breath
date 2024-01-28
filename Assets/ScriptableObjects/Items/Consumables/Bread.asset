@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Bread
   size: {x: 1, y: 1}
-  picture: {fileID: 2011394619, guid: 80f111c6cd7a9bc44a3274eef9c2d999, type: 3}
-  healthRegain: 100
+  picture: {fileID: 21300000, guid: 054632761ee489441b37db59b45fe921, type: 3}
+  healthRegain: 30

@@ -1,13 +1,15 @@
 ﻿using System;
 using UnityEngine;
-using static UnityEditor.Progress;
 
-public enum EquipType{Head,Body,Feet,Tank,Booster,Hammer,Drill,Gun,Sword};
+public enum EquipType{Head,Body,Feet,Tank,JetPack,Hammer,Drill,Gun,Sword};
 public class EquipedGrid : MonoBehaviour
 {
     [SerializeField] InventoryGrid grid;
     [SerializeField] GameObject[] itemspots;
+    [SerializeField] PlayerMovement playerMovement;
     private UIItem[] items = new UIItem[9];
+
+    public Action EquipmentChanged;
 
     public Vector2 GetItemRectSize(ItemData data)
     {
@@ -22,6 +24,14 @@ public class EquipedGrid : MonoBehaviour
 
     public bool TryPlaceItem(UIItem item)
     {
+        // Limit player from equipping if not in gravity
+        if (!playerMovement.InGravity)
+        {
+            HUDMessage.Instance.ShowMessage("Can only swap equipments in gravity!");
+            item.ResetPosition();
+            return false;
+        }
+
         //Check what type the item is
         //check if item is already placed (if so replace if item fits inventory?)
         if(item.data.itemType == ItemType.Equipable)
@@ -64,6 +74,8 @@ public class EquipedGrid : MonoBehaviour
 
     public void RemoveIfEquipped(UIItem item)
     {
+        
+
         //Debug.Log("Removing equipped item data if equipped" + item.data.itemName);
 
         // Check if even equippable item
@@ -80,6 +92,7 @@ public class EquipedGrid : MonoBehaviour
             // Debug.Log("Removing equipped item data!");
             items[type] = null;
         }
+        EquipmentChanged.Invoke();
     }
 
     public bool HasItemOfTypeEquipped(int type)
@@ -127,8 +140,40 @@ public class EquipedGrid : MonoBehaviour
         //Debug.Log("Item at pos after " + item.transform.localPosition);
 
         items[itemType] = item;
+        Debug.Log("Equipping "+item.data.itemName);
+        EquipmentChanged.Invoke();
     }
 
+    public int GetHealthAddition()
+    {
+        int addition = 0;
+        // HArdcoding these values since its faster redo later
+        if (items[(int)EquipType.Head] != null)
+            addition += 20;
+        if (items[(int)EquipType.Body] != null)
+            addition += 50;
+        if (items[(int)EquipType.Feet] != null)
+            addition += 20;
+        return addition;
+    }
 
+    public int GetOxygenAddition()
+    {
+        if (items[(int)EquipType.Tank] != null)
+        {
+            if (items[(int)EquipType.Tank].data.itemName == "Oxygen Tank")
+                return 50;
+            else if (items[(int)EquipType.Tank].data.itemName == "Small Tank")
+                return 20;
 
+        }
+        return 0;
+    }
+
+    public int GetSpeedAddition()
+    {
+        if (items[(int)EquipType.JetPack] != null)
+            return 3;
+        return 0;
+    }
 }

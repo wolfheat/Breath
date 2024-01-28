@@ -11,6 +11,7 @@ public class Workbench : Facility
     [SerializeField] private GameObject craftingPoint;
 
     private bool isCrafting = false;
+    public bool IsCrafting { get { return isCrafting;} }
     private bool HasItem { get { return craftingPoint.transform.childCount > 0;} }
 
     private void OnEnable()

@@ -4,7 +4,7 @@ public class ItemSelector : MonoBehaviour
 {
     public static ItemSelector Instance;
     [SerializeField] private ParticleSystem particle;
-
+    private Transform target;
     private void Awake()
     {
         if (Instance != null)
@@ -14,16 +14,24 @@ public class ItemSelector : MonoBehaviour
         }
         Instance = this;
     }
-
-    public void SetToPosition(Transform target)
+    private void Update()
     {
+        if (target != null)
+        {
+            transform.position = target.position;
+        }
+    }
+
+    public void SetToPosition(Transform newTarget)
+    {
+        target = newTarget;
         Debug.Log("Setting selector to target"); 
         particle.Play();
-        transform.position = target.position;
     }
 
     public void Disable()
     {
+        target = null;
         Debug.Log("Selector Lost Target");
         // Disable selector if not used
         particle.Clear();

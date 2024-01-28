@@ -84,7 +84,12 @@ public class CraftingUI : MonoBehaviour
             HUDMessage.Instance.ShowMessage("No active workbench");
             return;
         }
+        if (activeWorkbench.IsCrafting)
+            return;
+
         CloseCraftingMenu();
+
+
 
         activeWorkbench.CraftItem(itemData);
     }

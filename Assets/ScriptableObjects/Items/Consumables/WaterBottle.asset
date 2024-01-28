@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Waterbottle
   size: {x: 1, y: 1}
-  picture: {fileID: 1873805008, guid: 80f111c6cd7a9bc44a3274eef9c2d999, type: 3}
-  healthRegain: 100
+  picture: {fileID: 21300000, guid: 491cf4dde2afc9842b1613fe37cc5786, type: 3}
+  healthRegain: 20

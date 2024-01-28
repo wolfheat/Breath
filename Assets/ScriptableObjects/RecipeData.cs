@@ -8,6 +8,9 @@ public class RecipeData : ScriptableObject
 
     [SerializeField] public RecipeAmount[] ingredienses;
     public ItemData result;
+
+    [TextArea(5, 10)]
+    public string recipeInfo;
 }
 
 [System.Serializable]

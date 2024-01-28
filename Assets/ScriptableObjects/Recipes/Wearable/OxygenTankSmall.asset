@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e8cf3f67d1d0ce46a27e5ad4f85821e, type: 3}
-  m_Name: LargeBoots
+  m_Name: OxygenTankSmall
   m_EditorClassIdentifier: 
-  recipeName: Large Boots
+  recipeName: Small OxygenTank
   ingredienses:
+  - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
+    amount: 2
   - resourceData: {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
-    amount: 3
-  result: {fileID: 11400000, guid: c54207781ca7e32468b1cf66f0a491cb, type: 2}
+    amount: 2
+  - resourceData: {fileID: 11400000, guid: 5106ce07b2876bf4b8fa3999c56fd3e5, type: 2}
+    amount: 2
+  result: {fileID: 11400000, guid: 11e5c436b616ec146ae0d4b0fd359c26, type: 2}
+  recipeInfo: Small Oxygen Tank - Makes you survive longer in space. (+20s)

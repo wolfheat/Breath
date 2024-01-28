@@ -22,7 +22,7 @@ public class UIController : MonoBehaviour
     [SerializeField] HUDIcons hudIcons;
     [SerializeField] Image image;
     [SerializeField] Player player;
-    [SerializeField] PlayerHealth playerHealth;
+    [SerializeField] PlayerStats playerHealth;
 
 
     public static UIController Instance;

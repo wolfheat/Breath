@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8cf3f67d1d0ce46a27e5ad4f85821e, type: 3}
+  m_Name: BlasterGun
+  m_EditorClassIdentifier: 
+  recipeName: Blaster Gun
+  ingredienses:
+  - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
+    amount: 8
+  - resourceData: {fileID: 11400000, guid: 4d3df6625a15c3d4192a699548321332, type: 2}
+    amount: 1
+  - resourceData: {fileID: 11400000, guid: 5106ce07b2876bf4b8fa3999c56fd3e5, type: 2}
+    amount: 6
+  - resourceData: {fileID: 11400000, guid: 1b00c50423dde2d428351503be1a27e2, type: 2}
+    amount: 3
+  result: {fileID: 11400000, guid: 4c30456dab9813a448d12e8c9a4cd107, type: 2}
+  recipeInfo: Blaster Gun - Used to defend yourself from enemies.

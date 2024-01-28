@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public enum UIItemSizes{size3x3, size3x2, size2x2, size2x1, size1x1 }
 
@@ -13,7 +14,8 @@ public class InventoryGrid : MonoBehaviour
     [SerializeField] private GameObject itemHolder;
     [SerializeField] private UIItem uiItemPrefab;
     [SerializeField] private UIItem[] uiItemPrefabs;
-    
+    [SerializeField] PlayerMovement playerMovement;
+
     [SerializeField] private List<ItemData> heldItemsData;
     [SerializeField] private List<UIItem> heldItems;
 
@@ -164,7 +166,12 @@ public class InventoryGrid : MonoBehaviour
         //Debug.Log("Try equip item "+item.data.itemName);
         if (equipped.IsEquipped(item))
         {
-            //Debug.Log("Item is already equipped "+item.data.itemName);
+            if (!playerMovement.InGravity)
+            {
+                HUDMessage.Instance.ShowMessage("Can only swap equipments in gravity!");
+                //item.ResetPosition();
+                return false;
+            }
             if (PlaceItemAnywhere(item))
             {
                 //Debug.Log("Item is placed on grid "+item.data.itemName);
@@ -172,6 +179,11 @@ public class InventoryGrid : MonoBehaviour
                 equipped.RemoveIfEquipped(item);
                 return true;
             }
+            else
+            {
+
+            }
+            HUDMessage.Instance.ShowMessage("Not enough space in inventory"); // Maybe drop on floor here?
         }
         equipped.TryPlaceItem(item);
         return true;
@@ -197,7 +209,7 @@ public class InventoryGrid : MonoBehaviour
                 }
 
             }
-
+            
             // Not Equipping
             return;
         }
@@ -237,4 +249,22 @@ public class InventoryGrid : MonoBehaviour
         ClickTimerLimited = false;
     }
 
+    public void RemoveFromInventory(UIItem item)
+    {
+        if (item.IsInInventory())
+            RemovePlacement(item);
+        if(heldItems.Contains(item))
+            heldItems.Remove(item);
+        Destroy(item.gameObject);
+    }
+    public void DropItem(UIItem item)
+    {
+        Debug.Log("Dropping item "+item.data.itemName);
+        // Remove item from inventory/equipped
+        equipped.RemoveIfEquipped(item);
+        
+        // Place item in Box
+        playerMovement.CreateItemBox(item.data);
+                
+    }
 }

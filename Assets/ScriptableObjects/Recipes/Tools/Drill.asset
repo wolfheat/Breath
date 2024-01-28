@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e8cf3f67d1d0ce46a27e5ad4f85821e, type: 3}
-  m_Name: SmallHelmet
+  m_Name: Drill
   m_EditorClassIdentifier: 
-  recipeName: Small Helmet
+  recipeName: Drill
   ingredienses:
   - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
-    amount: 2
-  - resourceData: {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
-    amount: 2
-  result: {fileID: 11400000, guid: 197eb211c73123048a06506caf4f255c, type: 2}
+    amount: 8
+  - resourceData: {fileID: 11400000, guid: 4d3df6625a15c3d4192a699548321332, type: 2}
+    amount: 1
+  result: {fileID: 11400000, guid: 11601023ba8211144929bb4400349200, type: 2}
+  recipeInfo: Drill - Used to drill materials in asteroids.

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Small Tank
   size: {x: 3, y: 1}
-  picture: {fileID: 21300000, guid: c77a7d392602f28448a6ac8a5894a24f, type: 3}
+  picture: {fileID: 21300000, guid: 38b56632a4bdc644eb6060a6065258cd, type: 3}
   equipType: 3

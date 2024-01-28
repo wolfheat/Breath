@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7675e83aa7c34b441bef3ac25b4f75b5, type: 3}
-  m_Name: Cube Helmet 2
+  m_Name: SpaceBoots
   m_EditorClassIdentifier: 
-  itemName: Cube Helmet 2
+  itemName: Space Boots
   size: {x: 2, y: 2}
-  picture: {fileID: 21300000, guid: fd64e503f87699e4099edbebfd6c8086, type: 3}
-  equipType: 0
+  picture: {fileID: 21300000, guid: 8ca3982a09c76fb428d8df7ea27df888, type: 3}
+  equipType: 2
