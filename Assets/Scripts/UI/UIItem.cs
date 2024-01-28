@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -100,14 +99,15 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
         if(eventData.button == PointerEventData.InputButton.Right)
         {
             // Limit player from clicking on the switched item in same click unsetting a swap
-            /*
-            if (inventoryGrid.ClickTimerLimited)
-                return;
-            StartCoroutine(inventoryGrid.ClickTimerLimiter());
-            */
-
+            
             if(data.itemType == ItemType.Equipable)
+            {
+
+                if (inventoryGrid.ClickTimerLimited)
+                    return;
+                StartCoroutine(inventoryGrid.ClickTimerLimiter());
                 inventoryGrid.RequestEquip(this);
+            }
             else if(data.itemType == ItemType.Consumable)
             {
                 if (PlayerStats.Instance.AtMaxHealth)
@@ -130,7 +130,8 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-
+        if (eventData.button != PointerEventData.InputButton.Left)
+            return;
         transform.position = eventData.position+ offset;
         SetToBaseRectSize();
     }
@@ -141,6 +142,8 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (eventData.button != PointerEventData.InputButton.Left)
+            return;
         // Check if dropped position is a valid spot
         Vector2 drop = eventData.position + offset;
         //Debug.Log("Dropping item at "+ drop);
@@ -154,6 +157,8 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     Vector2 offset = new Vector2();
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (eventData.button != PointerEventData.InputButton.Left)
+            return;
         offset = (Vector2)transform.position-eventData.position;
         //Debug.Log("Started Dragging object");
         DragObject.Instance.SetDragedItem(this);

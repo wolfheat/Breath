@@ -83,8 +83,12 @@ public class Player : MonoBehaviour
                 if (inventory.PlayerHasEquipped(destructable.Data.destructType))
                 {
                     Debug.Log("Player can break this object");
-                }else
+                }
+                else
+                {
                     HUDMessage.Instance.ShowMessage("Equip a "+ Enum.GetName(typeof(EquipType), (int)destructable.Data.destructType+5));
+                    return;
+                }
 
                 if (destructable.Data.destructType == DestructType.Breakable)
                 {
@@ -122,6 +126,6 @@ public class Player : MonoBehaviour
     public void Reset()
     {
         playerHealth.Reset();
-        playerMovement.SetToSafePoint();
+        playerMovement.SetToSafePoint();        
     }
 }

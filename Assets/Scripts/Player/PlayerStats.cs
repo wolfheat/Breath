@@ -152,8 +152,12 @@ public class PlayerStats : MonoBehaviour
     {
         noOxygenSurvival = NoOxygenSurvivalMax;
         oxygen = maxOxygen;
+        health = StartHealth;
         IsDead = false;
         SoundMaster.Instance.ResumeMusic();
+        OxygenUpdated.Invoke(oxygen, maxOxygen);
+        HealthUpdated.Invoke(health, maxHealth);
+
     }
 
     public void Consume(ConsumableData data)

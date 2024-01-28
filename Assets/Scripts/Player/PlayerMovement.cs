@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Progress;
 using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerMovement : MonoBehaviour
@@ -175,7 +173,6 @@ public class PlayerMovement : MonoBehaviour
         // Make different dampening in space and inside a spacestation
         if (boosterAcceleration.magnitude == 0)
         {
-            Debug.Log("Limit velocity!");
             rb.velocity *= Mathf.Pow(dampening, Time.deltaTime);
             return;
         }

@@ -108,45 +108,43 @@ Jan 2024
 		* Player can now use consumables to gain health
 		* Warning is shown if trying to consuma at full health
 		* Items are now removed when used for crafting
+		# Testbuild with all assets: 1Gb size
+		* Player health is set to 10hp after dying
+		* Removed Cursor pack and skybox pack # Testbuild: 0.99Gb size
+
+		
+		
+
+
+		* Show positive info when adding health etc?		
+		* Plan out starting area so it makes sense with items and crafting, tweak recipes
 
 
 		* Make Boss - maybe start with blob and change if time
 		* Make win screen if killing boss
+		* have boss shoot water drips that player can hit with gun and generate water drops
+
 
 		TODO
-		* Clean project to limit game size
+		If participating in jam deadline 29jan (IGU Winter Jam 2024)
 
+		* Clean project to limit game size
 		* Create Start Menu
 		* Settings? Maybe just M for mute music?
 		* Credits?
-
+				
+		MAYBE
 		* Add smoke effect when crafting object appears - OPTIONAL
 		* Make tool icons show on hud for which tools player got - OPTIONAL
+		* Have base show up on hud if further away than a specific amount
 		* Have red toolTip show if missing correct tool to destruct item? - OPTIONAL
 		* Have a hand or nothing show when not using tool? - OPTIONAL
 		* have some crates require better sledgehammer, chrystals that need better drill etc - OPTIONAL
 		* Have dropped items slow down movement when disturbed - OPTIONAL
 
+		REJECTED
 		* Enable jumping indoors? nah?
 		
-		If participating in jam deadline 29jan (IGU Winter Jam 2024)
-
-		TASK
-		* Implement oxygen tank UI visuals
-		
-		* Implement oxygen tank equippable and upgradable?
-
-		* Implements workbench, recipies and construction of tools
-
-		* Have base show up on hud if further away than a specific amount
-		
-		// INDOOR MOVEMENT
-		* Player moving indoor strive to the sides, prob because of friction on colliders FIX
-
-
-		TODO
-		* Implement Workbench UI
-
 		
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 		
 		* USED IN PROJECT
