@@ -12,8 +12,8 @@ public class PlayerStats : MonoBehaviour
     private float oxygen = 11;
     private int speed = 2;
     
-    private float noOxygenSurvival = 8;
-    private const float NoOxygenSurvivalMax = 8;
+    private float noOxygenSurvival = 8f;
+    private const float NoOxygenSurvivalMax = 8f;
 
     private int maxHealth = 100;
     private int maxOxygen = 70;
@@ -100,6 +100,7 @@ public class PlayerStats : MonoBehaviour
                 {
                     if (noOxygenSurvival == NoOxygenSurvivalMax)
                     {
+                        Debug.Log("Starting to drown");
                         // Starting to "drown"
                         SoundMaster.Instance.PlaySFX(SoundMaster.SFX.Drowning);
                         SoundMaster.Instance.FadeMusic();
@@ -121,11 +122,15 @@ public class PlayerStats : MonoBehaviour
             }
             else
             {
+                //Debug.Log("In gravity: "+ noOxygenSurvival+"="+NoOxygenSurvivalMax+" oxygen: "+oxygen );
                 if (noOxygenSurvival < NoOxygenSurvivalMax)
                 {
                     // Stops drowning clip from playing
-                    if (oxygen == 0)
+                    if (oxygen <= 0)
+                    {
+                        Debug.Log("Stop drowning sound");
                         SoundMaster.Instance.StopSFX();
+                    }
 
                     noOxygenSurvival = Math.Min(NoOxygenSurvivalMax, noOxygenSurvival + OxygenRefillSpeed * delay);
                 }

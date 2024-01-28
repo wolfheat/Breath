@@ -114,9 +114,11 @@ Jan 2024
 		# Testbuild with all assets: 1Gb size || # Textures limited to 256: 495Mb size || # Limited asteroids -8Mb 487Mb || # Limited sledgehammer -82Mb 405Mb
 		# Removed unused tools -84Mb 319Mb || # Removed rest of tools -43Mb 276Mb || # Compressed special effects -13Mb 263Mb		
 		# Final compress: 263Mb
+28/1	* Fixed roof fans spinning
+		* Added info toggle text for inputs
+		* Clicking dropping items now removes items correctly
+		* Player drowning sound no longer plays after death revival
 
-		* ISSUE - Clicking dropping items wont remove them they are equipped fix
-		* Player drownssound plays after being revived fix
 
 
 

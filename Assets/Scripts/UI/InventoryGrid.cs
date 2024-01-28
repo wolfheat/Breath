@@ -264,6 +264,9 @@ public class InventoryGrid : MonoBehaviour
         
         // Place item in Box
         playerMovement.CreateItemBox(item.data);
-                
+
+        // Remove item form inventory   
+        RemoveFromInventory(item);
+
     }
 }
