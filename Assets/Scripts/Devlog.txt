@@ -111,6 +111,15 @@ Jan 2024
 		# Testbuild with all assets: 1Gb size
 		* Player health is set to 10hp after dying
 		* Removed Cursor pack and skybox pack # Testbuild: 0.99Gb size
+		# Testbuild with all assets: 1Gb size || # Textures limited to 256: 495Mb size || # Limited asteroids -8Mb 487Mb || # Limited sledgehammer -82Mb 405Mb
+		# Removed unused tools -84Mb 319Mb || # Removed rest of tools -43Mb 276Mb || # Compressed special effects -13Mb 263Mb		
+		# Final compress: 263Mb
+
+		* ISSUE - Clicking dropping items wont remove them they are equipped fix
+		* Player drownssound plays after being revived fix
+
+
+
 
 		
 		
