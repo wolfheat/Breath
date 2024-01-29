@@ -36,6 +36,11 @@ public class PlayerStats : MonoBehaviour
 
     public static PlayerStats Instance;
 
+    public void SetToDead()
+    {
+        IsDead = true;
+    }
+
     private void Start()
     {
         if (Instance != null)
@@ -115,7 +120,7 @@ public class PlayerStats : MonoBehaviour
                         {
                             Debug.Log("PlayerDIED");
                             IsDead = true;
-                            uiController.ShowDeathScreen();
+                            uiController.ShowDeathScreen(); //TODO
                         }
                     }
                 }

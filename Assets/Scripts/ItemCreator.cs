@@ -5,6 +5,7 @@ public class ItemCreator : MonoBehaviour
     public static ItemCreator Instance;
     [SerializeField] PickableItem[] pickablePrefabs;
     [SerializeField] GameObject itemHolder;
+    [SerializeField] Player player;
 
     private void Awake()
     {
@@ -20,6 +21,9 @@ public class ItemCreator : MonoBehaviour
     {
         Debug.Log("Instantiate item "+type+" at pos: "+pos);
         Instantiate(pickablePrefabs[(int)type], pos+Random.insideUnitSphere*0.18f, Quaternion.identity, itemHolder.transform);
+
+        StartCoroutine(player.ResetItemCollider());
+
     }
 
 }

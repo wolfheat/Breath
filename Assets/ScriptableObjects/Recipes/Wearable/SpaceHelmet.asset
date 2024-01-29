@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Space Helmet
   ingredienses:
-  - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
-    amount: 2
-  - resourceData: {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
-    amount: 2
   - resourceData: {fileID: 11400000, guid: 5106ce07b2876bf4b8fa3999c56fd3e5, type: 2}
-    amount: 2
+    amount: 1
+  - resourceData: {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
+    amount: 1
+  - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
+    amount: 1
   result: {fileID: 11400000, guid: 1de748a7857d8b64cbe6b759f17f26ff, type: 2}
   recipeInfo: Space Helmet - Makes you withstand damage (+20Hp)

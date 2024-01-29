@@ -120,6 +120,7 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
                 PlayerStats.Instance.Consume(consumeData);
                 // Try consume
                 inventoryGrid.RemoveFromInventory(this);
+                HUDMessage.Instance.ShowMessage("You regained some health!",false);
             }
 
         }
@@ -138,6 +139,7 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
 
     public void SetParent(Transform p)
     {
+        Debug.Log("Setting parent for "+name);
         transform.SetParent(p);
     }
     public void OnEndDrag(PointerEventData eventData)

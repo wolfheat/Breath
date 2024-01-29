@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: yellowBox
   m_EditorClassIdentifier: Assembly-CSharp::DestructableData
   itemName: Yellow Box
-  resources: 0400000004000000
+  resources: 0100000003000000
   destructType: 0
   itemType: 1

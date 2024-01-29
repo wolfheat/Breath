@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour
     [SerializeField] TextMeshProUGUI oxygenText;
     [SerializeField] Volume volume;
     [SerializeField] DeathScreen deathScreen;
+    [SerializeField] DeathScreen winScreen;
     [SerializeField] GameObject tempHair;
 
     [SerializeField] InventoryUI inventoryUI;
@@ -22,7 +23,7 @@ public class UIController : MonoBehaviour
     [SerializeField] HUDIcons hudIcons;
     [SerializeField] Image image;
     [SerializeField] Player player;
-    [SerializeField] PlayerStats playerHealth;
+    [SerializeField] PlayerStats playerStats;
 
 
     public static UIController Instance;
@@ -117,6 +118,12 @@ public class UIController : MonoBehaviour
     public void ShowDeathScreen()
     {
         deathScreen.ShowScreen();
+    }
+    public void ShowWinScreen()
+    {
+        Debug.Log("PlayerDIED");
+        playerStats.SetToDead();
+        winScreen.ShowScreen();
     }
     public void ResetPlayer()
     {

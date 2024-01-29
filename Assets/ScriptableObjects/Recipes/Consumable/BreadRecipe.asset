@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Bread
   ingredienses:
-  - resourceData: {fileID: 11400000, guid: 7be56ba9920b5ea40a32231de777217a, type: 2}
-    amount: 2
   - resourceData: {fileID: 11400000, guid: db73a40b6b9878945ba06e51bb38a5fd, type: 2}
     amount: 1
+  - resourceData: {fileID: 11400000, guid: 7be56ba9920b5ea40a32231de777217a, type: 2}
+    amount: 2
   result: {fileID: 11400000, guid: e8446f799d0c965479c47e93606a6dfd, type: 2}
   recipeInfo: Bread - Makes you regain health. (30hp)

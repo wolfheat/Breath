@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: OxygenTank
   ingredienses:
-  - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
-    amount: 2
-  - resourceData: {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
-    amount: 2
+  - resourceData: {fileID: 11400000, guid: 1b00c50423dde2d428351503be1a27e2, type: 2}
+    amount: 10
   - resourceData: {fileID: 11400000, guid: 5106ce07b2876bf4b8fa3999c56fd3e5, type: 2}
+    amount: 2
+  - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
     amount: 2
   result: {fileID: 11400000, guid: fdae26719650a5c45a9941d78a923a86, type: 2}
   recipeInfo: Oxygen Tank - Makes you survive longer in space. (+50s)

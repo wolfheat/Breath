@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerPickupAreaController : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class PlayerPickupAreaController : MonoBehaviour
             Interactable newItem = other.gameObject.GetComponent<Interactable>();
             if (!items.Contains(newItem)) 
                 items.Add(newItem);
+            Debug.Log("Item " + newItem.name + " entered area, size is now " + items.Count);
             SelectClosest();
         }
     }
@@ -114,9 +116,10 @@ public class PlayerPickupAreaController : MonoBehaviour
         {
             Interactable item = other.gameObject.GetComponent<Interactable>();
             if (items.Contains(item))
-                items.Remove(item);            
-            StartCoroutine(player.ResetItemCollider());
-            SelectClosest();
+                items.Remove(item);
+            Debug.Log("Item "+item.name+" exited area, size is now "+items.Count);
+        StartCoroutine(player.ResetItemCollider());
+        SelectClosest();
         }
     }
 }

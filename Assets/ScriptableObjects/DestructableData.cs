@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
-public enum DestructType { Breakable, Drillable };
-
+public enum DestructType { Breakable, Drillable,
+    Flesh
+}
 [CreateAssetMenu(menuName = "Items/DestructableData", fileName ="Destructable")]
 public class DestructableData : ScriptableObject
 {

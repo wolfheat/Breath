@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static UnityEngine.InputSystem.InputAction;
 public class Player : MonoBehaviour
 {
     [SerializeField] UIController uiController;
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerStats playerHealth;
+    [SerializeField] PlayerShootController playerShootController;
     [SerializeField] Inventory inventory;
     [SerializeField] PlayerPickupAreaController pickupController;
     [SerializeField] Collider itemCollider;
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
         Debug.Log("Created Player");
         // set up input actions
         Inputs.Instance.Controls.Player.Click.performed += Click;
+        Inputs.Instance.Controls.Player.Click.started += MouseDown;
         Inputs.Instance.Controls.Player.E.performed += InterractWith;       
 
     }
@@ -62,14 +65,49 @@ public class Player : MonoBehaviour
         }
     }
 
+    private bool LimitShots = false;
+    private void MouseDown(CallbackContext context)
+    {
+        if (pickupController.ActiveInteractable != null && pickupController.ActiveInteractable is DestructableItem)
+        {
+            LimitShots = true;
+        }
+        else
+        {
+            LimitShots = false;
+        }
+    }
+    
+    private void Update()
+    {
+        if (!Inputs.Instance.Controls.Player.MouseHeld.IsPressed() || LimitShots) return;
+
+        // Detect if there is an object to interact with in front of player
+        if (pickupController.ActiveInteractable != null && pickupController.ActiveInteractable is DestructableItem) return;
+
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            Debug.Log("Clicked on the UI");
+            return;
+        }
+
+
+        //Try shoot if having a gun equipped
+        if (inventory.PlayerHasEquipped(DestructType.Flesh))
+        {
+            if (playerShootController.RequestShoot())
+            {
+                //playerAnimationController.SetState(PlayerState.Hit);
+                toolHolder.ChangeTool(DestructType.Flesh);
+            }
+
+        }
+    }
     public void Click(CallbackContext context)
     {
         // Raycast from mouse into screen get first item thats interactable
-
-        
+                
         // Detect what tool to use
-        
-        
         if (pickupController.ActiveInteractable != null)        
         {
             
@@ -92,12 +130,14 @@ public class Player : MonoBehaviour
 
                 if (destructable.Data.destructType == DestructType.Breakable)
                 {
+                    Debug.Log("Is Breakable change to hammer");
                     SoundMaster.Instance.PlaySFX(SoundMaster.SFX.HitMetal);
                     playerAnimationController.SetState(PlayerState.Hit);
                     toolHolder.ChangeTool(DestructType.Breakable);
                 }
                 else if (destructable.Data.destructType == DestructType.Drillable)
                 {
+                    Debug.Log("Is Drillable change to drill");
                     SoundMaster.Instance.PlaySFX(SoundMaster.SFX.Drill);
                     playerAnimationController.SetState(PlayerState.Drill);
                     toolHolder.ChangeTool(DestructType.Drillable);
@@ -107,7 +147,11 @@ public class Player : MonoBehaviour
 
                 StartCoroutine(ResetItemCollider());
             }
-            
+
+
+        }
+        else
+        {
             
         }
         

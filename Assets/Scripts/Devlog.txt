@@ -118,24 +118,20 @@ Jan 2024
 		* Added info toggle text for inputs
 		* Clicking dropping items now removes items correctly
 		* Player drowning sound no longer plays after death revival
+		* FIXED skyboxes back to original error in edges
+		* Positive sound when adding health etc?		
+		* Preventing player from shooting when clicking on UI
+		* Enemy Boss created
+		* Boss can be killed
+		* Implemented Simple Win screen-
 
-
-
-
-
-		
-		
-
-
-		* Show positive info when adding health etc?		
-		* Plan out starting area so it makes sense with items and crafting, tweak recipes
-
-
-		* Make Boss - maybe start with blob and change if time
+		* Boss implode animation?
 		* Make win screen if killing boss
-		* have boss shoot water drips that player can hit with gun and generate water drops
 
+		* FIX dropped items are pickable from long distance (Seems to be an issue with several items 
+			dropped at once the pickup area does not recognize on-enter and on-exit correctly fix after jam)
 
+		* have boss shoot water drips that player can hit with gun and generate water drops - MAybe
 		TODO
 		If participating in jam deadline 29jan (IGU Winter Jam 2024)
 

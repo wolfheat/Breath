@@ -33,7 +33,7 @@ public class CraftingUI : MonoBehaviour
 
     private void Start()
     {
-        RecipeData[][] all = new RecipeData[][] { allRecipesData.toolRecipes, allRecipesData.foodRecipes, allRecipesData.armorRecipes, allRecipesData.resourceRecipes };
+        RecipeData[][] all = new RecipeData[][] { allRecipesData.armorRecipes, allRecipesData.toolRecipes, allRecipesData.foodRecipes, allRecipesData.resourceRecipes };
         // Create Entire Menu Here
         foreach (var recipeList in all)
         {

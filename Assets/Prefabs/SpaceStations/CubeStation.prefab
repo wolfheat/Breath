@@ -2569,7 +2569,7 @@ GameObject:
   - component: {fileID: 3432471020420715116}
   - component: {fileID: 5444380487784216706}
   - component: {fileID: 9123947862760261321}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: InsideDimension
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4659,7 +4659,7 @@ GameObject:
   - component: {fileID: 3499693285714934671}
   - component: {fileID: 4433614473016735114}
   - component: {fileID: 5025492398615334273}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: InsideDoorArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6866,7 +6866,7 @@ GameObject:
   - component: {fileID: 1431091525712790229}
   - component: {fileID: 7671473897719681233}
   - component: {fileID: 8690645018350450501}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ThrowOutPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7608,7 +7608,7 @@ GameObject:
   - component: {fileID: 3867232635710544550}
   - component: {fileID: 8616180268884447143}
   - component: {fileID: 6930600680942145738}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ThrowInPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8592,7 +8592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7216801769564061764
 Transform:
   m_ObjectHideFlags: 0

@@ -143,6 +143,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseHeld"",
+                    ""type"": ""Value"",
+                    ""id"": ""c69abe06-2064-4df5-9b31-b6682f1f70ed"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -409,6 +418,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""LCtrl"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d706f3b-8025-4f5b-ad60-a88791eb8ace"",
+                    ""path"": ""<Mouse>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseHeld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -430,6 +450,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_UpDown = m_Player.FindAction("UpDown", throwIfNotFound: true);
         m_Player_LeftAlt = m_Player.FindAction("LeftAlt", throwIfNotFound: true);
         m_Player_LCtrl = m_Player.FindAction("LCtrl", throwIfNotFound: true);
+        m_Player_MouseHeld = m_Player.FindAction("MouseHeld", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -504,6 +525,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_UpDown;
     private readonly InputAction m_Player_LeftAlt;
     private readonly InputAction m_Player_LCtrl;
+    private readonly InputAction m_Player_MouseHeld;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -521,6 +543,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @UpDown => m_Wrapper.m_Player_UpDown;
         public InputAction @LeftAlt => m_Wrapper.m_Player_LeftAlt;
         public InputAction @LCtrl => m_Wrapper.m_Player_LCtrl;
+        public InputAction @MouseHeld => m_Wrapper.m_Player_MouseHeld;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -569,6 +592,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @LCtrl.started += instance.OnLCtrl;
             @LCtrl.performed += instance.OnLCtrl;
             @LCtrl.canceled += instance.OnLCtrl;
+            @MouseHeld.started += instance.OnMouseHeld;
+            @MouseHeld.performed += instance.OnMouseHeld;
+            @MouseHeld.canceled += instance.OnMouseHeld;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -612,6 +638,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @LCtrl.started -= instance.OnLCtrl;
             @LCtrl.performed -= instance.OnLCtrl;
             @LCtrl.canceled -= instance.OnLCtrl;
+            @MouseHeld.started -= instance.OnMouseHeld;
+            @MouseHeld.performed -= instance.OnMouseHeld;
+            @MouseHeld.canceled -= instance.OnMouseHeld;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -644,5 +673,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnUpDown(InputAction.CallbackContext context);
         void OnLeftAlt(InputAction.CallbackContext context);
         void OnLCtrl(InputAction.CallbackContext context);
+        void OnMouseHeld(InputAction.CallbackContext context);
     }
 }

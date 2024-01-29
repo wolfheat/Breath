@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Potion
   ingredienses:
-  - resourceData: {fileID: 11400000, guid: 7be56ba9920b5ea40a32231de777217a, type: 2}
-    amount: 2
   - resourceData: {fileID: 11400000, guid: db73a40b6b9878945ba06e51bb38a5fd, type: 2}
     amount: 2
+  - resourceData: {fileID: 11400000, guid: 7be56ba9920b5ea40a32231de777217a, type: 2}
+    amount: 1
   result: {fileID: 11400000, guid: 0329932975ea28b4db00e2bfd8db87ea, type: 2}
   recipeInfo: Potion - Makes you resist damage. (10s)

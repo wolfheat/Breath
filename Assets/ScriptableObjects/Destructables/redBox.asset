@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: redBox
   m_EditorClassIdentifier: Assembly-CSharp::DestructableData
   itemName: Red Box
-  resources: 0100000001000000
+  resources: 0200000004000000
   destructType: 0
   itemType: 1

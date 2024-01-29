@@ -30,4 +30,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e205a1c5c035dfb4b877f52932e58922, type: 2}
   - {fileID: 11400000, guid: a5c696606d26261449c03c12b517c7b7, type: 2}
   - {fileID: 11400000, guid: 59a489e6546031c44b7ea74237911260, type: 2}
+  - {fileID: 11400000, guid: 8944cc46f4852b64e954990aea1919e6, type: 2}
   resourceRecipes: []

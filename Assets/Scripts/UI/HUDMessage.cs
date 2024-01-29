@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class HUDMessage : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI negativeText;
+    [SerializeField] private GameObject negative;
+    [SerializeField] private TextMeshProUGUI positiveText;
+    [SerializeField] private GameObject positive;
     [SerializeField] private GameObject textObject;
     [SerializeField] private Animator animator;
 
@@ -20,10 +23,11 @@ public class HUDMessage : MonoBehaviour
     }
 
 
-    public void ShowMessage(string message)
+    public void ShowMessage(string message, bool isNegative = true)
     {
-        text.text = message;
+        positiveText.text = isNegative?"":message;
+        negativeText.text = isNegative ? message:"";
         animator.Play("ShowMessage");
-        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.HUDError);
+        SoundMaster.Instance.PlaySFX(isNegative?SoundMaster.SFX.HUDError: SoundMaster.SFX.HUDPositive);
     }
 }

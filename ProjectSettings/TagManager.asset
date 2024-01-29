@@ -18,10 +18,10 @@ TagManager:
   - Destructables
   - PostProcessing
   - Interactables
-  - 
-  - 
-  - 
-  - 
+  - PlayerBullet
+  - EnemyBullet
+  - Gravity Area
+  - Enemy
   - 
   - 
   - 

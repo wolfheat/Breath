@@ -8,6 +8,7 @@ public class SoundMaster : MonoBehaviour
 {
     [SerializeField] private AudioClip[] menu;
     [SerializeField] private AudioClip[] sfx;
+    [SerializeField] private AudioClip[] hud;
     [SerializeField] private AudioClip[] tools;
     [SerializeField] private AudioClip[] footstep;
     [SerializeField] private AudioClip[] music;
@@ -127,7 +128,10 @@ public class SoundMaster : MonoBehaviour
     }
     
 
-    public enum SFX { MenuStep, MenuSelect, MenuError, HUDError, CraftComplete, Crafting, CraftingB, NoAir, ToolSwing, HitWood, HitMetal, HitPlastic, Drill, SwordHit, BreakObject, PickUp, PlayerDeath, Footstep, Drowning }
+    public enum SFX { MenuStep, MenuSelect, MenuError, HUDError, CraftComplete, Crafting, CraftingB, NoAir, ToolSwing, HitWood, 
+        HitMetal, HitPlastic, Drill, SwordHit, BreakObject, PickUp, PlayerDeath, Footstep, Drowning, HUDPositive, ConsumeHealth, DropItem,
+        Shoot, BulletImpact
+    }
 
     public void PlaySFX(SFX type, bool playMulti=true)
 	{
@@ -141,9 +145,6 @@ public class SoundMaster : MonoBehaviour
         switch (type)
 		{
             // USED 
-            case SFX.PickUp: 
-                sfxSource.PlayOneShot(sfx[0]);
-                break;
             case SFX.Drowning: 
                 sfxSource.PlayOneShot(noises[0]);
                 break;
@@ -163,20 +164,28 @@ public class SoundMaster : MonoBehaviour
                 break;
 
             case SFX.HUDError:
-                Debug.Log("Playing HudError");
+                sfxSource.PlayOneShot(hud[0]);
+                break;
+            case SFX.HUDPositive:
+                sfxSource.PlayOneShot(hud[1]);
+                break;
+            case SFX.PickUp:
+                sfxSource.PlayOneShot(sfx[0]);
+                break;
+            case SFX.Shoot: 
                 sfxSource.PlayOneShot(sfx[1]);
                 break;
-            case SFX.Crafting:
-                //sfxSource.clip = sfx[2];
-                //sfxSource.Play();
-
+            case SFX.Crafting:                
                 sfxSource.PlayOneShot(sfx[2]);
                 break;
-            case SFX.CraftingB: 
+            case SFX.CraftComplete: 
                 sfxSource.PlayOneShot(sfx[3]);
                 break;
-            case SFX.CraftComplete: 
+            case SFX.BulletImpact:                
                 sfxSource.PlayOneShot(sfx[4]);
+                break;
+            case SFX.DropItem:                
+                sfxSource.PlayOneShot(sfx[5]);
                 break;
 
             // --- OLD STUFF

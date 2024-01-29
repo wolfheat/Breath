@@ -254,6 +254,7 @@ public class InventoryGrid : MonoBehaviour
             RemovePlacement(item);
         if(heldItems.Contains(item))
             heldItems.Remove(item);
+        DragObject.Instance.UnSetDragedItem();
         Destroy(item.gameObject);
     }
     public void DropItem(UIItem item)
@@ -267,6 +268,9 @@ public class InventoryGrid : MonoBehaviour
 
         // Remove item form inventory   
         RemoveFromInventory(item);
+
+        // PLay drop sound
+        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.DropItem);
 
     }
 }
