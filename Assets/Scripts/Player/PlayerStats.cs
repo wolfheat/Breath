@@ -92,11 +92,14 @@ public class PlayerStats : MonoBehaviour
     {
         while (true)
         {
+            while (IsDead) 
+                yield return coroutineDelay; 
             yield return coroutineDelay;
             float startOxygen = oxygen;
 
             if (!playerRb.useGravity)
             {
+                
                 if (oxygen > 0)
                 {
                     oxygen -= OxygenUsage* delay;

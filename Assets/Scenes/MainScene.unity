@@ -33231,7 +33231,7 @@ MonoBehaviour:
   hudIcons: {fileID: 1066734377}
   image: {fileID: 175699089}
   player: {fileID: 2006766866}
-  playerStats: {fileID: 0}
+  playerStats: {fileID: 2006766873}
 --- !u!1 &1902276580
 GameObject:
   m_ObjectHideFlags: 0
