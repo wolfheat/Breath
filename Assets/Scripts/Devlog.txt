@@ -124,10 +124,15 @@ Jan 2024
 		* Enemy Boss created
 		* Boss can be killed
 		* Implemented Simple Win screen-
+		* Changed font for win and death screen
+		* Removed Sword as Item in craftmenu
+		* Set Music on as default
+		# Final Build, Playable version 190Mb size, zipped 67Mb
 
 		* Boss implode animation?
-		* Make win screen if killing boss
-
+		
+		* FIX Make start menu and pause, quit game.
+		* FIX Still issue with colliders in the end. PLayer goes into asteroid, fix after jam.
 		* FIX dropped items are pickable from long distance (Seems to be an issue with several items 
 			dropped at once the pickup area does not recognize on-enter and on-exit correctly fix after jam)
 

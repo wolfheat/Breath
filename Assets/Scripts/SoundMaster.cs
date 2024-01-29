@@ -18,7 +18,7 @@ public class SoundMaster : MonoBehaviour
     private AudioSource musicSource;
     private AudioSource sfxSource;
     private AudioSource stepSource;
-    private bool doPlayMusic = false;
+    private bool doPlayMusic = true;
     private bool doPlaySFX=true;
 
     private float presetVolume = 0.1f;
