@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Runtime.InteropServices;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
@@ -41,10 +42,20 @@ public class PlayerMovement : MonoBehaviour
 
     private Coroutine throwCoroutine;
 
-    public void Start()
+    public void OnEnable()
     {
+
         Inputs.Instance.Controls.Player.RClick.performed += RClickPerformed;
         lastSafePoint = rb.transform.position;
+    }
+    public void OnDisable()
+    {
+        Inputs.Instance.Controls.Player.RClick.performed -= RClickPerformed;
+    }
+    private void Start()
+    {
+        string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(this));
+        Debug.Log("Player GUID: "+guid);        
     }
 
     private void OnTriggerEnter(Collider other)

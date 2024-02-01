@@ -115,7 +115,8 @@ public class StartMenuController : MonoBehaviour
 
     private void ExitGame()
     {
-                Debug.Log("Exit Pressed");
+        SavingUtility.Instance.SavePlayerDataToFile();
+        Debug.Log("Exit Pressed");
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif

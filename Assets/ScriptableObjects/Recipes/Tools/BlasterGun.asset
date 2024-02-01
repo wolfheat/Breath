@@ -17,7 +17,7 @@ MonoBehaviour:
   - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
     amount: 8
   - resourceData: {fileID: 11400000, guid: 4d3df6625a15c3d4192a699548321332, type: 2}
-    amount: 1
+    amount: 5
   - resourceData: {fileID: 11400000, guid: 5106ce07b2876bf4b8fa3999c56fd3e5, type: 2}
     amount: 6
   - resourceData: {fileID: 11400000, guid: 1b00c50423dde2d428351503be1a27e2, type: 2}
