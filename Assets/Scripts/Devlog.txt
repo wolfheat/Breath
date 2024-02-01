@@ -128,8 +128,11 @@ Jan 2024
 		* Removed Sword as Item in craftmenu
 		* Set Music on as default
 		# Final Build, Playable version 190Mb size, zipped 67Mb
-
+31/1	* Added start menu as separate scene
+		
+		* Fix loading of scenes losing references after reloading
 		* Boss implode animation?
+
 		
 		* FIX Make start menu and pause, quit game.
 		* FIX Still issue with colliders in the end. PLayer goes into asteroid, fix after jam.

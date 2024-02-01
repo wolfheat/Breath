@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
 
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("Clicked on the UI");
+            //Debug.Log("Clicked on the UI");
             return;
         }
 

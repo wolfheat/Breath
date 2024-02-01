@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,7 @@ public class UIController : MonoBehaviour
     [SerializeField] Volume volume;
     [SerializeField] DeathScreen deathScreen;
     [SerializeField] DeathScreen winScreen;
+    [SerializeField] PauseController pauseScreen;
     [SerializeField] GameObject tempHair;
 
     [SerializeField] InventoryUI inventoryUI;
@@ -44,14 +46,37 @@ public class UIController : MonoBehaviour
     public void OnEnable()
     {        
         Inputs.Instance.Controls.Player.Tab.started += Toggle;
+        Inputs.Instance.Controls.Player.Esc.started += Pause;
     }
     
     public void OnDisable()
     {
         
         Inputs.Instance.Controls.Player.Tab.started -= Toggle;
+        Inputs.Instance.Controls.Player.Esc.started -= Pause;
     }
 
+
+    public void Pause(InputAction.CallbackContext context)
+    {
+        if (GameState.Instance.state == GameStates.Running)
+        {
+            GameState.Instance.state = GameStates.Paused;
+            Time.timeScale = 0f;
+            pauseScreen.SetActive(true);
+        }
+        else
+        {
+            UnPause();
+        }
+    }
+
+    public void UnPause()
+    {
+        GameState.Instance.state = GameStates.Running;
+        Time.timeScale = 1f;
+        pauseScreen.SetActive(false);
+    }
 
     public void Toggle(InputAction.CallbackContext context)
     {
