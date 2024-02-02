@@ -19,10 +19,11 @@ public class StartMenuController : MonoBehaviour
     [SerializeField] StartMenuPanel settings;
     [SerializeField] StartMenuPanel startMenu;
     [SerializeField] private MenuOption nextMenu;
+    public static MenuButton lastButton;
 
-    private StartMenuPanel currentOption;    
+    private StartMenuPanel currentOption;
 
-    public void SetNextMenu(int nextMenuindex)
+        public void SetNextMenu(int nextMenuindex)
     {
         Debug.Log("Set Next: " + Time.realtimeSinceStartup);
         if (menuState == MenuState.Transitioning) return;

@@ -95,6 +95,7 @@ public class SoundMaster : MonoBehaviour
 
         // And Music
         musicSource = gameObject.AddComponent<AudioSource>();
+        
         foreach (var music in musics)
         {
             // All music use same source (since only one will be playing at a time)
@@ -122,6 +123,7 @@ public class SoundMaster : MonoBehaviour
             musicSource.clip = musicDictionary[name].clip;
             musicSource.volume = musicDictionary[name].volume;
             musicSource.pitch = musicDictionary[name].pitch;
+            musicSource.loop = musicDictionary[name].loop;
             musicSource.Play();
             activeMusic = name;
         }
@@ -129,13 +131,13 @@ public class SoundMaster : MonoBehaviour
             Debug.LogWarning("No clip named "+name+" in dictionary.");
 
     }
-    public void PlaySound(SoundName name)
+    public void PlaySound(SoundName name, bool allowInterupt= false)
     {
 
         Debug.Log("Play Sound: "+name+" at:" + Time.realtimeSinceStartup);
         if (soundsDictionary.ContainsKey(name))
         {
-            if (soundsDictionary[name].audioSource.isPlaying && !soundsDictionary[name].loop)
+            if (!allowInterupt && soundsDictionary[name].audioSource.isPlaying && !soundsDictionary[name].loop)
             {
                 Debug.Log("Sound is playing and should not loop: "+name+" at:" + Time.realtimeSinceStartup);
                 return;

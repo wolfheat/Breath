@@ -18,12 +18,15 @@ namespace Wolfheat.StartMenu
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            SoundMaster.Instance.PlaySound(SoundName.MenuOver);
+            if (StartMenuController.lastButton == this) return;
+
+            StartMenuController.lastButton = this;
+            SoundMaster.Instance.PlaySound(SoundName.MenuOver, true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            //
+            StartMenuController.lastButton = null;
         }
 }
 }
