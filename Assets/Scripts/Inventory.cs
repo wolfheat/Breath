@@ -104,7 +104,7 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    internal void RemoveItems(RecipeAmount[] ingredienses)
+    public void RemoveItems(RecipeAmount[] ingredienses)
     {
         foreach(var recipeAmount in ingredienses)
         {

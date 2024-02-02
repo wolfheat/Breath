@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using Wolfheat.StartMenu;
 
 public class SavingUtility : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class SavingUtility : MonoBehaviour
 
     public static Action LoadingComplete;  
 
-    public static PlayerGameData playerGameData = new PlayerGameData();
+    public static PlayerGameData playerGameData;
     public static GameSettingsData gameSettingsData;
 
 
@@ -41,7 +42,12 @@ public class SavingUtility : MonoBehaviour
             
         LoadingComplete?.Invoke(); // Call this to update all ingame values
     }
-    
+
+    public void SaveAllDataToFile()
+    {
+        SavePlayerDataToFile();
+        SaveSettingsDataToFile();
+    }
     public void SavePlayerDataToFile()
     {
         IDataService dataService = new JsonDataService();
@@ -74,13 +80,7 @@ public class SavingUtility : MonoBehaviour
             {
                 Debug.Log("  PlayerGameData loaded - Valid data!");
                 playerGameData = data;
-            }
-            else
-            {
-                Debug.Log("  PlayerGameData loaded but null - Set it to empty data!");
-                playerGameData = new PlayerGameData();
-            }
-            
+            }            
         }
         catch   
         {
@@ -89,8 +89,13 @@ public class SavingUtility : MonoBehaviour
         }
         try
         {
-            Debug.Log("  Trying To load settings data from file: ");
-            gameSettingsData = dataService.LoadData<GameSettingsData>(GameSettingsDataSaveFile, false);
+            Debug.Log("** Trying To load settings data from file. ** ");
+            GameSettingsData data = dataService.LoadData<GameSettingsData>(GameSettingsDataSaveFile, false);
+            if (data != null)
+            {
+                Debug.Log("  SettingsData loaded - Valid data!");
+                gameSettingsData = data;
+            }
         }
         catch
         {
@@ -102,6 +107,10 @@ public class SavingUtility : MonoBehaviour
             // Add listener to update of data to save
             PlayerGameData.InventoryUpdate += SavePlayerDataToFile;
             GameSettingsData.GameSettingsUpdated += SaveSettingsDataToFile;
+
+            SoundMaster.Instance.ReadDataFromSave();
+
+            // Load Up settings with this data? No do it 
 
             Debug.Log(" -- Loading From File Completed --");
             LoadingComplete?.Invoke();

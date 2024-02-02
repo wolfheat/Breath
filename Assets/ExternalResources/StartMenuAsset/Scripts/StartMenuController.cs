@@ -96,10 +96,9 @@ public class StartMenuController : MonoBehaviour
     private void StartGame()
     {
         Debug.Log("Start Game Pressed");
-        SceneManager.LoadSceneAsync("MainScene", LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync("StartMenu");
-
-        }
+        SceneChanger.Instance.ChangeScene("MainScene");
+    }
 
     private void ShowSettings()
     {

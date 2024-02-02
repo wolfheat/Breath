@@ -61,7 +61,8 @@ public class GameEffectsSettings
 public class SoundSettings
 {
     public bool UseMusic { get; set; } = true;
-    public float MusicVolume { get; set; } = 0.4f;
+    public float MasterVolume { get; set; } = 0.5f;
+    public float MusicVolume { get; set; } = 0.2f;
     public bool UseSFX { get; set; } = true;
     public float SFXVolume { get; set; } = 0.4f;
 }
@@ -125,14 +126,12 @@ public class GameSettingsData
     public static Action GameSettingsUpdated;
 
     // General Settings - methods
-    internal void ChangeActiveTouchControl(int id)
+    public void SetSoundSettings(float master, float music, float SFX,bool setFromFile=false)
     {
-        ActiveTouchControl = id;
-        GameSettingsUpdated?.Invoke();
-    }
-    internal void ChangeCameraPos(int id)
-    {
-        CameraPos = id;
-        GameSettingsUpdated?.Invoke();
+        soundSettings.MasterVolume = master;
+        soundSettings.MusicVolume = music;
+        soundSettings.SFXVolume = SFX;
+        if(!setFromFile)
+            GameSettingsUpdated?.Invoke();
     }
 }

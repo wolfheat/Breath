@@ -24,8 +24,8 @@ public class PauseController : MonoBehaviour
             Debug.Log("Calling Save data to file");
             SavingUtility.Instance.SavePlayerDataToFile();
         }
-        SceneManager.LoadSceneAsync("StartMenu",LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync("MainScene");
+        SceneChanger.Instance.ChangeScene("StartMenu");
     }
     public void SetActive(bool doSetActive)
     {

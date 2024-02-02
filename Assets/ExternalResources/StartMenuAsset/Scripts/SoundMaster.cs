@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using Random = UnityEngine.Random;
@@ -91,16 +92,17 @@ public class SoundMaster : MonoBehaviour
 
         //Steps
         stepSource = gameObject.AddComponent<AudioSource>();
-        stepSource.volume = 0.3f;
+        stepSource.volume = 0.25f;
+        stepSource.outputAudioMixerGroup = SFXMixerGroup;
 
         // And Music
         musicSource = gameObject.AddComponent<AudioSource>();
-        
+        musicSource.outputAudioMixerGroup = musicMixerGroup;
+
         foreach (var music in musics)
         {
             // All music use same source (since only one will be playing at a time)
             music.SetSound(musicSource); 
-            music.audioSource.outputAudioMixerGroup = musicMixerGroup;
             musicDictionary.Add(music.name, music);
         }
 
@@ -110,10 +112,10 @@ public class SoundMaster : MonoBehaviour
     
     public void PlayMusic(MusicName name)
     {
-        Debug.Log("Playing Music: "+name+" at:" + Time.realtimeSinceStartup);
+        //Debug.Log("Playing Music: "+name+" at:" + Time.realtimeSinceStartup);
         if (activeMusic == name)
         {
-            Debug.Log("Trying to play music that is already playing");
+            //Debug.Log("Trying to play music that is already playing");
             return;
         }
         if (musicDictionary.ContainsKey(name))
@@ -134,7 +136,7 @@ public class SoundMaster : MonoBehaviour
     public void PlaySound(SoundName name, bool allowInterupt= false)
     {
 
-        Debug.Log("Play Sound: "+name+" at:" + Time.realtimeSinceStartup);
+        Debug.Log("Play Sound: "+name);
         if (soundsDictionary.ContainsKey(name))
         {
             if (!allowInterupt && soundsDictionary[name].audioSource.isPlaying && !soundsDictionary[name].loop)
@@ -142,8 +144,8 @@ public class SoundMaster : MonoBehaviour
                 Debug.Log("Sound is playing and should not loop: "+name+" at:" + Time.realtimeSinceStartup);
                 return;
             }
-            Debug.Log("Start Sound: "+name);
-            Debug.Log("soundsDictionary[name].audioSource.clip: " + soundsDictionary[name].audioSource.clip   );
+            //Debug.Log("Start Sound: "+name);
+            //Debug.Log("soundsDictionary[name].audioSource.clip: " + soundsDictionary[name].audioSource.clip   );
             soundsDictionary[name].audioSource.Play();
         }
         else
@@ -203,5 +205,12 @@ public class SoundMaster : MonoBehaviour
         if(footstep.Length>0)
             stepSource.PlayOneShot(footstep[Random.Range(0, footstep.Length)]);
     }
+    public void ReadDataFromSave()
+    {
+        Debug.Log("Updating Sound Volumes from saved file");
+        SoundSettings settings = SavingUtility.gameSettingsData.soundSettings;
+        UpdateVolume(settings.MasterVolume, settings.MusicVolume, settings.SFXVolume);
+    }
+
     }
 }
