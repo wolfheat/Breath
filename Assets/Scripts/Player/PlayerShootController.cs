@@ -1,4 +1,5 @@
 using UnityEngine;
+using Wolfheat.StartMenu;
 
 public class PlayerShootController : MonoBehaviour
 {
@@ -28,6 +29,6 @@ public class PlayerShootController : MonoBehaviour
     {
         Debug.Log("Pew");
         BulletCreator.Instance.GenerateBullet(gun.transform);
-        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.Shoot);
+        SoundMaster.Instance.PlaySound(SoundName.Shoot);
     }
 }

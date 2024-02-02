@@ -1,18 +1,50 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 namespace Wolfheat.StartMenu
 {
-    public enum SoundName {MenuStep, MenuError, MenuClick,
-    MenuOver, MenuMusic
+    public enum SoundName {MenuStep, MenuError, MenuClick, MenuOver, DropItem, Shoot, HUDPositive, HUDError,
+        BulletImpact,
+        Drowning,
+        Crafting,
+        CraftComplete,
+        HitMetal,
+        Drill,
+        PickUp
+    }
+    public enum MusicName {MenuMusic, OutDoorMusic, IndoorMusic, DeadMusic}
+
+[Serializable]
+public class Music : BaseSound
+{
+    public MusicName name;
+    public void SetSound(AudioSource source)
+    {
+        audioSource = source;
+    }
 }
 
 [Serializable]
-public class Sound
-{
+public class Sound: BaseSound
+{ 
     public SoundName name;
+    public void SetSound(AudioSource source)
+    {
+        audioSource = source;
+        audioSource.clip = clip;
+        audioSource.volume = volume;
+        audioSource.pitch = pitch;
+        audioSource.loop = loop;
+    }
+}
+    
+[Serializable]
+public class BaseSound
+    {
     public AudioClip clip;
     [Range(0f,1f)]
     public float volume;
@@ -20,16 +52,7 @@ public class Sound
     public float pitch=1f;
     public bool loop=false;
     [HideInInspector] public AudioSource audioSource;
-    private AudioSource musicSource;
 
-    public void SetSound(AudioSource source)
-    {
-        audioSource = source;
-        audioSource.clip = clip;
-        audioSource.volume = volume;
-        audioSource.pitch = pitch;            
-        audioSource.loop = loop;       
-    }
 }
 
 public class SoundMaster : MonoBehaviour
@@ -41,8 +64,13 @@ public class SoundMaster : MonoBehaviour
     public AudioMixerGroup musicMixerGroup;  
     public AudioMixerGroup SFXMixerGroup;  
     [SerializeField] private Sound[] sounds;
-    [SerializeField] private Sound[] musics;
+    [SerializeField] private Music[] musics;
+    [SerializeField]private AudioClip[] footstep;
     private Dictionary<SoundName,Sound> soundsDictionary = new();
+    private Dictionary<MusicName,Music> musicDictionary = new();
+    AudioSource musicSource;
+    MusicName activeMusic;
+    AudioSource stepSource;
 
     private void Start()
     {
@@ -57,30 +85,63 @@ public class SoundMaster : MonoBehaviour
         foreach (var sound in sounds)
         {
             sound.SetSound(gameObject.AddComponent<AudioSource>());
-            Debug.Log("Setting gruop to SFX "+ sound.audioSource.outputAudioMixerGroup);
             sound.audioSource.outputAudioMixerGroup = SFXMixerGroup;
-            Debug.Log("Setting gruop to SFX "+ sound.audioSource.outputAudioMixerGroup);
             soundsDictionary.Add(sound.name, sound);
         }
+
+        //Steps
+        stepSource = gameObject.AddComponent<AudioSource>();
+        stepSource.volume = 0.3f;
+
         // And Music
-        foreach (var sound in musics)
+        musicSource = gameObject.AddComponent<AudioSource>();
+        foreach (var music in musics)
         {
-            sound.SetSound(gameObject.AddComponent<AudioSource>());
-            sound.audioSource.outputAudioMixerGroup = musicMixerGroup;
-            soundsDictionary.Add(sound.name, sound);
+            // All music use same source (since only one will be playing at a time)
+            music.SetSound(musicSource); 
+            music.audioSource.outputAudioMixerGroup = musicMixerGroup;
+            musicDictionary.Add(music.name, music);
         }
 
         // Play theme sound
-        PlaySound(SoundName.MenuMusic);
+        PlayMusic(MusicName.MenuMusic);
     }
+    
+    public void PlayMusic(MusicName name)
+    {
+        Debug.Log("Playing Music: "+name+" at:" + Time.realtimeSinceStartup);
+        if (activeMusic == name)
+        {
+            Debug.Log("Trying to play music that is already playing");
+            return;
+        }
+        if (musicDictionary.ContainsKey(name))
+        {
+            if (musicDictionary[name].audioSource.isPlaying && !musicDictionary[name].loop)
+                return;
+            musicSource.clip = musicDictionary[name].clip;
+            musicSource.volume = musicDictionary[name].volume;
+            musicSource.pitch = musicDictionary[name].pitch;
+            musicSource.Play();
+            activeMusic = name;
+        }
+        else
+            Debug.LogWarning("No clip named "+name+" in dictionary.");
 
+    }
     public void PlaySound(SoundName name)
     {
-        //Debug.Log("Play Sound: "+name+" at:" + Time.realtimeSinceStartup);
+
+        Debug.Log("Play Sound: "+name+" at:" + Time.realtimeSinceStartup);
         if (soundsDictionary.ContainsKey(name))
         {
             if (soundsDictionary[name].audioSource.isPlaying && !soundsDictionary[name].loop)
+            {
+                Debug.Log("Sound is playing and should not loop: "+name+" at:" + Time.realtimeSinceStartup);
                 return;
+            }
+            Debug.Log("Start Sound: "+name);
+            Debug.Log("soundsDictionary[name].audioSource.clip: " + soundsDictionary[name].audioSource.clip   );
             soundsDictionary[name].audioSource.Play();
         }
         else
@@ -88,6 +149,20 @@ public class SoundMaster : MonoBehaviour
 
     }
 
+    public void FadeMusic(float time = 1f)
+    {
+        StartCoroutine(MusicFade(time));
+    }
+    public IEnumerator MusicFade(float time)
+    {
+        float changePerSecond = musicSource.volume / time;
+        while (musicSource.volume > 0)
+        {
+            musicSource.volume -= changePerSecond * Time.deltaTime;
+            yield return null;
+        }
+        musicSource.Stop();
+    }
     public void UpdateVolume(float masterVolume, float musicVolume,float sfxVolume)
     {
         //Debug.Log("Changing volumes ["+ masterVolume + ","+musicVolume+","+sfxVolume+"]");
@@ -101,7 +176,30 @@ public class SoundMaster : MonoBehaviour
         // Set SFX
         mixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
 
-
     }
-}
+
+    public void StopSound(SoundName name)
+    {
+        //Debug.Log("Play Sound: "+name+" at:" + Time.realtimeSinceStartup);
+        if (soundsDictionary.ContainsKey(name))
+        {
+            soundsDictionary[name].audioSource.Stop();
+        }
+        else
+            Debug.LogWarning("No clip named " + name + " in dictionary.");
+        }
+
+    public void ResumeMusic()
+    {
+        musicSource.Play();
+    }
+
+    public void PlayStepSound()
+    {
+        if (stepSource.isPlaying)
+            return;
+        if(footstep.Length>0)
+            stepSource.PlayOneShot(footstep[Random.Range(0, footstep.Length)]);
+    }
+    }
 }

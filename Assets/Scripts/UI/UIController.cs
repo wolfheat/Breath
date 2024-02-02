@@ -106,7 +106,7 @@ public class UIController : MonoBehaviour
     }
     public void ShowTempHairAt(Vector2 s)
     {
-        Debug.Log("Tempt hair: "+tempHair+" UI ID: "+gameObject.GetInstanceID());
+        //Debug.Log("Tempt hair: "+tempHair+" UI ID: "+gameObject.GetInstanceID());
         if (tempHair.activeSelf) return;
         tempHair.transform.position = s;
         tempHair.SetActive(true);

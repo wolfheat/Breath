@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Wolfheat.StartMenu;
 
 public class Bullet : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class Bullet : MonoBehaviour
     {        
         Debug.Log("Bullet collided with "+other.gameObject.name);
         ItemDestructEffect.Instance.PlayTypeAt(ParticleType.Plasma,transform.position);
-        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.BulletImpact);
+        SoundMaster.Instance.PlaySound(SoundName.BulletImpact);
         Destroy(gameObject);
     }
 

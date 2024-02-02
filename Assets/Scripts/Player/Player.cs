@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Wolfheat.StartMenu;
 using static UnityEngine.InputSystem.InputAction;
 public class Player : MonoBehaviour
 {
@@ -49,7 +50,7 @@ public class Player : MonoBehaviour
                 if (didPickUp)
                 {
                     pickupController.InteractWithActiveItem();
-                    SoundMaster.Instance.PlaySFX(SoundMaster.SFX.PickUp);
+                    SoundMaster.Instance.PlaySound(SoundName.PickUp);
                     Debug.Log("Did Pick Up = " + didPickUp);
                 }
                 else
@@ -131,14 +132,14 @@ public class Player : MonoBehaviour
                 if (destructable.Data.destructType == DestructType.Breakable)
                 {
                     Debug.Log("Is Breakable change to hammer");
-                    SoundMaster.Instance.PlaySFX(SoundMaster.SFX.HitMetal);
+                    SoundMaster.Instance.PlaySound(SoundName.HitMetal);
                     playerAnimationController.SetState(PlayerState.Hit);
                     toolHolder.ChangeTool(DestructType.Breakable);
                 }
                 else if (destructable.Data.destructType == DestructType.Drillable)
                 {
                     Debug.Log("Is Drillable change to drill");
-                    SoundMaster.Instance.PlaySFX(SoundMaster.SFX.Drill);
+                    SoundMaster.Instance.PlaySound(SoundName.Drill);
                     playerAnimationController.SetState(PlayerState.Drill);
                     toolHolder.ChangeTool(DestructType.Drillable);
                 }

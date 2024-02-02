@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using Wolfheat.StartMenu;
 
 public class HUDMessage : MonoBehaviour
 {
@@ -28,6 +29,6 @@ public class HUDMessage : MonoBehaviour
         positiveText.text = isNegative?"":message;
         negativeText.text = isNegative ? message:"";
         animator.Play("ShowMessage");
-        SoundMaster.Instance.PlaySFX(isNegative?SoundMaster.SFX.HUDError: SoundMaster.SFX.HUDPositive);
+        SoundMaster.Instance.PlaySound(isNegative?SoundName.HUDError: SoundName.HUDPositive);
     }
 }

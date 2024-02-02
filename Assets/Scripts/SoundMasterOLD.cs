@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 public enum MusicTrack { Indoor, OutDoor };
 
-public class SoundMaster : MonoBehaviour
+public class SoundMasterOLD : MonoBehaviour
 {
     [SerializeField] private AudioClip[] menu;
     [SerializeField] private AudioClip[] sfx;
@@ -24,11 +24,7 @@ public class SoundMaster : MonoBehaviour
     private float presetVolume = 0.1f;
     private float presetSFXStepVolume = 0.1f;
 
-    private float totalFadeOutTime = 3.5f;
-    private float fadeOutMargin = 0.01f;
-    private float currentFadeOutTime;
-
-    public static SoundMaster Instance;
+    public static SoundMasterOLD Instance;
     MusicTrack activeMusicTrack = MusicTrack.OutDoor;
 
     private void Awake()

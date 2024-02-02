@@ -46,6 +46,8 @@ public class StartMenuController : MonoBehaviour
         settings.gameObject.SetActive(false);
         credits.gameObject.SetActive(false);
 
+        SoundMaster.Instance.PlayMusic(MusicName.MenuMusic);
+
         InitiateStartMenu();
     }
 
@@ -83,8 +85,7 @@ public class StartMenuController : MonoBehaviour
     
     private void InitiateStartMenu()
     {
-            Debug.Log("Starmenu animator "+startMenu.animator);
-
+        
         startMenu.gameObject.SetActive(true);
         startMenu.animator.CrossFade("Initiate",0.1f);
         //startMenu.animator.Play("Initiate");
@@ -94,8 +95,10 @@ public class StartMenuController : MonoBehaviour
     private void StartGame()
     {
         Debug.Log("Start Game Pressed");
-        SceneManager.LoadScene("MainScene");
-    }
+        SceneManager.LoadSceneAsync("MainScene", LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync("StartMenu");
+
+        }
 
     private void ShowSettings()
     {

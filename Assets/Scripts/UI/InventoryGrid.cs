@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Wolfheat.StartMenu;   
 
 public enum UIItemSizes{size3x3, size3x2, size2x2, size2x1, size1x1 }
 
@@ -109,7 +110,6 @@ public class InventoryGrid : MonoBehaviour
                 grid[row + k, col + l] = item;
             }
         }
-        Debug.Log("Placing item "+item+" at grid "+ gridTiles[row, col]);
         item.SetHomePositionAndSpot(gridTiles[row, col].localPosition,new Vector2Int(row,col));
         equipped.RemoveIfEquipped(item);
     }
@@ -270,7 +270,7 @@ public class InventoryGrid : MonoBehaviour
         RemoveFromInventory(item);
 
         // PLay drop sound
-        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.DropItem);
+        SoundMaster.Instance.PlaySound(SoundName.DropItem);
 
     }
 }

@@ -11,21 +11,21 @@ public class SavingUtility : MonoBehaviour
 
     public static Action LoadingComplete;  
 
-    public static PlayerGameData playerGameData;
+    public static PlayerGameData playerGameData = new PlayerGameData();
     public static GameSettingsData gameSettingsData;
 
 
     private void Start()
     {
+        Debug.Log("SavingUtility Started");
         if (Instance != null)
         {
             Destroy(gameObject);
             return;
         }
-        else
-        {
-            Instance = this;    
-        }
+        Instance = this;    
+
+        
         StartCoroutine(LoadFromFile());
     }
 
@@ -68,18 +68,33 @@ public class SavingUtility : MonoBehaviour
         IDataService dataService = new JsonDataService();
         try
         {
-            playerGameData = dataService.LoadData<PlayerGameData>(PlayerDataSaveFile, false);            
+            Debug.Log("** Trying To load data from file. **");
+            PlayerGameData data = dataService.LoadData<PlayerGameData>(PlayerDataSaveFile, false);
+            if (data != null)
+            {
+                Debug.Log("  PlayerGameData loaded - Valid data!");
+                playerGameData = data;
+            }
+            else
+            {
+                Debug.Log("  PlayerGameData loaded but null - Set it to empty data!");
+                playerGameData = new PlayerGameData();
+            }
+            
         }
         catch   
         {
+            Debug.Log("  Could not load data, set default: ");
             playerGameData = new PlayerGameData();                        
         }
         try
         {
+            Debug.Log("  Trying To load settings data from file: ");
             gameSettingsData = dataService.LoadData<GameSettingsData>(GameSettingsDataSaveFile, false);
         }
         catch
         {
+            Debug.Log("  Could not load settings data, set default: ");
             gameSettingsData = new GameSettingsData();
         }
         finally
@@ -88,8 +103,8 @@ public class SavingUtility : MonoBehaviour
             PlayerGameData.InventoryUpdate += SavePlayerDataToFile;
             GameSettingsData.GameSettingsUpdated += SaveSettingsDataToFile;
 
-            Debug.Log(" -- Loading From File -- FINALLY");
-            LoadingComplete.Invoke();
+            Debug.Log(" -- Loading From File Completed --");
+            LoadingComplete?.Invoke();
 
             StartCoroutine(KeepTrackOfPlaytime());
 
@@ -102,7 +117,7 @@ public class SavingUtility : MonoBehaviour
         {
             yield return new WaitForSeconds(60f);
             playerGameData.AddPlayTimeMinutes(1);
-            Debug.Log("Tick ONE minute played Total: "+playerGameData.PlayTime);
+            //Debug.Log("Tick ONE minute played Total: "+playerGameData.PlayTime);
         }
     }
 }

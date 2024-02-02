@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 public class AchievementData
 {
@@ -64,13 +65,39 @@ public class SoundSettings
     public bool UseSFX { get; set; } = true;
     public float SFXVolume { get; set; } = 0.4f;
 }
+
+
+[Serializable]
+public class Position
+{
+    public float X { get; set; }
+    public float Y { get; set; }    
+    public float Z { get; set; }
+
+    public UnityEngine.Vector3 Get() => new UnityEngine.Vector3(X, Y, Z);
+    public void Set(UnityEngine.Vector3 vector)
+    {
+        X = vector.x;
+        Y = vector.y;
+        Z = vector.z;
+    }
+}
+
 [Serializable]
 public class PlayerGameData
 {
+    public PlayerGameData()
+    {
+        PlayTime = 0;
+    }
+
     // Players Inventory
 
+    // Position
+    public float PlayerPosition { get; set; }
+    
     // Totals
-    public int PlayTime { get; set; } = 0;
+    public int PlayTime { get; set; }
     
     // Action Events
     public static Action InventoryUpdate;

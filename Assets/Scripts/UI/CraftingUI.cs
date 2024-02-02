@@ -35,11 +35,14 @@ public class CraftingUI : MonoBehaviour
     {
         RecipeData[][] all = new RecipeData[][] { allRecipesData.armorRecipes, allRecipesData.toolRecipes, allRecipesData.foodRecipes, allRecipesData.resourceRecipes };
         // Create Entire Menu Here
+        Debug.Log("Populating Crafting Menu. Menu has "+all.Length+" main otions.");
         foreach (var recipeList in all)
         {
-            Debug.Log("Adding Main button for length:"+recipeList.Length);
             if (recipeList.Length == 0)
                 continue;
+
+            Debug.Log("  Adding Main option with "+recipeList.Length+" items");
+
             // Add main button
             var mainButton = Instantiate(mainButtonPrefab,mainButtonHolder.transform);
             // Set main button to image in first recipe
@@ -55,7 +58,6 @@ public class CraftingUI : MonoBehaviour
 
         for (int i = 0; i < baseCraftingButtons.Count; i++)
         {
-            Debug.Log("Adding Main button id:"+i+" to "+ baseCraftingButtons[i]);
             baseCraftingButtons[i].ButtonID = i;
         }
         EnableBaseCrafting(-1);

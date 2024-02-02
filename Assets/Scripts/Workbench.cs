@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Wolfheat.StartMenu;
 
 public class Workbench : Facility
 {
@@ -52,12 +53,12 @@ public class Workbench : Facility
     private IEnumerator CraftingDelay(ItemData itemData)
     {
 
-        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.Crafting);
+        SoundMaster.Instance.PlaySound(SoundName.Crafting);
         yield return new WaitForSeconds(0.2f);
-        //SoundMaster.Instance.PlaySFX(SoundMaster.SFX.CraftingB);
+        //SoundMaster.Instance.PlaySound(SoundName.CraftingB);
         yield return new WaitForSeconds(CraftingTime);
 
-        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.CraftComplete);
+        SoundMaster.Instance.PlaySound(SoundName.CraftComplete);
 
         Debug.Log("Crafting Complete");
         CraftCompleted();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using Wolfheat.StartMenu;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -69,7 +70,7 @@ public class PlayerStats : MonoBehaviour
 
     private void UpdateEquipment()
     {
-        Debug.Log("Update equipment");
+        Debug.Log("PlayerStats Updated");
 
         // Change max values
         maxHealth = StartHealth + equiped.GetHealthAddition();
@@ -110,7 +111,7 @@ public class PlayerStats : MonoBehaviour
                     {
                         Debug.Log("Starting to drown");
                         // Starting to "drown"
-                        SoundMaster.Instance.PlaySFX(SoundMaster.SFX.Drowning);
+                        SoundMaster.Instance.PlaySound(SoundName.Drowning);
                         SoundMaster.Instance.FadeMusic();
 
                     }
@@ -137,7 +138,7 @@ public class PlayerStats : MonoBehaviour
                     if (oxygen <= 0)
                     {
                         Debug.Log("Stop drowning sound");
-                        SoundMaster.Instance.StopSFX();
+                        SoundMaster.Instance.StopSound(SoundName.Drowning);
                     }
 
                     noOxygenSurvival = Math.Min(NoOxygenSurvivalMax, noOxygenSurvival + OxygenRefillSpeed * delay);
@@ -167,7 +168,7 @@ public class PlayerStats : MonoBehaviour
         oxygen = maxOxygen;
         health = StartHealth;
         IsDead = false;
-        SoundMaster.Instance.ResumeMusic();
+        SoundMaster.Instance.PlayMusic(MusicName.IndoorMusic);
         OxygenUpdated.Invoke(oxygen, maxOxygen);
         HealthUpdated.Invoke(health, maxHealth);
 

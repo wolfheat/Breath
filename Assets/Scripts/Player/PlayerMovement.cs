@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Wolfheat.StartMenu;
 using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerMovement : MonoBehaviour
@@ -17,29 +18,22 @@ public class PlayerMovement : MonoBehaviour
     // Player moves acording to velocity and acceleration
     private Vector2 mouseStoredPosition;
 // Max speed
-    float minSpeed = 3f;    
     float maxSpeed = 5f;
-    float cruiseSpeed = 2f;
-    Vector3 velocity = new Vector3();
     Vector3 lastSafePoint = new Vector3();
     Vector3 boosterAcceleration = new Vector3();
     float boosterAccelerationSpeed = 5f;
     float walkingAccelerationSpeed = 1f;
     float dampening = 0.2f;
     float stopDampening = 6f;
-    float driftDampening = 25f;
     private const float StopingSpeedLimit = 0.1f; // go slower than this and you imidiately stop
     private const float DistanceLimit = 0.1f; // go slower than this and you imidiately stop
     private const float MaxDistanceLimit = 2.5f; // safe messure if moving to far away from throw point
     private const float LookSensitivity = 0.15f;
     private const float RotationLowerLimit = 89;
     private const float RotationUpperLimit = 271;
-    private const float WalkSpeedMinimum = 0.3f;
     private const float WalkSpeed = 1.5f;
-
-    private const float InDoorDrag = 5f;
-    private const float OutDoorDrag = 0.3f;
-
+    private const float WalkSpeedMinimum = 0.3f;
+        
     private Coroutine throwCoroutine;
 
     public void OnEnable()
@@ -64,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.GetComponent<GravityArea>() != null)
         {
             rb.useGravity = true;
-            SoundMaster.Instance.ChangeMusicTrack(MusicTrack.Indoor);
+            SoundMaster.Instance.PlayMusic(MusicName.IndoorMusic);
         }
         
     }
@@ -75,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.GetComponent<GravityArea>() != null)
         {
             rb.useGravity = false;
-            SoundMaster.Instance.ChangeMusicTrack(MusicTrack.OutDoor);
+            SoundMaster.Instance.PlayMusic(MusicName.OutDoorMusic);
         }
     }
 
@@ -137,8 +131,8 @@ public class PlayerMovement : MonoBehaviour
             DampenSpeedInDoors();
 
             // STEP SOUND
-            //if (planeParts.magnitude > WalkSpeedMinimum)
-                //SoundMaster.Instance.PlayStepSFX();
+            if (planeParts.magnitude > WalkSpeedMinimum)
+                SoundMaster.Instance.PlayStepSound();
 
         }
         else
@@ -289,7 +283,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    internal void ThrowPlayer(DoorThrower doorThrower)
+    public void ThrowPlayer(DoorThrower doorThrower)
     {
         lastSafePoint = doorThrower.transform.position;
         Debug.Log("Request To throw player: safePoint set to "+lastSafePoint);

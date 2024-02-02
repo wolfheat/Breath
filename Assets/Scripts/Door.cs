@@ -9,7 +9,6 @@ public class Door : MonoBehaviour
     private Coroutine coroutine;
 
     private const float DoorSpeed = 1.6f;
-    private float DoorDistance = 0.1f;
     private float distance;
 
     private void Start()
