@@ -14,6 +14,7 @@ public class SavingUtility : MonoBehaviour
 
     public static PlayerGameData playerGameData;
     public static GameSettingsData gameSettingsData;
+    public static bool useLoadedData = true;
 
 
     private void Start()
@@ -80,6 +81,10 @@ public class SavingUtility : MonoBehaviour
             {
                 Debug.Log("  PlayerGameData loaded - Valid data!");
                 playerGameData = data;
+            }
+            else
+            {
+                playerGameData = new PlayerGameData();
             }            
         }
         catch   
@@ -95,6 +100,10 @@ public class SavingUtility : MonoBehaviour
             {
                 Debug.Log("  SettingsData loaded - Valid data!");
                 gameSettingsData = data;
+            }
+            else
+            {
+                gameSettingsData = new GameSettingsData();
             }
         }
         catch
@@ -129,4 +138,14 @@ public class SavingUtility : MonoBehaviour
             //Debug.Log("Tick ONE minute played Total: "+playerGameData.PlayTime);
         }
     }
+
+    public static Vector3 V3AsVector3(float[] v3)
+    {
+        return new Vector3(v3[0], v3[1], v3[2]);
+    }
+    public static float[] Vector3AsV3(Vector3 v)
+    {
+        return new float[3]{ v.x, v.y, v.z};
+    }
+
 }

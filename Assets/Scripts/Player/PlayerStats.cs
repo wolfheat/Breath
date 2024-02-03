@@ -6,7 +6,7 @@ using Wolfheat.StartMenu;
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] UIController uiController;
-    [SerializeField] Rigidbody playerRb;
+    [SerializeField] Rigidbody rb;
     [SerializeField] EquipedGrid equiped;
     [SerializeField] InfoHeader infoHeader;
     private int health = 100;
@@ -98,7 +98,7 @@ public class PlayerStats : MonoBehaviour
             yield return coroutineDelay;
             float startOxygen = oxygen;
 
-            if (!playerRb.useGravity)
+            if (!rb.useGravity)
             {
                 
                 if (oxygen > 0)
@@ -178,5 +178,34 @@ public class PlayerStats : MonoBehaviour
     {
         health = Math.Min(maxHealth, health + data.healthRegain);
         HealthUpdated.Invoke(health, maxHealth);
+    }
+
+    public void LoadFromFile()
+    {
+        Debug.Log("LOADING FROM FILE?");
+        PlayerGameData data = SavingUtility.playerGameData;
+        if (data == null) return;
+
+        //Loading all data from file
+        rb.position = SavingUtility.V3AsVector3(data.PlayerPosition);
+        rb.rotation = Quaternion.LookRotation(SavingUtility.V3AsVector3(data.PlayerRotation),Vector3.up);
+        Debug.Log("LOADING: Player position "+rb.position);
+
+        health = SavingUtility.playerGameData.PlayerHealth;
+        oxygen = SavingUtility.playerGameData.PlayerOxygen;
+    }
+
+    public void SaveToFile()
+    {
+        // Player position and looking direction (Tilt is disregarder, looking direction is good enough)
+        SavingUtility.playerGameData.PlayerPosition = SavingUtility.Vector3AsV3(rb.transform.position);
+        SavingUtility.playerGameData.PlayerRotation = SavingUtility.Vector3AsV3(rb.transform.forward);
+
+        // Inventory
+
+        // Health, Oxygen
+        SavingUtility.playerGameData.PlayerHealth = health;
+        SavingUtility.playerGameData.PlayerOxygen = oxygen;
+
     }
 }

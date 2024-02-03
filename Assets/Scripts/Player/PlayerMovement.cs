@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Runtime.InteropServices;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Wolfheat.StartMenu;
@@ -45,11 +44,6 @@ public class PlayerMovement : MonoBehaviour
     public void OnDisable()
     {
         Inputs.Instance.Controls.Player.RClick.performed -= RClickPerformed;
-    }
-    private void Start()
-    {
-        string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(this));
-        Debug.Log("Player GUID: "+guid);        
     }
 
     private void OnTriggerEnter(Collider other)

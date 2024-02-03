@@ -131,13 +131,13 @@ Jan 2024
 31/1	* Added start menu as separate scene
 2/2		* Implemented Scene management that keeps Managers active at all time and loads scenes additative
 		* Compressed the SoundMasters into one single one which is a manager in separate scen
+		* Adjustements to Sound
 
+		* Add all items into save/load
+		* Need to fix player starting with sub 0 oxygen and oxygen bar not updating
 
-		* Fix loading of scenes losing references after reloading
 		* Boss implode animation?
 
-		
-		* FIX Make start menu and pause, quit game.
 		* FIX Still issue with colliders in the end. PLayer goes into asteroid, fix after jam.
 		* FIX dropped items are pickable from long distance (Seems to be an issue with several items 
 			dropped at once the pickup area does not recognize on-enter and on-exit correctly fix after jam)

@@ -17,11 +17,7 @@ public class PauseController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Going to Main Menu");
-            Debug.Log("Setting playerPosition: "+ PlayerStats.Instance.transform.position.x);
-            SavingUtility.playerGameData.PlayerPosition = PlayerStats.Instance.transform.position.x;
-        
-            Debug.Log("Calling Save data to file");
+            LevelLoader.Instance.SetGameData();
             SavingUtility.Instance.SavePlayerDataToFile();
         }
         SceneManager.UnloadSceneAsync("MainScene");

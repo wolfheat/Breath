@@ -17,7 +17,7 @@ public class SceneChanger : MonoBehaviour
     }
 
 
-    public void ChangeScene(string name, bool additive = true)
+    public void ChangeScene(string name, bool additive = true, bool loadFromSaveFile = true)
     {
         if(additive)
             SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);

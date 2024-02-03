@@ -95,11 +95,14 @@ public class PlayerGameData
     // Players Inventory
 
     // Position
-    public float PlayerPosition { get; set; }
+    public float[] PlayerPosition { get; set; }
     
     // Totals
     public int PlayTime { get; set; }
-    
+    public float[] PlayerRotation { get; set; }
+    public int PlayerHealth { get; set; }
+    public float PlayerOxygen { get; set; }
+
     // Action Events
     public static Action InventoryUpdate;
     public static Action MinuteWatched;
