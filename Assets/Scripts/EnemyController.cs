@@ -1,9 +1,11 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public EnemyData Data;
+    [SerializeField] Rigidbody rb;
+
     private int health = 25;
     private int damage = 5;
 
@@ -23,6 +25,15 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void SetLocation(Vector3 pos,Vector3 forward,Vector3 up)
+    {
+        rb.position = pos;
+        rb.rotation = Quaternion.LookRotation(forward,up);
+    }
+    public (Vector3 pos, Vector3 forward, Vector3 up) GetLocation()
+    {
+        return (rb.position,rb.transform.forward, rb.transform.up);
+    }
     private void Die()
     {
         Debug.Log("Enemy has died, player wins");

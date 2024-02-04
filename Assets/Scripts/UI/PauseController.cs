@@ -18,8 +18,10 @@ public class PauseController : MonoBehaviour
         }
         else
         {
+            Debug.Log("** SAVING LEVEL **");
             LevelLoader.Instance.SetGameData();
             SavingUtility.Instance.SavePlayerDataToFile();
+            
         }
         
         SoundMaster.Instance.ResetMusic();

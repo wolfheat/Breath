@@ -69,11 +69,18 @@ public class SoundSettings
 
 
 [Serializable]
+public class SaveEnemy : SaveItem
+{
+    public int health; 
+}
+
+[Serializable]
 public class SaveItem
 {
     public int id; 
     public float[] position; 
-    public float[] rotation;
+    public float[] forward;
+    public float[] up;
 }
 
 [Serializable]
@@ -90,6 +97,7 @@ public class PlayerGameData
     public float[] PlayerPosition { get; set; }
     public SaveItem[][] Destructables { get; set; }
     public SaveItem[][] Pickables { get; set; }
+    public SaveEnemy[][] Enemies { get; set; }
     
     // Totals
     public int PlayTime { get; set; }

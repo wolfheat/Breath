@@ -53,7 +53,11 @@ public class SavingUtility : MonoBehaviour
     {
         IDataService dataService = new JsonDataService();
         if (dataService.SaveData(PlayerDataSaveFile, playerGameData, false))
+        {
             Debug.Log("Saved player data in: "+PlayerDataSaveFile);
+            // Makes sure saved data is loaded when reentering game
+            useLoadedData = true;
+        }
         else
             Debug.LogError("Could not save file: PlayerData");        
     }
@@ -118,12 +122,12 @@ public class SavingUtility : MonoBehaviour
             PlayerGameData.InventoryUpdate += SavePlayerDataToFile;
             GameSettingsData.GameSettingsUpdated += SaveSettingsDataToFile;
 
-            SoundMaster.Instance.ReadDataFromSave();
 
             // Load Up settings with this data? No do it 
 
             Debug.Log(" -- Loading From File Completed --");
             LoadingComplete?.Invoke();
+            SoundMaster.Instance.ReadDataFromSave();
 
             StartCoroutine(KeepTrackOfPlaytime());
 

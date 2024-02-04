@@ -114,7 +114,7 @@ public class SoundMaster : MonoBehaviour
     
     public void PlayMusic(MusicName name,bool firstPlay = false)
     {
-        Debug.Log("Playing Music: "+name+" at:" + Time.realtimeSinceStartup);
+        //Debug.Log("Playing Music: "+name+" at:" + Time.realtimeSinceStartup);
         
         if (musicDictionary.ContainsKey(name))
         {
@@ -134,12 +134,12 @@ public class SoundMaster : MonoBehaviour
     public void PlaySound(SoundName name, bool allowInterupt= false)
     {
 
-        Debug.Log("Play Sound: "+name);
+        //Debug.Log("Play Sound: "+name);
         if (soundsDictionary.ContainsKey(name))
         {
             if (!allowInterupt && soundsDictionary[name].audioSource.isPlaying && !soundsDictionary[name].loop)
             {
-                Debug.Log("Sound is playing and should not loop: "+name+" at:" + Time.realtimeSinceStartup);
+                //Debug.Log("Sound is playing and should not loop: "+name+" at:" + Time.realtimeSinceStartup);
                 return;
             }
             //Debug.Log("Start Sound: "+name);

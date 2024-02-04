@@ -182,14 +182,13 @@ public class PlayerStats : MonoBehaviour
 
     public void LoadFromFile()
     {
-        Debug.Log("LOADING FROM FILE?");
         PlayerGameData data = SavingUtility.playerGameData;
         if (data == null) return;
 
         //Loading all data from file
         rb.position = SavingUtility.V3AsVector3(data.PlayerPosition);
         rb.rotation = Quaternion.LookRotation(SavingUtility.V3AsVector3(data.PlayerRotation),Vector3.up);
-        Debug.Log("LOADING: Player position "+rb.position);
+        Debug.Log("  Player position: "+rb.position);
 
         health = SavingUtility.playerGameData.PlayerHealth;
         oxygen = SavingUtility.playerGameData.PlayerOxygen;

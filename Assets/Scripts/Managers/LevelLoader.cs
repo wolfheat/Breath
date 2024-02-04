@@ -33,7 +33,7 @@ public class LevelLoader : MonoBehaviour
     {
         if (!SavingUtility.useLoadedData)
         {
-            Debug.Log("Use Loaded Data set to false, dont load the level.");
+            Debug.Log(" ** LOADING DEFAULT LEVEL **");
             return;
         }
         else if (SavingUtility.playerGameData == null)
@@ -42,24 +42,25 @@ public class LevelLoader : MonoBehaviour
             return;
         }
 
-        Debug.Log("Loading Data from save.");
         LoadGameData();
 
     }
 
     private void LoadGameData()
     {
+        Debug.Log(" ** LOADING LEVEL FROM SAVE **");
 
         PlayerStats.Instance.LoadFromFile();
 
         // Save Destructables Data
         ItemCreator.Instance.LoadFromFile();
 
+        Debug.Log("**** LOADING COMPLETE ****");
     }
 
     public void SetGameData()
     {
-        Debug.Log("Setting Game Data");
+        Debug.Log("  Setting Game Data");
         PlayerStats.Instance.SetGameData();
 
         // Save Destructables Data
