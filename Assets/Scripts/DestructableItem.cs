@@ -10,7 +10,7 @@ public class DestructableItem : Item
         ItemDestructEffect.Instance.PlayTypeAt(ParticleType.Small,transform.position);
 
         foreach (Resource r in Data.resources)
-            ItemCreator.Instance.InstantiateTypeAt(r, transform.position);
+            ItemCreator.Instance.InstantiateTypeAtRandomSpherePos(r, transform.position);
 
         Destroy(gameObject);
     }

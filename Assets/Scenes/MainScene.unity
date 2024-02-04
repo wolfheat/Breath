@@ -16538,37 +16538,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1090852166}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1097706918
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1097706919}
-  m_Layer: 0
-  m_Name: StartItems
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1097706919
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1097706918}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1462878938}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1107377457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24217,7 +24186,6 @@ Transform:
   - {fileID: 1603375942}
   - {fileID: 1467673015}
   - {fileID: 255955035}
-  - {fileID: 1462878938}
   - {fileID: 1697888329}
   - {fileID: 760741858}
   m_Father: {fileID: 1824037814}
@@ -29179,38 +29147,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be897c7d563093f439c8234d7ab1c2e1, type: 3}
---- !u!1 &1462878937
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1462878938}
-  m_Layer: 0
-  m_Name: PickableItems
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1462878938
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1462878937}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1097706919}
-  m_Father: {fileID: 1361345622}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1467673014
 GameObject:
   m_ObjectHideFlags: 0
@@ -36651,8 +36587,19 @@ MonoBehaviour:
   - {fileID: 4390571699901207833, guid: aa92342d9663934438d6d013c295e275, type: 3}
   - {fileID: 9024033880931172191, guid: 2134ce03179a1204f9c4c4d756835e87, type: 3}
   - {fileID: 9024033880931172191, guid: e50c7091298bd384bb9729757bc296fa, type: 3}
+  destructablePrefabs:
+  - {fileID: 4716871272916012180, guid: a3970b711dbfbed4bbf71d35ff2678e3, type: 3}
+  - {fileID: -1248436714500949168, guid: 2e446c5e3b45273459490f51fe1231d2, type: 3}
+  - {fileID: 3352075080977873851, guid: 7ea54b5874c835447a2a0c1cb6f6c11c, type: 3}
+  - {fileID: 2237970675272910191, guid: ba48fdeb103ec1b40aea726a169bfe80, type: 3}
   itemHolder: {fileID: 1491669025}
   player: {fileID: 2006766866}
+  destructablesHolders:
+  - {fileID: 858602901}
+  - {fileID: 255955034}
+  - {fileID: 760741857}
+  pickablesHolders:
+  - {fileID: 1491669025}
 --- !u!1 &2002910412
 GameObject:
   m_ObjectHideFlags: 0
@@ -37005,7 +36952,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiController: {fileID: 1893942511}
   rb: {fileID: 2006766870}
-  tilt: {fileID: 1177095889}
   equiped: {fileID: 562303889}
   infoHeader: {fileID: 681775254}
 --- !u!114 &2006766874

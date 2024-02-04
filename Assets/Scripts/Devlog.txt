@@ -132,9 +132,13 @@ Jan 2024
 2/2		* Implemented Scene management that keeps Managers active at all time and loads scenes additative
 		* Compressed the SoundMasters into one single one which is a manager in separate scen
 		* Adjustements to Sound
+3/2		* Hard fixed the sound issue when returning to startmenu
+		* When drowning and returning to main menu, music is unmuted and drowning sounds stop (maybe stop all?)
+		* Features Saved: Player Position, Player LookDirection, Oxygen, Health
 
-		* Add all items into save/load
-		* Need to fix player starting with sub 0 oxygen and oxygen bar not updating
+		* Features To Save: Destructables list, Pickable List
+
+		* Player can jump to startmenu and save game during drowning and when returning the drowning counter is reset, leave or fix? - MAYBE
 
 		* Boss implode animation?
 

@@ -23,7 +23,7 @@ public class StartMenuController : MonoBehaviour
 
     private StartMenuPanel currentOption;
 
-        public void SetNextMenu(int nextMenuindex)
+    public void SetNextMenu(int nextMenuindex)
     {
         Debug.Log("Set Next: " + Time.realtimeSinceStartup);
         if (menuState == MenuState.Transitioning) return;
@@ -38,7 +38,14 @@ public class StartMenuController : MonoBehaviour
         menuState = MenuState.Transitioning;
     }
 
-    private void OnEnable()
+    private void Start()
+    {
+        Debug.Log("Start Menu Controller, set Current to StartMenu as initiation");
+        currentOption = startMenu;
+        InitiateStartMenu();
+    }
+
+        private void OnEnable()
     {
         Debug.Log("StartMenu On Enable");
         if (Instance != null) Destroy(gameObject);
@@ -48,11 +55,9 @@ public class StartMenuController : MonoBehaviour
         credits.gameObject.SetActive(false);
 
         SoundMaster.Instance.PlayMusic(MusicName.MenuMusic);
+        }
 
-        InitiateStartMenu();
-    }
-
-    public void ShowMenu(MenuOption menu)
+        public void ShowMenu(MenuOption menu)
     {
         switch (menu)
         {
@@ -85,8 +90,7 @@ public class StartMenuController : MonoBehaviour
     }
     
     private void InitiateStartMenu()
-    {
-        
+    {        
         startMenu.gameObject.SetActive(true);
         startMenu.animator.CrossFade("Initiate",0.1f);
         //startMenu.animator.Play("Initiate");

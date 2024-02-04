@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 1275684918936959555}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 14.052, y: -156.313, z: -103.462}
 --- !u!65 &6817128752035293420
 BoxCollider:
@@ -67,6 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 388b1964052940a449bb4381170c6f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id:
+    Value: 
   Data: {fileID: 11400000, guid: 1757fb26c3fe2cc4bb5af9f6c0ec9fe9, type: 2}
 --- !u!1 &8383896975487433285
 GameObject:
@@ -197,7 +199,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

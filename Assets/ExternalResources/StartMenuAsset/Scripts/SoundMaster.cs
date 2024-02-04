@@ -73,8 +73,10 @@ public class SoundMaster : MonoBehaviour
     MusicName activeMusic;
     AudioSource stepSource;
 
-    private void Start()
+    private void Awake()
     {
+        Debug.Log("SoundMaster Start");
+
         if (Instance == null)
             Instance = this;
         else
@@ -107,17 +109,13 @@ public class SoundMaster : MonoBehaviour
         }
 
         // Play theme sound
-        PlayMusic(MusicName.MenuMusic);
+        PlayMusic(MusicName.MenuMusic,true);
     }
     
-    public void PlayMusic(MusicName name)
+    public void PlayMusic(MusicName name,bool firstPlay = false)
     {
-        //Debug.Log("Playing Music: "+name+" at:" + Time.realtimeSinceStartup);
-        if (activeMusic == name)
-        {
-            //Debug.Log("Trying to play music that is already playing");
-            return;
-        }
+        Debug.Log("Playing Music: "+name+" at:" + Time.realtimeSinceStartup);
+        
         if (musicDictionary.ContainsKey(name))
         {
             if (musicDictionary[name].audioSource.isPlaying && !musicDictionary[name].loop)
@@ -169,7 +167,7 @@ public class SoundMaster : MonoBehaviour
     }
     public void UpdateVolume(float masterVolume, float musicVolume,float sfxVolume)
     {
-        //Debug.Log("Changing volumes ["+ masterVolume + ","+musicVolume+","+sfxVolume+"]");
+        Debug.Log("Changing volumes ["+ masterVolume + ","+musicVolume+","+sfxVolume+"]");
         
         // Convert to dB
         mixer.SetFloat("Volume", Mathf.Log10(masterVolume) * 20);
@@ -184,17 +182,22 @@ public class SoundMaster : MonoBehaviour
 
     public void StopSound(SoundName name)
     {
-        //Debug.Log("Play Sound: "+name+" at:" + Time.realtimeSinceStartup);
+        Debug.Log("Stop Sound: "+name);
         if (soundsDictionary.ContainsKey(name))
         {
             soundsDictionary[name].audioSource.Stop();
         }
         else
             Debug.LogWarning("No clip named " + name + " in dictionary.");
-        }
-
+    }
+    public void ResetMusic()
+    {
+        ResumeMusic();
+        StopSound(SoundName.Drowning);
+    }
     public void ResumeMusic()
     {
+        Debug.Log("Resume Music");
         musicSource.Play();
     }
 

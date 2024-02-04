@@ -14,7 +14,7 @@ public class SavingUtility : MonoBehaviour
 
     public static PlayerGameData playerGameData;
     public static GameSettingsData gameSettingsData;
-    public static bool useLoadedData = true;
+    public static bool useLoadedData = false;
 
 
     private void Start()
@@ -81,6 +81,7 @@ public class SavingUtility : MonoBehaviour
             {
                 Debug.Log("  PlayerGameData loaded - Valid data!");
                 playerGameData = data;
+                useLoadedData = true;
             }
             else
             {

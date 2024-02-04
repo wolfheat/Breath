@@ -193,9 +193,11 @@ public class PlayerStats : MonoBehaviour
 
         health = SavingUtility.playerGameData.PlayerHealth;
         oxygen = SavingUtility.playerGameData.PlayerOxygen;
+
+        OxygenUpdated.Invoke(oxygen,maxOxygen);
     }
 
-    public void SaveToFile()
+    public void SetGameData()
     {
         // Player position and looking direction (Tilt is disregarder, looking direction is good enough)
         SavingUtility.playerGameData.PlayerPosition = SavingUtility.Vector3AsV3(rb.transform.position);

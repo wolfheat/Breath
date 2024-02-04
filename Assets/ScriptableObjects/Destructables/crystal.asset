@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: crystal
   m_EditorClassIdentifier: Assembly-CSharp::DestructableData
   itemName: Crystal
+  boxType: 3
   resources: 0000000000000000
   destructType: 1
   itemType: 1

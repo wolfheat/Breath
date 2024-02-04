@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Wolfheat.StartMenu;
 
 public class PauseController : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class PauseController : MonoBehaviour
             LevelLoader.Instance.SetGameData();
             SavingUtility.Instance.SavePlayerDataToFile();
         }
+        
+        SoundMaster.Instance.ResetMusic();
+
         SceneManager.UnloadSceneAsync("MainScene");
         SceneChanger.Instance.ChangeScene("StartMenu");
     }

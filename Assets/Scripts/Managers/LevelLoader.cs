@@ -42,14 +42,27 @@ public class LevelLoader : MonoBehaviour
             return;
         }
 
+        Debug.Log("Loading Data from save.");
+        LoadGameData();
+
+    }
+
+    private void LoadGameData()
+    {
+
         PlayerStats.Instance.LoadFromFile();
+
+        // Save Destructables Data
+        ItemCreator.Instance.LoadFromFile();
 
     }
 
     public void SetGameData()
     {
         Debug.Log("Setting Game Data");
-        PlayerStats.Instance.SaveToFile();
+        PlayerStats.Instance.SetGameData();
 
+        // Save Destructables Data
+        ItemCreator.Instance.SetGameData();
     }
 }

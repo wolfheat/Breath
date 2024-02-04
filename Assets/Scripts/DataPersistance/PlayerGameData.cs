@@ -69,19 +69,11 @@ public class SoundSettings
 
 
 [Serializable]
-public class Position
+public class SaveItem
 {
-    public float X { get; set; }
-    public float Y { get; set; }    
-    public float Z { get; set; }
-
-    public UnityEngine.Vector3 Get() => new UnityEngine.Vector3(X, Y, Z);
-    public void Set(UnityEngine.Vector3 vector)
-    {
-        X = vector.x;
-        Y = vector.y;
-        Z = vector.z;
-    }
+    public int id; 
+    public float[] position; 
+    public float[] rotation;
 }
 
 [Serializable]
@@ -96,6 +88,8 @@ public class PlayerGameData
 
     // Position
     public float[] PlayerPosition { get; set; }
+    public SaveItem[][] Destructables { get; set; }
+    public SaveItem[][] Pickables { get; set; }
     
     // Totals
     public int PlayTime { get; set; }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: blueCrate
   m_EditorClassIdentifier: Assembly-CSharp::DestructableData
   itemName: Blue Crate
+  boxType: 1
   resources: 0000000000000000
   destructType: 0
   itemType: 1
