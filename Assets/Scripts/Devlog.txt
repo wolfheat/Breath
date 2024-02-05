@@ -141,6 +141,8 @@ Jan 2024
 		* Fixed issue with player getting stuck in door, had eyes colliders on
 
 
+		* Add button to reset save file in settings
+
 		* Player can jump to startmenu and save game during drowning and when returning the drowning counter is reset, leave or fix? - MAYBE
 		* Boss implode animation?
 

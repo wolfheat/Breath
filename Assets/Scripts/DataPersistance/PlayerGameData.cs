@@ -81,6 +81,7 @@ public class SaveItem
     public float[] position; 
     public float[] forward;
     public float[] up;
+    public SaveItem() { }
 }
 
 [Serializable]
