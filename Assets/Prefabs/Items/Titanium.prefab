@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 382159017240459792}
   - component: {fileID: 8631851091878063153}
   - component: {fileID: 2408985244548312970}
-  - component: {fileID: 4390571699901207833}
+  - component: {fileID: 3863818697905927184}
   m_Layer: 7
   m_Name: Titanium
   m_TagString: Untagged
@@ -106,7 +106,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4390571699901207833
+--- !u!114 &3863818697905927184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7329326297290946250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4937cd9bb2033fa4a9d87d42636d973f, type: 3}
+  m_Script: {fileID: 11500000, guid: d0ce62cebc822ed41aa092666a7f250e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : BaseObjectWithType, IObjectWithType
 {
     public EnemyData Data;
     [SerializeField] Rigidbody rb;
@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
     private int damage = 5;
 
     [SerializeField] Animator animator;
+
+    public override int Type => Data.Type;
 
     private void OnTriggerEnter(Collider other)
     {

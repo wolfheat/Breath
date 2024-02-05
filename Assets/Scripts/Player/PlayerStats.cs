@@ -196,7 +196,7 @@ public class PlayerStats : MonoBehaviour
         OxygenUpdated.Invoke(oxygen,maxOxygen);
     }
 
-    public void SetGameData()
+    public void DefineGameDataForSave()
     {
         // Player position and looking direction (Tilt is disregarder, looking direction is good enough)
         SavingUtility.playerGameData.PlayerPosition = SavingUtility.Vector3AsV3(rb.transform.position);

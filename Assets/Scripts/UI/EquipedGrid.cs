@@ -22,19 +22,15 @@ public class EquipedGrid : MonoBehaviour
             
     }
 
-    public bool TryPlaceItem(UIItem item)
+    public void ForcedEquip(UIItem item)
     {
-        // Limit player from equipping if not in gravity
-        if (!playerMovement.InGravity)
-        {
-            HUDMessage.Instance.ShowMessage("Can only swap equipments in gravity!");
-            item.ResetPosition();
-            return false;
-        }
-
+        EquipItem(item);
+    }
+    public bool PlaceItem(UIItem item)
+    {
         //Check what type the item is
         //check if item is already placed (if so replace if item fits inventory?)
-        if(item.data.itemType == ItemType.Equipable)
+        if (item.data.itemType == ItemType.Equipable)
         {
             EquipableData data = (item.data as EquipableData);
             int itemType = (int)data.equipType;
@@ -44,7 +40,7 @@ public class EquipedGrid : MonoBehaviour
 
             if (used)
             {
-                if(item == used)
+                if (item == used)
                 {
                     item.ResetPosition();
                     return true;
@@ -56,11 +52,11 @@ public class EquipedGrid : MonoBehaviour
 
                 if (grid.PlaceItemAnywhere(used))
                 {
-                    EquipItem(item);                    
+                    EquipItem(item);
                     return true;
                 }
                 // Reset the items placement
-                grid.PlaceAtSpot(item.Spot.x,item.Spot.y, item);
+                grid.PlaceAtSpot(item.Spot.x, item.Spot.y, item);
                 return false;
             }
             //Debug.Log("No item in equipable so can equip" + data.itemName);
@@ -70,6 +66,18 @@ public class EquipedGrid : MonoBehaviour
             return true;
         }
         return false;
+    }
+    public bool TryPlaceItem(UIItem item)
+    {
+        // Limit player from equipping if not in gravity
+        if (!playerMovement.InGravity)
+        {
+            HUDMessage.Instance.ShowMessage("Can only swap equipments in gravity!");
+            item.ResetPosition();
+            return false;
+        }
+        return PlaceItem(item);
+        
     }
 
     public void RemoveIfEquipped(UIItem item)

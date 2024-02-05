@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 
 //public enum Resource { Al, Cu, Ti, Plastic, Textile, Water, Food };
@@ -46,37 +48,25 @@ public class Inventory : MonoBehaviour
     {
         return heldResources;
     }
-    public bool AddItem(PickableItem item)
+    public bool AddResource(ResourceItem item)
     {
-        // Add item depending on type?
-        if(item.Data is ResourceData)
-        {
-            ResourceData data = (ResourceData)item.Data;
-            bool didAdd = AddItem(data.resource, 1);
-            return didAdd;
-        }else if(item.Data is ObjectData)
-        {
-            ObjectData data = (ObjectData)item.Data;
-            bool didAdd = AddItem(data);
-            return didAdd;
-        }
-        return false;
+        // Add item depending on type?        
+        bool didAddResource = AddResource((item.Data as ResourceData).resource, 1);
+        return didAddResource;
     }
-    public bool AddItem(ObjectData data)
+    public bool AddItem(ItemData data)
     {
-        Debug.Log("Trying to pick up object!");
-
-        bool addedToInventory = grid.AddItemToInventory(data);
-        return addedToInventory;
+        bool didAddToInventory = grid.AddItemToInventory(data);
+        return didAddToInventory;
     }
-    public bool AddItem(Resource type, int amt)
+    public bool AddResource(Resource type, int amt)
     {
         Debug.Log("Trying to pick up resource type "+type+" = index "+type);
         heldResources[(int)type] += amt;
         UpdateInventory();
         return true;
     }
-    public void RemoveItem(Resource type, int amt)
+    public void RemoveResource(Resource type, int amt)
     {
         if(heldResources[(int)type]>=amt) heldResources[(int)type] -= amt;
         UpdateInventory();
@@ -108,7 +98,49 @@ public class Inventory : MonoBehaviour
     {
         foreach(var recipeAmount in ingredienses)
         {
-            RemoveItem(recipeAmount.resourceData.resource,recipeAmount.amount);
+            RemoveResource(recipeAmount.resourceData.resource,recipeAmount.amount);
         }
+    }
+
+    public void DefineGameDataBeforSave()
+    {
+        Debug.Log(" **  Define Inventory Before Saving **");
+        // Player position and looking direction (Tilt is disregarder, looking direction is good enough)
+        SavingUtility.playerGameData.Inventory = UpdateStoredInventoryBeforeSave();
+
+    }
+
+    private InventorySave UpdateStoredInventoryBeforeSave()
+    {
+        InventorySave save = new InventorySave();
+        save.resources = heldResources;
+
+        UIItem[] uIItems = grid.GetAllItems().ToArray();
+        InventorySaveItem[] itemsSave = new InventorySaveItem[uIItems.Length];
+        // Fill with items
+        for (int i = 0; i < itemsSave.Length; i++)
+        {
+            UIItem item = uIItems[i];
+            ObjectData objectData = item.data as ObjectData;
+            itemsSave[i] = new InventorySaveItem() { mainType = objectData.Type, subType = objectData.SubType , gridPosition = new int[2] { item.Spot[0], item.Spot[1] }};
+        }
+        save.inventorySaveItems = itemsSave;
+        Debug.Log("** Saving inventory **");
+        Debug.Log("  resources: "+save.resources);
+        Debug.Log("  items to save: "+uIItems.Length);
+        return save;
+    }
+
+    public void LoadFromFile()
+    {
+        Debug.Log("** Loading inventory **");
+        InventorySave inv = SavingUtility.playerGameData.Inventory;
+        heldResources = inv.resources;
+
+        Debug.Log("  resources: " + heldResources);
+
+        grid.AddItemsToInventory(inv.inventorySaveItems);
+
+        UpdateInventory();
     }
 }

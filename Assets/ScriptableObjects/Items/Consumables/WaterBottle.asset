@@ -16,3 +16,4 @@ MonoBehaviour:
   size: {x: 1, y: 1}
   picture: {fileID: 21300000, guid: 491cf4dde2afc9842b1613fe37cc5786, type: 3}
   healthRegain: 20
+  type: 4

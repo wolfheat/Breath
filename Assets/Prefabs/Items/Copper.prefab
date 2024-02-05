@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9190242475975749883}
   - component: {fileID: 774631377037954814}
   - component: {fileID: 7434677422251647086}
-  - component: {fileID: 6943956692532408043}
+  - component: {fileID: 8798144789172249305}
   m_Layer: 7
   m_Name: Copper
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9190242475975749883
 MeshFilter:
@@ -106,7 +106,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6943956692532408043
+--- !u!114 &8798144789172249305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7824671051967812044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4937cd9bb2033fa4a9d87d42636d973f, type: 3}
+  m_Script: {fileID: 11500000, guid: d0ce62cebc822ed41aa092666a7f250e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 4d3df6625a15c3d4192a699548321332, type: 2}

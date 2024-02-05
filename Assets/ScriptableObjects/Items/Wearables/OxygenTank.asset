@@ -16,3 +16,4 @@ MonoBehaviour:
   size: {x: 3, y: 2}
   picture: {fileID: 21300000, guid: eacfdcade9efe3f4f9437462bb839770, type: 3}
   equipType: 3
+  subType: 5

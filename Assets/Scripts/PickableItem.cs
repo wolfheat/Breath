@@ -1,7 +1,9 @@
 using UnityEngine;
-public class PickableItem : Item
+public class PickableItem : Interactable
 {
     public ItemData Data;
+    
+    public override int Type => Data.Type;
 
     public override void InteractWith()
     {

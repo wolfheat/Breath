@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Wolfheat.StartMenu;   
+using Wolfheat.StartMenu;
+using static UnityEditor.Progress;
 
 public enum UIItemSizes{size3x3, size3x2, size2x2, size2x1, size1x1 }
 
@@ -15,19 +16,27 @@ public class InventoryGrid : MonoBehaviour
     [SerializeField] private UIItem uiItemPrefab;
     [SerializeField] private UIItem[] uiItemPrefabs;
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] InventoryItemsDatabase database;
 
     [SerializeField] private List<ItemData> heldItemsData;
     [SerializeField] private List<UIItem> heldItems;
 
-    private UIItem[,] grid = new UIItem[8,6];
+    private UIItem[,] grid;
     private Transform[,] gridTiles = new Transform[8,6];
     private const float Tilesize = 89;
     private void Start()
     {
+        ResetGrid();
+
         CreateInventoryBackgroundGrid();
 
         // Occupy With held items
         OccupyWithInitialItems();
+    }
+
+    private void ResetGrid()
+    {
+        grid = new UIItem[8, 6];
     }
 
     private void CreateInventoryBackgroundGrid()
@@ -51,7 +60,47 @@ public class InventoryGrid : MonoBehaviour
         }
     }
 
-    public bool AddItemToInventory(ItemData data)
+    public bool AddItemsToInventory(InventorySaveItem[] items)
+    {
+        ClearInventory();
+
+        Debug.Log("  Load all helt inventory items: " + items.Length);
+        // Load in all items here
+        foreach (var item in items)
+        {
+            ItemData data = (ItemType)item.mainType switch
+            {
+                ItemType.Equipable => database.equipables[item.subType],
+                ItemType.Consumable => database.consumables[item.subType],
+                _ => null
+            };
+            AddItemToInventoryAt(data, item.gridPosition);
+            Debug.Log("  items added to inventory: " + data.itemName+" at "+item.gridPosition);
+        }
+        return true;
+    }
+
+    private void AddItemToInventoryAt(ItemData data, int[] gridPosition)
+    {
+        UIItem newItem = Instantiate(uiItemPrefab, itemHolder.transform);
+        if (data is EquipableData)
+        {
+            Vector2 rectSize = equipped.GetItemRectSize(data);
+            newItem.SetData(data, rectSize);
+        }
+        else
+        {
+            newItem.SetData(data);
+        }
+        if (gridPosition[0] != -1)
+            PlaceAtSpot(gridPosition[0], gridPosition[1], newItem);
+        else
+            equipped.ForcedEquip(newItem);
+
+        heldItems.Add(newItem);
+    }
+
+    public bool AddItemToInventory(ItemData data, bool place=true)
     {
         UIItem newItem = Instantiate(uiItemPrefab, itemHolder.transform);
         if(data is EquipableData)
@@ -64,14 +113,16 @@ public class InventoryGrid : MonoBehaviour
             // Add resources differently?
             newItem.SetData(data);
         }
-
-        bool didPlace = PlaceItemAtFirstFreeSpot(newItem);
-        if (!didPlace)
-        {
-            Debug.Log("Could not place item " + newItem.data.itemName + " in inventory");
-            HUDMessage.Instance.ShowMessage("Not enough inventory space");
-            Destroy(newItem.gameObject);
-            return false;
+        if (place)
+        {            
+            bool didPlace = PlaceItemAtFirstFreeSpot(newItem);
+            if (!didPlace)
+            {
+                Debug.Log("Could not place item " + newItem.data.itemName + " in inventory");
+                HUDMessage.Instance.ShowMessage("Not enough inventory space");
+                Destroy(newItem.gameObject);
+                return false;
+            }
         }
         heldItems.Add(newItem);
         return true;
@@ -248,6 +299,17 @@ public class InventoryGrid : MonoBehaviour
         ClickTimerLimited = false;
     }
 
+    public void ClearInventory()
+    {
+        foreach (var item in heldItems)
+        {
+            Debug.Log("Trying to destroy "+item.data.itemName);
+            Destroy(item.gameObject);
+        }
+        heldItems.Clear();
+        ResetGrid();
+
+    }
     public void RemoveFromInventory(UIItem item)
     {
         if (item.IsInInventory())
@@ -272,5 +334,10 @@ public class InventoryGrid : MonoBehaviour
         // PLay drop sound
         SoundMaster.Instance.PlaySound(SoundName.DropItem);
 
+    }
+
+    public List<UIItem> GetAllItems()
+    {
+        return heldItems;
     }
 }

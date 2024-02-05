@@ -9,6 +9,8 @@ public class Workbench : Facility
     [SerializeField] private ParticleSystem craftingEffects;
     [SerializeField] private PickableItem genericPrefab;
     [SerializeField] private GameObject craftingPoint;
+    private FacilityType FacilityType = FacilityType.Workbench;
+    public override int Type => (int)FacilityType;
 
     private bool isCrafting = false;
     public bool IsCrafting { get { return isCrafting;} }

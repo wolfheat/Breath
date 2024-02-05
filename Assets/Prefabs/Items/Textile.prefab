@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6053328408117491394}
   - component: {fileID: 2138885375709764871}
   - component: {fileID: 9028886551859230365}
-  - component: {fileID: 669773634142222707}
+  - component: {fileID: 693132785794168031}
   m_Layer: 7
   m_Name: Textile
   m_TagString: Untagged
@@ -106,7 +106,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &669773634142222707
+--- !u!114 &693132785794168031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5614546837494913570}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4937cd9bb2033fa4a9d87d42636d973f, type: 3}
+  m_Script: {fileID: 11500000, guid: d0ce62cebc822ed41aa092666a7f250e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}

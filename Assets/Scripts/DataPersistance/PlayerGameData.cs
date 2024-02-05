@@ -75,12 +75,26 @@ public class SaveEnemy : SaveItem
 }
 
 [Serializable]
+public class InventorySave
+{
+    public int[] resources;
+    public InventorySaveItem[] inventorySaveItems;
+}
+
+[Serializable]
+public class InventorySaveItem
+{
+    public int mainType;
+    public int subType;
+    public int[] gridPosition;
+}
+
+[Serializable]
 public class SaveItem
 {
     public int id; 
     public float[] position; 
-    public float[] forward;
-    public float[] up;
+    public float[] rotation;
     public SaveItem() { }
 }
 
@@ -97,7 +111,7 @@ public class PlayerGameData
     // Position
     public float[] PlayerPosition { get; set; }
     public SaveItem[][] Destructables { get; set; }
-    public SaveItem[][] Pickables { get; set; }
+    public SaveItem[][] Resources { get; set; }
     public SaveEnemy[][] Enemies { get; set; }
     
     // Totals
@@ -105,6 +119,7 @@ public class PlayerGameData
     public float[] PlayerRotation { get; set; }
     public int PlayerHealth { get; set; }
     public float PlayerOxygen { get; set; }
+    public InventorySave Inventory { get; set; }
 
     // Action Events
     public static Action InventoryUpdate;

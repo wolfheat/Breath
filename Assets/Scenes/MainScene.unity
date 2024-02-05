@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.511, g: 0.48699328, b: 0, a: 1}
+  m_AmbientSkyColor: {r: 0.46226418, g: 0.42101973, b: 0.3510591, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.27
@@ -5313,7 +5313,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.990566, g: 0.95336807, b: 0.2756764, a: 1}
-  m_Intensity: 1.2
+  m_Intensity: 3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -8493,6 +8493,7 @@ MonoBehaviour:
   - {fileID: 6410380995507453783, guid: 2b98a77956e551d448c3b78869553729, type: 3}
   - {fileID: 1487105650989758144, guid: cccfb08f7afba77449db29e23c2f9eee, type: 3}
   playerMovement: {fileID: 2006766871}
+  database: {fileID: 11400000, guid: 82d081c340d244f4697056cce5d603d4, type: 2}
   heldItemsData:
   - {fileID: 11400000, guid: 9496f11aa5ccfb046b8529539c1e8187, type: 2}
   - {fileID: 11400000, guid: 9496f11aa5ccfb046b8529539c1e8187, type: 2}
@@ -10874,7 +10875,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.014017418, g: 0.41378707, b: 0.990566, a: 1}
-  m_Intensity: 1.68
+  m_Intensity: 0.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -32928,7 +32929,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.5943396, g: 0.008410451, b: 0.057206403, a: 1}
-  m_Intensity: 2.7
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -34272,14 +34273,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a02c6d0414a5e4ea9c3c997d8283c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickablePrefabs:
-  - {fileID: 8269245775479879946, guid: 2b229ae7a620c144499e720fefe7236a, type: 3}
-  - {fileID: 6943956692532408043, guid: 0ec4e5796fbe48f42892df5e8ec57917, type: 3}
-  - {fileID: 3690536024303766528, guid: 535f6e2a59306124b88fe9d212359904, type: 3}
-  - {fileID: 669773634142222707, guid: c58c23ee648c29148b7bbc52dc2f9165, type: 3}
-  - {fileID: 4390571699901207833, guid: aa92342d9663934438d6d013c295e275, type: 3}
-  - {fileID: 9024033880931172191, guid: 2134ce03179a1204f9c4c4d756835e87, type: 3}
-  - {fileID: 9024033880931172191, guid: e50c7091298bd384bb9729757bc296fa, type: 3}
+  resourcePrefabs:
+  - {fileID: 3458871021701908437, guid: 2b229ae7a620c144499e720fefe7236a, type: 3}
+  - {fileID: 8798144789172249305, guid: 0ec4e5796fbe48f42892df5e8ec57917, type: 3}
+  - {fileID: -1216286990080200295, guid: 535f6e2a59306124b88fe9d212359904, type: 3}
+  - {fileID: 693132785794168031, guid: c58c23ee648c29148b7bbc52dc2f9165, type: 3}
+  - {fileID: 3863818697905927184, guid: aa92342d9663934438d6d013c295e275, type: 3}
+  - {fileID: 2026551501336145915, guid: 2134ce03179a1204f9c4c4d756835e87, type: 3}
+  - {fileID: -7052955351072792707, guid: e50c7091298bd384bb9729757bc296fa, type: 3}
   destructablePrefabs:
   - {fileID: 4716871272916012180, guid: a3970b711dbfbed4bbf71d35ff2678e3, type: 3}
   - {fileID: -1248436714500949168, guid: 2e446c5e3b45273459490f51fe1231d2, type: 3}
@@ -34524,9 +34525,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5165572
-  m_Height: 1.0331146
+  m_Height: 1.6019058
   m_Direction: 1
-  m_Center: {x: 0, y: -0.48308447, z: 0}
+  m_Center: {x: -2.8217012e-11, y: -0.19869125, z: 0.0000000019625332}
 --- !u!23 &2006766868
 MeshRenderer:
   m_ObjectHideFlags: 0

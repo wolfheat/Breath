@@ -36,29 +36,36 @@ public class Player : MonoBehaviour
         // Interact with closest visible item 
         if(pickupController.ActiveInteractable != null)
         {
-            if (pickupController.ActiveInteractable is Facility)
-            {
-                pickupController.ActiveInteractable.InteractWith();
-            }
-            else if (pickupController.ActiveInteractable is PickableItem)
-            {
-                Debug.Log("Interactable is " + pickupController.ActiveInteractable.name);
-                PickableItem item = (PickableItem)pickupController.ActiveInteractable;
-                Debug.Log("Pickable is "+ item.name);
+            bool didPickUp = false;
 
-                bool didPickUp = inventory.AddItem(item);
-                if (didPickUp)
+            Interactable activeObject = pickupController.ActiveInteractable;
+            Debug.Log("pickupController.ActiveInteractable!"+ activeObject);
+            if (activeObject is Facility)
+            {
+                activeObject.InteractWith();
+            }
+            else if (activeObject is PickableItem)
+            {
+                if(activeObject is ResourceItem)
                 {
-                    pickupController.InteractWithActiveItem();
-                    SoundMaster.Instance.PlaySound(SoundName.PickUp);
-                    Debug.Log("Did Pick Up = " + didPickUp);
+                    Debug.Log("Interact with resource!");
+                    didPickUp = inventory.AddResource(activeObject as ResourceItem);
                 }
                 else
-                    Debug.Log("Could Not Pick Up "+item.Data.itemName);
-
-                StartCoroutine(ResetItemCollider());
+                {
+                    Debug.Log("Interact with inventoryitem!");
+                    didPickUp = inventory.AddItem((activeObject as PickableItem).Data);
+                }
             }
-            // No active item here
+
+            if (didPickUp)
+            {
+                pickupController.InteractWithActiveItem();
+                SoundMaster.Instance.PlaySound(SoundName.PickUp);
+                Debug.Log("Did Pick Up = " + didPickUp);
+            }
+            
+            StartCoroutine(ResetItemCollider());
         }
         else
         {

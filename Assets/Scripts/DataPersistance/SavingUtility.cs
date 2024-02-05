@@ -152,5 +152,14 @@ public class SavingUtility : MonoBehaviour
     {
         return new float[3]{ v.x, v.y, v.z};
     }
+    
+    public static Quaternion V4AsQuaternion(float[] v4)
+    {
+        return new Quaternion(v4[0], v4[1], v4[2], v4[3]);
+    }
+    public static float[] QuaternionAsV4(Quaternion q)
+    {
+        return new float[4]{ q.x, q.y, q.z, q.w};
+    }
 
 }

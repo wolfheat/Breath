@@ -139,10 +139,12 @@ Jan 2024
 		* Made Destructables fixed in place and rotation
 		* Features Saved: Boss (Enemies) Had to add Up direction to save because boss has other than up direction as up
 		* Fixed issue with player getting stuck in door, had eyes colliders on
-
+4/2		* Rewrote saving methods to DRY
+		* Added up direction for all items as well for correct rotation save.
+5/2		* Save and Load does now work for Inventory and equipment
+		* Now saving Quaternions instead of forward+up? 6 floats down to 4.?
 
 		* Add button to reset save file in settings
-
 		* Player can jump to startmenu and save game during drowning and when returning the drowning counter is reset, leave or fix? - MAYBE
 		* Boss implode animation?
 

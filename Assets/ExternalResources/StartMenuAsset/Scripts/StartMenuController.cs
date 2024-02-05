@@ -43,9 +43,10 @@ public class StartMenuController : MonoBehaviour
         Debug.Log("Start Menu Controller, set Current to StartMenu as initiation");
         currentOption = startMenu;
         InitiateStartMenu();
-    }
+        SoundMaster.Instance.PlayMusic(MusicName.MenuMusic);
+        }
 
-        private void OnEnable()
+    private void OnEnable()
     {
         Debug.Log("StartMenu On Enable");
         if (Instance != null) Destroy(gameObject);
@@ -54,8 +55,7 @@ public class StartMenuController : MonoBehaviour
         settings.gameObject.SetActive(false);
         credits.gameObject.SetActive(false);
 
-        SoundMaster.Instance.PlayMusic(MusicName.MenuMusic);
-        }
+    }
 
         public void ShowMenu(MenuOption menu)
     {

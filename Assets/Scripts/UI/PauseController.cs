@@ -19,7 +19,7 @@ public class PauseController : MonoBehaviour
         else
         {
             Debug.Log("** SAVING LEVEL **");
-            LevelLoader.Instance.SetGameData();
+            LevelLoader.Instance.DefineGameDataForSave();
             SavingUtility.Instance.SavePlayerDataToFile();
             
         }

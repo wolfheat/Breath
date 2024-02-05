@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7675e83aa7c34b441bef3ac25b4f75b5, type: 3}
-  m_Name: LargeBoots 1
+  m_Name: OxygenTankSmall
   m_EditorClassIdentifier: 
-  itemName: Large Boots
-  size: {x: 2, y: 2}
-  picture: {fileID: -1398908505, guid: 80f111c6cd7a9bc44a3274eef9c2d999, type: 3}
-  equipType: 2
+  itemName: Oxygen Tank Small
+  size: {x: 3, y: 1}
+  picture: {fileID: 21300000, guid: 38b56632a4bdc644eb6060a6065258cd, type: 3}
+  equipType: 3
+  subType: 4

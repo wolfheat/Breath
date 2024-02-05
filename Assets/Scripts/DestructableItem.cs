@@ -1,7 +1,9 @@
 using UnityEngine;
-public class DestructableItem : Item
+
+public class DestructableItem : Interactable
 {
     public DestructableData Data;
+    public override int Type => Data.Type;
 
     public override void InteractWith()
     {
