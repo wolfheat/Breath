@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2464512423435588512}
   - component: {fileID: 5610340224821245234}
   - component: {fileID: 1798883036319318781}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Crate_Yellow_Big_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 331252523472500662}
   - component: {fileID: 672255971811019929}
   - component: {fileID: 4930397700137920070}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Crate_Yellow_Big_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ Transform:
   m_Children:
   - {fileID: 331252523472500662}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -82.629005, z: 0}
 --- !u!65 &2456759619681205927
 BoxCollider:
@@ -262,6 +262,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 388b1964052940a449bb4381170c6f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id:
-    Value: 1fe05fa7-d831-4c50-aafc-547d0b74b67d
   Data: {fileID: 11400000, guid: ea0948b8078a296428be0ff88de96e42, type: 2}

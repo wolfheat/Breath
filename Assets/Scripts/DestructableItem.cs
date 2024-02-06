@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class DestructableItem : Interactable
@@ -11,11 +12,10 @@ public class DestructableItem : Interactable
 
         ItemDestructEffect.Instance.PlayTypeAt(ParticleType.Small,transform.position);
 
-        foreach (Resource r in Data.resources)
-            ItemCreator.Instance.InstantiateTypeAtRandomSpherePos(r, transform.position);
+        foreach (var resource in Data.resources)
+            ItemCreator.Instance.InstantiateTypeAtRandomSpherePos(resource, transform.position);
 
         Destroy(gameObject);
     }
-
 }
 

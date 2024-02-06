@@ -25,14 +25,14 @@ public class ItemSelector : MonoBehaviour
     public void SetToPosition(Transform newTarget)
     {
         target = newTarget;
-        Debug.Log("Setting selector to target "+target.gameObject.name); 
+        //Debug.Log("Setting selector to target "+target.gameObject.name); 
         particle.Play();
     }
 
     public void Disable()
     {
         target = null;
-        Debug.Log("Selector Lost Target");
+        //Debug.Log("Selector Lost Target");
         // Disable selector if not used
         particle.Clear();
         particle.Stop();

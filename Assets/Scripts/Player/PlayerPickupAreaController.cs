@@ -29,14 +29,16 @@ public class PlayerPickupAreaController : MonoBehaviour
         return true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.GetComponent<Interactable>() != null)
         {
             Interactable newItem = other.gameObject.GetComponent<Interactable>();
-            if (!items.Contains(newItem)) 
+            if (!items.Contains(newItem))
+            {
                 items.Add(newItem);
-            Debug.Log("Item " + newItem.name + " entered area, size is now " + items.Count);
+                //Debug.Log("Item " + newItem.name + " entered area, size is now " + items.Count);
+            } 
             SelectClosest();
         }
     }
@@ -115,9 +117,10 @@ public class PlayerPickupAreaController : MonoBehaviour
         {
             Interactable item = other.gameObject.GetComponent<Interactable>();
             if (items.Contains(item))
+            {
                 items.Remove(item);
-            Debug.Log("Item "+item.name+" exited area, size is now "+items.Count);
-        StartCoroutine(player.ResetItemCollider());
+                //Debug.Log("Item "+item.name+" exited area, size is now "+items.Count);
+            }
         SelectClosest();
         }
     }

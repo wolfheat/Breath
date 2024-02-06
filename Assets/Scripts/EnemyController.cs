@@ -28,11 +28,19 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
             }
         }
     }
-
-    public void SetLocation(Vector3 pos,Vector3 forward,Vector3 up)
+    // Not currently used, the position is set the same way as items, directly to the transform
+    public void SetLocation(Vector3 pos,Quaternion rot)
     {
-        rb.position = pos;
-        rb.rotation = Quaternion.LookRotation(forward,up);
+        if(rb != null)
+        {
+            rb.position = pos;
+            rb.rotation = rot;
+        }
+        else
+        {
+            transform.position = pos;
+            transform.rotation = rot;
+        }
     }
     public (Vector3 pos, Vector3 forward, Vector3 up) GetLocation()
     {

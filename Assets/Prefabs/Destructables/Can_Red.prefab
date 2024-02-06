@@ -67,8 +67,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 388b1964052940a449bb4381170c6f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id:
-    Value: 
   Data: {fileID: 11400000, guid: 1757fb26c3fe2cc4bb5af9f6c0ec9fe9, type: 2}
 --- !u!1 &8383896975487433285
 GameObject:
@@ -83,7 +81,7 @@ GameObject:
   - component: {fileID: 3925269219792495969}
   - component: {fileID: 7597044375538302414}
   - component: {fileID: 5776540492255617832}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Can_Red_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

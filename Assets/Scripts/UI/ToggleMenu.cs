@@ -15,7 +15,7 @@ public class ToggleMenu : MonoBehaviour
 
     public void Toggle()
     {
-        Debug.Log("Toggle Request, panel is active: "+ panel.activeSelf+" ID:"+gameObject.GetInstanceID());
+        //Debug.Log("Toggle Request, panel is active: "+ panel.activeSelf+" ID:"+gameObject.GetInstanceID());
 
         if (panel.activeSelf)
             DragObject.Instance.UnSetDragedItem();
@@ -48,7 +48,7 @@ public class ToggleMenu : MonoBehaviour
     }
     public void AnimationComplete()
     {
-        Debug.Log("Animation trigger speed:"+ animator.GetCurrentAnimatorStateInfo(0).speed + " ID:" + gameObject.GetInstanceID());
+        //Debug.Log("Animation trigger speed:"+ animator.GetCurrentAnimatorStateInfo(0).speed + " ID:" + gameObject.GetInstanceID());
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("MakeInVisible"))
         {
             //Debug.Log("Animation closes" + " ID:" + gameObject.GetInstanceID());

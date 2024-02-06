@@ -150,19 +150,20 @@ Jan 2024
 		* Fixed issue with small tank not giving oxygen Hardcoded, should softcode it
 		* Made the HUD images for click and E larger and red if unavailable.
 6/2		* Credits updated for assets
+		* Fixed rubber feeling on colliding with items when moving
+		* Fixed collider issue in space station corners
+		* Fixed LOD issue with colliders on asteroids
+		* Improved bullets collisions
+		* Fixed dropped item pickable from long distance issue, not removed from pickable items correctly
+		* Made a solution for creating resources and having them not appear inside objects
 
-
-		* Work on bad moving and getting stuck on items like made of rubber.
-		* Fix bullets going into stuff when exploding, it makes it not visible. Collider issue of LOD issue or?
 		* Boss implode animation? More boss action, movement shooting towards player etc.
+		* Trouble with boss colliders, hard to make more animationa and movement?
+		* Credits for each SFX sound?
 		
-		* Make sure spawned resources dont overlap or are created inside other items
-
-		* FIX Still issue with colliders in the end. PLayer goes into asteroid, fix after jam.
+		* Make bullet impact eccho in cavern?
 		* Remove hard coding of oxygen and suit add ons
-		* FIX dropped items are pickable from long distance (Seems to be an issue with several items 
-			dropped at once the pickup area does not recognize on-enter and on-exit correctly fix after jam)
-
+		
 		* have boss shoot water drips that player can hit with gun and generate water drops - MAYBE
 		* Add all used assets
 

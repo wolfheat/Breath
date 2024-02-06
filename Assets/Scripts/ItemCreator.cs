@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemCreator : MonoBehaviour
@@ -97,16 +98,43 @@ public class ItemCreator : MonoBehaviour
     {
         Quaternion rot = Quaternion.LookRotation(forward);
         Instantiate(resourcePrefabs[type], pos, rot, itemHolder.transform);
-
-        StartCoroutine(player.ResetItemCollider());
     }
     
-    public void InstantiateTypeAtRandomSpherePos(Resource type, Vector3 pos)
+    public IEnumerator InstantiateTypeAtRandomSpherePos(Resource[] types, Vector3 randomPointCenter)
     {
-        Debug.Log("Instantiate item "+type+" at pos: "+pos);
-        Instantiate(resourcePrefabs[(int)type], pos+Random.insideUnitSphere*0.18f, Quaternion.identity, itemHolder.transform);
+        Debug.Log("Instantiate COroutine runs "+types.Length);
+        yield return null;
+        Debug.Log("Instantiate COroutine runs "+types.Length);
+        foreach (var type in types)
+            InstantiateTypeAtRandomSpherePos(type, randomPointCenter);
+    }
+    public void InstantiateTypeAtRandomSpherePos(Resource type, Vector3 randomPointCenter)
+    {
 
-        StartCoroutine(player.ResetItemCollider());
+        // Try instantiating at random positions 10 times to not overlap colliders
+        int tries = 0;
+        float creationRadius = 0.3f;
+        Vector3 pos = new Vector3(); 
+        while (tries < 20)
+        {
+            pos = randomPointCenter + Random.insideUnitSphere * creationRadius;
+            Collider[] colliders = Physics.OverlapSphere(pos, ResourceItem.ResourceSize*0.5f);
+            if (colliders.Length==0 || ColliderIsNotEnvironment(colliders))
+                break;
+            
+            tries++;
+            if (tries == 10)
+                creationRadius *= 2;
+        }
+        Debug.Log("Created resource "+type+" after "+tries+ " attempts");
+        Instantiate(resourcePrefabs[(int)type], pos, Quaternion.identity, itemHolder.transform);
     }
 
+    private bool ColliderIsNotEnvironment(Collider[] colliders)
+    {
+        foreach (Collider collider in colliders)
+            if (collider.gameObject.layer == 0)
+                return false;
+        return true;
+    }
 }

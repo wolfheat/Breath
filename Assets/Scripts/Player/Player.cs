@@ -65,7 +65,6 @@ public class Player : MonoBehaviour
                 Debug.Log("Did Pick Up = " + didPickUp);
             }
             
-            StartCoroutine(ResetItemCollider());
         }
         else
         {
@@ -153,7 +152,6 @@ public class Player : MonoBehaviour
 
                 pickupController.InteractWithActiveItem();
 
-                StartCoroutine(ResetItemCollider());
             }
 
 
@@ -166,13 +164,6 @@ public class Player : MonoBehaviour
         
 
 
-    }
-
-    public IEnumerator ResetItemCollider()
-    {
-        itemCollider.enabled = false;
-        yield return null;
-        itemCollider.enabled = true;
     }
 
     public void Reset()
