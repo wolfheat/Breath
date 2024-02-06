@@ -147,9 +147,8 @@ Jan 2024
 		* Added clear save data as button in settings
 		* Made sounds play even if they are already playing. Enables repeated shot sounds etc 
 		* Made separate particle effect for picking up resources with new sound
-
-
-		* Make the HUD images for click and E larger and red if unavailable.
+		* Fixed issue with small tank not giving oxygen Hardcoded, should softcode it
+		* Made the HUD images for click and E larger and red if unavailable.
 
 		* Make other particle effect for picking up stuff than explode
 		* Work on bad moving and getting stuck on items like made of rubber.
@@ -157,6 +156,7 @@ Jan 2024
 		* Boss implode animation?
 
 		* FIX Still issue with colliders in the end. PLayer goes into asteroid, fix after jam.
+		* Remove hard coding of oxygen and suit add ons
 		* FIX dropped items are pickable from long distance (Seems to be an issue with several items 
 			dropped at once the pickup area does not recognize on-enter and on-exit correctly fix after jam)
 

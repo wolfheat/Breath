@@ -169,10 +169,10 @@ public class EquipedGrid : MonoBehaviour
     {
         if (items[(int)EquipType.Tank] != null)
         {
-            if (items[(int)EquipType.Tank].data.itemName == "Oxygen Tank")
-                return 50;
-            else if (items[(int)EquipType.Tank].data.itemName == "Small Tank")
+            if (items[(int)EquipType.Tank].data.itemName == "Small Oxygen Tank")
                 return 20;
+            else if (items[(int)EquipType.Tank].data.itemName == "Oxygen Tank")
+                return 50;
             else if (items[(int)EquipType.Tank].data.itemName == "Large Oxygen Tank")
                 return 120;
 

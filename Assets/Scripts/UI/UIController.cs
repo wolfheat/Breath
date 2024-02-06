@@ -98,7 +98,13 @@ public class UIController : MonoBehaviour
     }
     public void ShowHUDIconAt(HUDIconType type, Interactable follow)
     {
-        hudIcons.Set(type, follow);
+        bool canInteractWith = true;
+        if (follow is DestructableItem)
+        {
+            DestructableItem destructableItem = (DestructableItem)follow; 
+            canInteractWith = Inventory.Instance.PlayerHasEquipped(destructableItem.Data.destructType);
+        }
+        hudIcons.Set(type, follow,canInteractWith);
     }
     public void HideHUDIcon()
     {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8cf3f67d1d0ce46a27e5ad4f85821e, type: 3}
   m_Name: OxygenTankSmall
   m_EditorClassIdentifier: 
-  recipeName: Small OxygenTank
+  recipeName: Small Oxygen Tank
   ingredienses:
   - resourceData: {fileID: 11400000, guid: 1b00c50423dde2d428351503be1a27e2, type: 2}
     amount: 2
