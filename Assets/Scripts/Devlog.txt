@@ -149,11 +149,14 @@ Jan 2024
 		* Made separate particle effect for picking up resources with new sound
 		* Fixed issue with small tank not giving oxygen Hardcoded, should softcode it
 		* Made the HUD images for click and E larger and red if unavailable.
+6/2		* Credits updated for assets
 
-		* Make other particle effect for picking up stuff than explode
+
 		* Work on bad moving and getting stuck on items like made of rubber.
-		* Fix bullets going into stuff when exploding, it makes it not visible.
-		* Boss implode animation?
+		* Fix bullets going into stuff when exploding, it makes it not visible. Collider issue of LOD issue or?
+		* Boss implode animation? More boss action, movement shooting towards player etc.
+		
+		* Make sure spawned resources dont overlap or are created inside other items
 
 		* FIX Still issue with colliders in the end. PLayer goes into asteroid, fix after jam.
 		* Remove hard coding of oxygen and suit add ons
@@ -161,6 +164,31 @@ Jan 2024
 			dropped at once the pickup area does not recognize on-enter and on-exit correctly fix after jam)
 
 		* have boss shoot water drips that player can hit with gun and generate water drops - MAYBE
+		* Add all used assets
+
+		 - GRAPHICS
+		* Barking Dog - 3D Scifi Base Vol 1 - Single Entity
+		* Mark Dion - Asteroids Pack - Standard EULA
+		* Ekincan Tas - Damage Numbers Pro - Standard EULA
+		* Unity Technologies - Particle Pack - Standard EULA
+		* Sigmoid Button Assets - Props 3D - Standard EULA
+		* 3D.RINA - Animated Spiders Pack - Standard EULA
+		* cookiepopworks.com - Survival Game Tools - Standard EULA
+		* RRFreelance - Tools Pack 1 - Standard EULA
+		* Ilias Kap - Workplace Tools -  Standard EULA
+
+		 - FONTS
+		* Gomarice - Shiratama Dango - Apache-2.0
+		* Aenigma Games & Fonts - Euphoric - Commersial Use
+
+		 - MUSIC		
+		* Kevin MacLeod - Airport Lounge - Royalty Free Upbeat
+		* Moire - Space Ranger - Royalty Free Upbeat
+		* Zapsplat - Tropical Dawn - Music from https://www.zapsplat.com
+
+		 - TOOLS
+		* AI Art - Playground
+		* Made in Unity
 
 		TODO
 		If participating in jam deadline 29jan (IGU Winter Jam 2024)

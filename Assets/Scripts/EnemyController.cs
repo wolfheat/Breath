@@ -15,7 +15,9 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
 
     private void OnTriggerEnter(Collider other)
     {
+    
         if(other.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
+    
         {
             Bullet bullet = other.GetComponentInParent<Bullet>();
             Debug.Log("Enemy Hit by player bullet, damage"+bullet?.Damage);

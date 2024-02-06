@@ -217,8 +217,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Look()
     {
-        // Right button is not held?
-        if (!Inputs.Instance.Controls.Player.RClick.IsPressed())
+        // Right button is not held or player is dead = regain normal cursor
+        if (!Inputs.Instance.Controls.Player.RClick.IsPressed() || playerStats.IsDead)
         {
             if (Cursor.visible == true) return;
 
@@ -229,11 +229,8 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        // Disables Right button to work when in UI or dead
+        // Disables Right button to work when in UI
         if (UIController.InventoryActive || UIController.CraftingActive)
-            return;
-
-        if (playerStats.IsDead)
             return;
 
         // Right button is held
