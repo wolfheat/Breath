@@ -29,6 +29,6 @@ public class PlayerShootController : MonoBehaviour
     {
         Debug.Log("Pew");
         BulletCreator.Instance.GenerateBullet(gun.transform);
-        SoundMaster.Instance.PlaySound(SoundName.Shoot);
+        SoundMaster.Instance.PlaySound(SoundName.Shoot, true);
     }
 }

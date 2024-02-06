@@ -7,6 +7,7 @@ public interface IDataService
 {
     bool SaveData<T>(string RelativePath, T Data, bool Encrypted);
     T LoadData<T>(string RelativePath, bool Encrypted);
+    void RemoveData(string RelativePath);
 }
 
 public class JsonDataService : IDataService
@@ -32,6 +33,26 @@ public class JsonDataService : IDataService
         }
     }
 
+    public void RemoveData(string RelativePath)
+    {
+        string path = Application.persistentDataPath + RelativePath;
+        try
+        {
+            if (File.Exists(path))
+            {
+                Debug.Log("Data exists, delete!");
+                File.Delete(path);
+            }
+            else
+            {
+                Debug.Log("Invalid file!");
+            }
+        }catch (Exception e)
+        {
+            Debug.LogError("Unable to delete data: " + e.Message + " " + e.StackTrace);
+        }
+
+    }
     public bool SaveData<T>(string RelativePath, T Data, bool Encrypted)
     {
         string path = Application.persistentDataPath + RelativePath;

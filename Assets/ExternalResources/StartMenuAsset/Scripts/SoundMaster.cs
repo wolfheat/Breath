@@ -131,7 +131,7 @@ public class SoundMaster : MonoBehaviour
             Debug.LogWarning("No clip named "+name+" in dictionary.");
 
     }
-    public void PlaySound(SoundName name, bool allowInterupt= false)
+    public void PlaySound(SoundName name, bool allowInterupt= true)
     {
 
         //Debug.Log("Play Sound: "+name);

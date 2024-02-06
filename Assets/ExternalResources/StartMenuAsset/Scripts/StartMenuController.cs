@@ -119,6 +119,12 @@ public class StartMenuController : MonoBehaviour
         credits.gameObject.SetActive(true);
         currentOption = credits;
     }
+        
+    public void ClearSave()
+    {
+        Debug.Log("Clear Save file requested");
+        SavingUtility.Instance.ClearGameData();
+    }
 
     private void ExitGame()
     {

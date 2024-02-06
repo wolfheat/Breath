@@ -137,7 +137,7 @@ public class Inventory : MonoBehaviour
         InventorySave inv = SavingUtility.playerGameData.Inventory;
         heldResources = inv.resources;
 
-        Debug.Log("  resources: " + heldResources);
+        Debug.Log("  resources: " + heldResources.Length);
 
         grid.AddItemsToInventory(inv.inventorySaveItems);
 

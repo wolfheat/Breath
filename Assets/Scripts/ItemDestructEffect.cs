@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum ParticleType{Small,Plasma}
+public enum ParticleType{Small,Plasma,PickUp}
 
 public class ItemDestructEffect : MonoBehaviour
 {

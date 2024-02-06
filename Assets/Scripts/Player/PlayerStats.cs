@@ -193,7 +193,10 @@ public class PlayerStats : MonoBehaviour
         health = SavingUtility.playerGameData.PlayerHealth;
         oxygen = SavingUtility.playerGameData.PlayerOxygen;
 
+        Debug.Log("  Player health: "+health);
         OxygenUpdated.Invoke(oxygen,maxOxygen);
+        Debug.Log("  Player oxygen: "+oxygen);
+        HealthUpdated.Invoke(health,maxHealth);
     }
 
     public void DefineGameDataForSave()

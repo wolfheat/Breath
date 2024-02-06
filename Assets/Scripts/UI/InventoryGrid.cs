@@ -303,7 +303,7 @@ public class InventoryGrid : MonoBehaviour
     {
         foreach (var item in heldItems)
         {
-            Debug.Log("Trying to destroy "+item.data.itemName);
+            //Debug.Log("Trying to destroy "+item.data.itemName);
             Destroy(item.gameObject);
         }
         heldItems.Clear();

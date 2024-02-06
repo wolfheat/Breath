@@ -50,9 +50,10 @@ public class LevelLoader : MonoBehaviour
     {
         Debug.Log(" ** LOADING LEVEL FROM SAVE **");
 
-        PlayerStats.Instance.LoadFromFile();
-
         Inventory.Instance.LoadFromFile();
+
+        // Need to load player stats after equipment or health and oxygen with be overridden of the equip of items
+        PlayerStats.Instance.LoadFromFile();
 
         // Save Destructables Data
         ItemCreator.Instance.LoadFromFile();

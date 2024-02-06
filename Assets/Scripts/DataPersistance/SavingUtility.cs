@@ -162,4 +162,12 @@ public class SavingUtility : MonoBehaviour
         return new float[4]{ q.x, q.y, q.z, q.w};
     }
 
+    public void ClearGameData()
+    {
+        Debug.Log("Clear Game Data");
+        IDataService dataService = new JsonDataService();
+        dataService.RemoveData(PlayerDataSaveFile);
+        // After this clear the game data in game
+        playerGameData = null;
+    }
 }

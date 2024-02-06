@@ -143,25 +143,30 @@ Jan 2024
 		* Added up direction for all items as well for correct rotation save.
 5/2		* Save and Load does now work for Inventory and equipment
 		* Now saving Quaternions instead of forward+up? 6 floats down to 4.?
+		* Fixed issue with Small Oxygen Tube in recipies
+		* Added clear save data as button in settings
+		* Made sounds play even if they are already playing. Enables repeated shot sounds etc 
+		* Made separate particle effect for picking up resources with new sound
 
-		* Add button to reset save file in settings
-		* Player can jump to startmenu and save game during drowning and when returning the drowning counter is reset, leave or fix? - MAYBE
+
+		* Make the HUD images for click and E larger and red if unavailable.
+
+		* Make other particle effect for picking up stuff than explode
+		* Work on bad moving and getting stuck on items like made of rubber.
+		* Fix bullets going into stuff when exploding, it makes it not visible.
 		* Boss implode animation?
 
 		* FIX Still issue with colliders in the end. PLayer goes into asteroid, fix after jam.
 		* FIX dropped items are pickable from long distance (Seems to be an issue with several items 
 			dropped at once the pickup area does not recognize on-enter and on-exit correctly fix after jam)
 
-		* have boss shoot water drips that player can hit with gun and generate water drops - MAybe
+		* have boss shoot water drips that player can hit with gun and generate water drops - MAYBE
+
 		TODO
 		If participating in jam deadline 29jan (IGU Winter Jam 2024)
-
-		* Clean project to limit game size
-		* Create Start Menu
-		* Settings? Maybe just M for mute music?
-		* Credits?
-				
+						
 		MAYBE
+		* Player can jump to startmenu and save game during drowning and when returning the drowning counter is reset, leave or fix? - MAYBE
 		* Add smoke effect when crafting object appears - OPTIONAL
 		* Make tool icons show on hud for which tools player got - OPTIONAL
 		* Have base show up on hud if further away than a specific amount
