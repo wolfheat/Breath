@@ -135,16 +135,16 @@ public class PlayerMovement : MonoBehaviour
             boosterAcceleration = new Vector3(boosterAcceleration.x, 0, boosterAcceleration.z);
             
             // Movement in Gravity            
-            Vector3 planeParts = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            Vector3 result = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            
-            rb.AddForce(boosterAcceleration.normalized * walkingAccelerationSpeed, ForceMode.VelocityChange);
+            rb.AddForce(boosterAcceleration.normalized * walkingAccelerationSpeed, ForceMode.VelocityChange);            
 
-            planeParts = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            // Limit movement speed
+            Vector3 planeParts = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             if (planeParts.magnitude > WalkSpeed)
-            {
-                rb.velocity = planeParts.normalized * WalkSpeed + rb.velocity.y * Vector3.up;
-            }
+                planeParts = planeParts.normalized * WalkSpeed;
+
+            // Add dampening to movement
+            planeParts *= Mathf.Pow(dampening, Time.deltaTime);
+            rb.velocity = new Vector3(planeParts.x, rb.velocity.y, planeParts.z);            
 
             // Jumping
             if(jumpTimer>0)
@@ -224,7 +224,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void DampenSpeedInDoors()
     {
-        rb.velocity *= Mathf.Pow(dampening, Time.deltaTime);
+        Vector3 planeParts = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        planeParts *= Mathf.Pow(dampening, Time.deltaTime);
+        rb.velocity = new Vector3(planeParts.x, rb.velocity.y, planeParts.z);
     }
     
     private void LimitSpeedToCruiseSpeed()

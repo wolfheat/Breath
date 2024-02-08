@@ -167,7 +167,8 @@ Jan 2024
 		* Added M as mute again
 8/2		* Muting of Sound, Music now works. Stored to file when changed. Global mute button when using M.
 		* Player hover movement limited by dampener over time
-		
+		* Fixed player dampening affecting graity speed
+
 		 - MECHANICS
 		* Limit player from going up walls
 
