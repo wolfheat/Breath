@@ -60,6 +60,8 @@ public class GameEffectsSettings
 [Serializable]
 public class SoundSettings
 {
+    public bool GlobalMaster{ get; set; } = true;
+    public bool UseMaster { get; set; } = true;
     public bool UseMusic { get; set; } = true;
     public float MasterVolume { get; set; } = 0.5f;
     public float MusicVolume { get; set; } = 0.2f;

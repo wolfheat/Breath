@@ -165,17 +165,11 @@ Jan 2024
 		* Rewrote saving system now all items can be saved by locating data from database
 		* Now unpausing when entering game. -
 		* Added M as mute again
-
-		 - SETTINGS
-		* Need to fix sound muted actually not playing when dragging slider to left 0.0001;
-		* Gray Out bar when muted
-		* Also enable mute for master and SFX
-		* Make sure muted sound works for both scenes
-
-
+8/2		* Muting of Sound, Music now works. Stored to file when changed. Global mute button when using M.
+		* Player hover movement limited by dampener over time
+		
 		 - MECHANICS
 		* Limit player from going up walls
-		* Limit players hover motion indoors
 
 		 - BOSS
 		* Boss implode animation? More boss action, movement shooting towards player etc.
@@ -183,6 +177,9 @@ Jan 2024
 		
 		 - CREDITS
 		* Credits for each SFX sound?
+
+		 - SETTINGS
+		* Gray Out bar when muted - MAYBE
 
 		* Make bullet impact eccho in cavern?
 		
