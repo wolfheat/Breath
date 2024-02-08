@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace Wolfheat.StartMenu
 {
-    public enum SoundName {MenuStep, MenuError, MenuClick, MenuOver, DropItem, Step, Shoot, HUDPositive, HUDError,
+    public enum SoundName {MenuStep, MenuError, MenuClick, MenuOver, DropItem, Shoot, HUDPositive, HUDError,
         BulletImpact,
         Drowning,
         Crafting,

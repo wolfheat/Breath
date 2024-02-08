@@ -167,11 +167,15 @@ Jan 2024
 		* Added M as mute again
 8/2		* Muting of Sound, Music now works. Stored to file when changed. Global mute button when using M.
 		* Player hover movement limited by dampener over time
-		* Fixed player dampening affecting graity speed
+		* Fixed player dampening affecting gravity speed
+		* Crafting UI rewamped.
+		* Fixed sound issue where lost items because of enum change
 
-		 - MECHANICS
-		* Limit player from going up walls
 
+		 - UI
+		* Make ingame UI fancier?
+		* Crafting UI have grey out items if not craftable? Red/Green Background? - MAYBE
+		* FIx issue with moving fromone craft submenu to main buttons disabling the submenu
 		 - BOSS
 		* Boss implode animation? More boss action, movement shooting towards player etc.
 		* Trouble with boss colliders, hard to make more animation and movement?
@@ -181,6 +185,9 @@ Jan 2024
 
 		 - SETTINGS
 		* Gray Out bar when muted - MAYBE
+
+		 - MECHANICS
+		* Limit player from going up walls - MAYBE
 
 		* Make bullet impact eccho in cavern?
 		

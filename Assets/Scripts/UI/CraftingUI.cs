@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class CraftingUI : MonoBehaviour
@@ -15,6 +16,8 @@ public class CraftingUI : MonoBehaviour
     private Workbench activeWorkbench;
 
     private bool WaitingForRecipeToHide = false;
+    private bool WaitingForMenuToClose = false;
+    private int nextMenuToOpen = -1;
 
     public static CraftingUI Instance;
 
@@ -60,21 +63,39 @@ public class CraftingUI : MonoBehaviour
         {
             baseCraftingButtons[i].ButtonID = i;
         }
-        EnableBaseCrafting(-1);
+        RequestBaseCrafting(-1);
     }
 
-    public void EnableBaseCrafting(int id)
+    private void DisableSubmenu(int id)
     {
-        for (int i = 0;i < baseCraftingButtons.Count;i++)
-        {
-            baseCraftingButtons[i].ActivateSubMenu(i==id);
+        baseCraftingButtons[id].ActivateSubMenu(false);
+    }
+
+    public void RequestBaseCrafting(int id)
+    {
+        // Requesting action to show this subMenu
+        // If any menu is open wait for it to close
+        Debug.Log("Request base crafting "+id+ " WaitingForRecipeToHide: "+ WaitingForRecipeToHide);
+        if (WaitingForRecipeToHide)
+            nextMenuToOpen = id;
+        else
+            EnableOnlySubMenu(id); 
+            
+    }
+
+    private void EnableOnlySubMenu(int id)
+    {
+        Debug.Log("Enable only sub menu: "+id);
+        for (int i = 0; i < baseCraftingButtons.Count; i++) {
+            baseCraftingButtons[i].ActivateSubMenu(id==i);
         }
     }
 
     public void Reset()
     {
         WaitingForRecipeToHide = false;
-        EnableBaseCrafting(-1);
+        WaitingForMenuToClose = false;
+        RequestBaseCrafting(-1);
     }
 
     public void CraftItem(ItemData itemData)
@@ -89,8 +110,6 @@ public class CraftingUI : MonoBehaviour
             return;
 
         CloseCraftingMenu();
-
-
 
         activeWorkbench.CraftItem(itemData);
     }
@@ -107,10 +126,15 @@ public class CraftingUI : MonoBehaviour
         if (recipeInfo.IsActive)
         {
             Debug.Log("Recipe Info is active");
-            WaitingForRecipeToHide = true;
-            recipeInfo.CloseMenu();    
-        }else
+            WaitingForMenuToClose = true;
+            recipeInfo.CloseMenu();
+        }
+        else
+        {
+            WaitingForMenuToClose = false;
+            Reset();
             toggle.HideMenu();
+        }
     }
 
     public void HideInfoOnly()
@@ -118,8 +142,6 @@ public class CraftingUI : MonoBehaviour
         Debug.Log("Hiding Recipe Info, panel active:"+recipeInfo.panelOpen);
         if (recipeInfo.panelOpen)
         {
-
-            WaitingForRecipeToHide=false;
             recipeInfo.CloseMenu();
         }
         else Debug.Log("Disregard mouse exit cause already closing menu");
@@ -137,11 +159,20 @@ public class CraftingUI : MonoBehaviour
     public void RecipeHasBeenClosed()
     {
         Debug.Log("Recipe has been closed");
+        Debug.Log("WaitingForRecipeToHide: "+ WaitingForRecipeToHide+ " WaitingForMenuToClose: "+ WaitingForMenuToClose+ " nextMenuToOpen:"+ nextMenuToOpen);
 
-        EnableBaseCrafting(-1);
+        WaitingForRecipeToHide = false;
+        if (WaitingForMenuToClose)
+        {
+            Reset();
+            toggle.HideMenu(); 
+        }
 
-        if (WaitingForRecipeToHide)
-            toggle.HideMenu();
+        if (nextMenuToOpen == -1)
+            return;
+
+        EnableOnlySubMenu(nextMenuToOpen);
+        nextMenuToOpen = -1;
     }
 
 }

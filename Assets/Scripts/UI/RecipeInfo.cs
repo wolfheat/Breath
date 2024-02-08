@@ -90,7 +90,7 @@ public class RecipeInfo : MonoBehaviour
     // ANIMATIONS
     public void AnimationComplete()
     {
-        Debug.Log("Hiding INFO Completed");
-        CloseComplete.Invoke();
+        Debug.Log("Hiding INFO Completed, Close Complete invoked");
+        CloseComplete?.Invoke();
     }
 }
