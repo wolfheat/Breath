@@ -156,15 +156,32 @@ Jan 2024
 		* Improved bullets collisions
 		* Fixed dropped item pickable from long distance issue, not removed from pickable items correctly
 		* Made a solution for creating resources and having them not appear inside objects
+7/2		* Made Pause, Win and Death menu work correctly (Pause in editor is now needed to use 1 instead of ESC because of Unity)
+		* Changed Right click look method so player always look when not in a menu
+		* Particle effects for workbench is now moved to general particleController
+		* Dropped items and created items are added to the general resourceholder, so its stored at save
+		* Workbenches now check for colliders in area to determine if items are in the way
+		* Removed hard coding of oxygen and suit add ons
+		* Rewrote saving system now all items can be saved by locating data from database
+		* Now unpausing when entering game.
 
+		 - MECHANICS
+		* Limit player from going up walls
+		* Limit players hover motion indoors
+
+		 - BOSS
 		* Boss implode animation? More boss action, movement shooting towards player etc.
-		* Trouble with boss colliders, hard to make more animationa and movement?
-		* Credits for each SFX sound?
+		* Trouble with boss colliders, hard to make more animation and movement?
 		
+		 - CREDITS
+		* Credits for each SFX sound?
+
 		* Make bullet impact eccho in cavern?
-		* Remove hard coding of oxygen and suit add ons
 		
 		* have boss shoot water drips that player can hit with gun and generate water drops - MAYBE
+
+		* not have player start with resources? Decide
+
 		* Add all used assets
 
 		 - GRAPHICS

@@ -12,7 +12,7 @@ public class UIController : MonoBehaviour
     [SerializeField] TextMeshProUGUI oxygenText;
     [SerializeField] Volume volume;
     [SerializeField] DeathScreen deathScreen;
-    [SerializeField] DeathScreen winScreen;
+    [SerializeField] WinScreen winScreen;
     [SerializeField] PauseController pauseScreen;
     [SerializeField] GameObject tempHair;
 
@@ -31,6 +31,7 @@ public class UIController : MonoBehaviour
     public static bool InventoryActive { get { return Instance.inventoryToggle.IsActive; } }
     public static bool CraftingActive { get { return Instance.craftingToggle.IsActive; }}
 
+
     private void Start()
     {
         if (Instance != null)
@@ -46,6 +47,8 @@ public class UIController : MonoBehaviour
     {        
         Inputs.Instance.Controls.Player.Tab.started += Toggle;
         Inputs.Instance.Controls.Player.Esc.started += Pause;
+
+        Pause(false);
     }
     
     public void OnDisable()
@@ -58,27 +61,30 @@ public class UIController : MonoBehaviour
 
     public void Pause(InputAction.CallbackContext context)
     {
-        if (GameState.Instance.state == GameStates.Running)
-        {
-            GameState.Instance.state = GameStates.Paused;
-            Time.timeScale = 0f;
-            pauseScreen.SetActive(true);
-        }
-        else
-        {
-            UnPause();
-        }
+        // Player can not toggle pause when dead
+        if (playerStats.IsDead) return;
+
+        bool doPause = GameState.state == GameStates.Running;
+        Pause(doPause);
+        pauseScreen.SetActive(doPause);
     }
 
-    public void UnPause()
+    public void Pause(bool pause = true)
     {
-        GameState.Instance.state = GameStates.Running;
-        Time.timeScale = 1f;
-        pauseScreen.SetActive(false);
+        GameState.state = pause?GameStates.Paused:GameStates.Running;
+        Debug.Log("Gamestate set to "+ GameState.state);
+        Time.timeScale = pause?0f:1f;
     }
 
     public void Toggle(InputAction.CallbackContext context)
     {
+        // Disable interact when inventory
+        if (GameState.IsPaused)
+        {
+            Debug.Log("Cannot toggle inventory because game is paused");
+            return;
+        }
+
         // Request To toggle inventory
         if (craftingToggle.IsActive)
         {
@@ -109,13 +115,6 @@ public class UIController : MonoBehaviour
     public void HideHUDIcon()
     {
         hudIcons.Disable();
-    }
-    public void ShowTempHairAt(Vector2 s)
-    {
-        //Debug.Log("Tempt hair: "+tempHair+" UI ID: "+gameObject.GetInstanceID());
-        if (tempHair.activeSelf) return;
-        tempHair.transform.position = s;
-        tempHair.SetActive(true);
     }
     public void HideTempHair()
     {
@@ -149,17 +148,19 @@ public class UIController : MonoBehaviour
     }
     public void ShowDeathScreen()
     {
+        Pause();
         deathScreen.ShowScreen();
     }
     public void ShowWinScreen()
     {
-        Debug.Log("PlayerDIED");
+        Debug.Log("Player WON");
         playerStats.SetToDead();
         winScreen.ShowScreen();
     }
     public void ResetPlayer()
     {
-        player.Reset();        
+        player.Reset();
+        Pause(false);
     }
 
 }

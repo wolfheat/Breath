@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {        
         Debug.Log("Bullet collided with "+other.gameObject.name);
-        ItemDestructEffect.Instance.PlayTypeAt(ParticleType.Plasma,transform.position);
+        ParticleEffects.Instance.PlayTypeAt(ParticleType.Plasma,transform.position);
         SoundMaster.Instance.PlaySound(SoundName.BulletImpact,true);
         Destroy(gameObject);
     }

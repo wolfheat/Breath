@@ -27,15 +27,6 @@ public class Inventory : MonoBehaviour
 
         heldResources[5]= 4;
 
-        equiped.EquipmentChanged += UpdateEquipment;
-
-    }
-
-    private void UpdateEquipment()
-    {
-        Debug.Log("Update equipment");
-
-
     }
 
     public bool PlayerHasEquipped(DestructType destructType)
@@ -104,7 +95,6 @@ public class Inventory : MonoBehaviour
 
     public void DefineGameDataBeforSave()
     {
-        Debug.Log(" **  Define Inventory Before Saving **");
         // Player position and looking direction (Tilt is disregarder, looking direction is good enough)
         SavingUtility.playerGameData.Inventory = UpdateStoredInventoryBeforeSave();
 
@@ -125,19 +115,20 @@ public class Inventory : MonoBehaviour
             itemsSave[i] = new InventorySaveItem() { mainType = objectData.Type, subType = objectData.SubType , gridPosition = new int[2] { item.Spot[0], item.Spot[1] }};
         }
         save.inventorySaveItems = itemsSave;
-        Debug.Log("** Saving inventory **");
-        Debug.Log("  resources: "+save.resources);
-        Debug.Log("  items to save: "+uIItems.Length);
+        Debug.Log("  * Saving inventory *");
+        Debug.Log("    Saving " + save.resources.Length+" resources.");
+        Debug.Log("    Saving " + uIItems.Length + " inventory items.");
         return save;
     }
 
     public void LoadFromFile()
     {
-        Debug.Log("** Loading inventory **");
+        Debug.Log("  * Loading inventory *");
         InventorySave inv = SavingUtility.playerGameData.Inventory;
         heldResources = inv.resources;
 
-        Debug.Log("  resources: " + heldResources.Length);
+        Debug.Log("    Loading " + heldResources.Length + " resources.");
+        Debug.Log("    Loading " + inv.inventorySaveItems.Length + " inventory items.");
 
         grid.AddItemsToInventory(inv.inventorySaveItems);
 

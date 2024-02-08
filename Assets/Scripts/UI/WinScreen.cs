@@ -14,7 +14,6 @@ public class WinScreen : MonoBehaviour
     {
         Debug.Log("Close clicked");
         UIController.ResetPlayer();
-
         panel.SetActive(false);
     }
 }

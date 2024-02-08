@@ -14,6 +14,8 @@ public class GravityObject : MonoBehaviour
         //Entering Gravity area
         if (other.gameObject.GetComponent<GravityArea>() != null)
         {
+            if(!rb)
+                rb = GetComponent<Rigidbody>();
             rb.useGravity = true;
         }
 

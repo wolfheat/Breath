@@ -9,8 +9,8 @@ public class PauseController : MonoBehaviour
 
     public void ToMainMenu()
     {
+        Debug.Log("Pause Controller Main Menu Clicked");
 
-        Time.timeScale = 1f;
         // Save player data here
         if(SavingUtility.playerGameData == null)
         {
@@ -38,6 +38,8 @@ public class PauseController : MonoBehaviour
 
     public void CloseClicked()
     {
-        UIController.UnPause();
+        Debug.Log("Pause Controller Close clicked");
+        UIController.Pause(false);
+        SetActive(false);
     }
 }

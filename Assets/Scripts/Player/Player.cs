@@ -32,6 +32,17 @@ public class Player : MonoBehaviour
     
     public void InterractWith(CallbackContext context)
     {
+        // Disable interact when inventory
+        if (UIController.InventoryActive || GameState.IsPaused)
+        {
+            if(UIController.InventoryActive)
+                Debug.Log("Cannot interract because inventory is active");
+            else
+                Debug.Log("Cannot interract because game is paused");
+
+            return;
+        }
+
         Debug.Log("E - Pick up nearby item or interact ");
         // Interact with closest visible item 
         if(pickupController.ActiveInteractable != null)

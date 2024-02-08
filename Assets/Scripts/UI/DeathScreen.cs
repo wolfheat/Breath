@@ -14,7 +14,6 @@ public class DeathScreen : MonoBehaviour
     {
         Debug.Log("Close clicked");
         UIController.ResetPlayer();
-
         panel.SetActive(false);
     }
 }

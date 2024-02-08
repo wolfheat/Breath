@@ -48,6 +48,9 @@ public class StartMenuController : MonoBehaviour
 
     private void OnEnable()
     {
+        // Leave this
+        Time.timeScale = 1f;
+
         Debug.Log("StartMenu On Enable");
         if (Instance != null) Destroy(gameObject);
         Instance = this;

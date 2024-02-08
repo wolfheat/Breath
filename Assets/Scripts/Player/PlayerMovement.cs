@@ -1,9 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Wolfheat.StartMenu;
-using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool InGravity { get { return rb.useGravity; } }
     // Player moves acording to velocity and acceleration
-    private Vector2 mouseStoredPosition;
+    private Vector2 screenCenter;
 // Max speed
     float maxSpeed = 5f;
     Vector3 lastSafePoint = new Vector3();
@@ -37,13 +37,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnEnable()
     {
-
-        Inputs.Instance.Controls.Player.RClick.performed += RClickPerformed;
+        screenCenter = new Vector2();
         lastSafePoint = rb.transform.position;
     }
     public void OnDisable()
     {
-        Inputs.Instance.Controls.Player.RClick.performed -= RClickPerformed;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -69,8 +67,35 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        DetemineCursor();
         Move();
         Look();
+    }
+
+    private void DetemineCursor()
+    {
+        // Right button is not held or player is dead = regain normal cursor
+        if (GameState.IsPaused || playerStats.IsDead || UIController.InventoryActive || UIController.CraftingActive)
+        {
+            if (Cursor.visible == true) return;
+
+            Debug.Log("Showing cursor");
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            //RegainCursorPosition();
+            return;
+        }
+        else
+        {
+            if (!Cursor.visible) return;
+            
+            Debug.Log("Hiding cursor");
+            // Hide cursor if changing view
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
     }
 
     private void Move()
@@ -217,28 +242,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Look()
     {
-        // Right button is not held or player is dead = regain normal cursor
-        if (!Inputs.Instance.Controls.Player.RClick.IsPressed() || playerStats.IsDead)
-        {
-            if (Cursor.visible == true) return;
-
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-
-            RegainCursorPosition();
-            return;
-        }
-
-        // Disables Right button to work when in UI
-        if (UIController.InventoryActive || UIController.CraftingActive)
-            return;
-
-        // Right button is held
-
-        // Hide cursor if changing view
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
+        if (Cursor.visible == true) return;
+        
         // When holding right button rotate player by mouse movement
         Vector2 mouseMove = Inputs.Instance.Controls.Player.Look.ReadValue<Vector2>();
         if (mouseMove.magnitude != 0)
@@ -313,20 +318,9 @@ public class PlayerMovement : MonoBehaviour
         throwCoroutine = null;
     }
 
-    // Input handling
-    public void RClickPerformed(CallbackContext context)
-    {
-        if (UIController.InventoryActive || UIController.CraftingActive) 
-            return;
-
-        mouseStoredPosition = (Vector2)Input.mousePosition;
-        uiController.ShowTempHairAt(mouseStoredPosition);
-    }
-
     public void RegainCursorPosition()
     {
-        Mouse.current.WarpCursorPosition(mouseStoredPosition);
-        uiController.HideTempHair();
+        Mouse.current.WarpCursorPosition(screenCenter);
     }
 
     public void SetToSafePoint()

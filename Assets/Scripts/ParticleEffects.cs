@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public enum ParticleType{Small,Plasma,PickUp}
+public enum ParticleType{Small,Plasma,PickUp,Creation}
 
-public class ItemDestructEffect : MonoBehaviour
+public class ParticleEffects : MonoBehaviour
 {
-    public static ItemDestructEffect Instance;
+    public static ParticleEffects Instance;
     [SerializeField] ParticleSystem[] particleSystems;
 
     private void Awake()

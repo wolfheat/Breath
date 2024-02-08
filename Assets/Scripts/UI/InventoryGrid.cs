@@ -64,7 +64,6 @@ public class InventoryGrid : MonoBehaviour
     {
         ClearInventory();
 
-        Debug.Log("  Load all helt inventory items: " + items.Length);
         // Load in all items here
         foreach (var item in items)
         {
@@ -74,8 +73,7 @@ public class InventoryGrid : MonoBehaviour
                 ItemType.Consumable => database.consumables[item.subType],
                 _ => null
             };
-            AddItemToInventoryAt(data, item.gridPosition);
-            Debug.Log("  items added to inventory: " + data.itemName+" at "+item.gridPosition);
+            AddItemToInventoryAt(data, item.gridPosition);            
         }
         return true;
     }
@@ -324,9 +322,9 @@ public class InventoryGrid : MonoBehaviour
         Debug.Log("Dropping item "+item.data.itemName);
         // Remove item from inventory/equipped
         equipped.RemoveIfEquipped(item);
-        
+
         // Place item in Box
-        playerMovement.CreateItemBox(item.data);
+        ItemCreator.Instance.InstantiateGenericItemAt(item.data, playerMovement.transform.position+ playerMovement.transform.forward * 2,playerMovement.transform.rotation);
 
         // Remove item form inventory   
         RemoveFromInventory(item);

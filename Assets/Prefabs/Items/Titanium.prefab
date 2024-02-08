@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8631851091878063153}
   - component: {fileID: 2408985244548312970}
   - component: {fileID: 3863818697905927184}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Titanium
   m_TagString: Untagged
   m_Icon: {fileID: 0}

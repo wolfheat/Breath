@@ -48,7 +48,7 @@ public class LevelLoader : MonoBehaviour
 
     private void LoadGameData()
     {
-        Debug.Log(" ** LOADING LEVEL FROM SAVE **");
+        Debug.Log(" ** LOADING LEVEL **");
 
         Inventory.Instance.LoadFromFile();
 
@@ -58,17 +58,18 @@ public class LevelLoader : MonoBehaviour
         // Save Destructables Data
         ItemCreator.Instance.LoadFromFile();
 
-        Debug.Log("**** LOADING COMPLETE ****");
+        Debug.Log(" -- LOADING COMPLETE --");
     }
 
     public void DefineGameDataForSave()
     {
-        Debug.Log("  Setting Game Data");
+        Debug.Log(" ** SAVING LEVEL **");
         PlayerStats.Instance.DefineGameDataForSave();
         
         Inventory.Instance.DefineGameDataBeforSave();
 
         // Save Destructables Data
         ItemCreator.Instance.DefineGameDataForSave();
+        Debug.Log(" -- SAVING COMPLETE --");
     }
 }

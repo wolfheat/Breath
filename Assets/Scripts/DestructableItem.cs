@@ -10,7 +10,7 @@ public class DestructableItem : Interactable
     {
         Debug.Log("Interact with this destructable: " + Data.itemName);
 
-        ItemDestructEffect.Instance.PlayTypeAt(ParticleType.Small,transform.position);
+        ParticleEffects.Instance.PlayTypeAt(ParticleType.Small,transform.position);
 
         foreach (var resource in Data.resources)
             ItemCreator.Instance.InstantiateTypeAtRandomSpherePos(resource, transform.position);

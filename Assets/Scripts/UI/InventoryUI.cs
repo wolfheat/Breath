@@ -28,7 +28,7 @@ public class InventoryUI : MonoBehaviour
     public void UpdateInventory()
     {
         int[] resources = inventory.GetResources();
-        Debug.Log("Update inventory");
+        Debug.Log("    Update resource inventory UI");
         for(int i=0; i<texts.Length; i++) {
             if (i >= resources.Length) break;
             texts[i].text = resources[i].ToString();

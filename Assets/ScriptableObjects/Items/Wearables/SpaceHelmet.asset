@@ -17,3 +17,5 @@ MonoBehaviour:
   picture: {fileID: 21300000, guid: 8e3420c687475e942b3db75ca69efea1, type: 3}
   equipType: 0
   subType: 8
+  benefits:
+  - {fileID: 11400000, guid: be86c9389f11e14479f8635ee11c1496, type: 2}

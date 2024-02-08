@@ -6,15 +6,14 @@ public class Workbench : Facility
 {
     private CraftingUI craftingUI;
     private ToggleMenu craftingMenu;
-    [SerializeField] private ParticleSystem craftingEffects;
     [SerializeField] private PickableItem genericPrefab;
     [SerializeField] private GameObject craftingPoint;
+    [SerializeField] private PlateItemDetector plateItemDetector;
     private FacilityType FacilityType = FacilityType.Workbench;
     public override int Type => (int)FacilityType;
 
     private bool isCrafting = false;
     public bool IsCrafting { get { return isCrafting;} }
-    private bool HasItem { get { return craftingPoint.transform.childCount > 0;} }
 
     private void OnEnable()
     {
@@ -30,7 +29,7 @@ public class Workbench : Facility
             Debug.Log("Can not interact with workbench, crafting item!");
             HUDMessage.Instance.ShowMessage("Workbench is busy");
             return;
-        }else if (HasItem)
+        }else if (plateItemDetector.HasItem)
         {
             Debug.Log("Can not interact with workbench, item on plate!");
             HUDMessage.Instance.ShowMessage("Remove item before crafting");
@@ -45,8 +44,7 @@ public class Workbench : Facility
     public void CraftItem(ItemData itemData)
     {
         Debug.Log("Workbench is now crafting "+itemData.itemName);
-        craftingEffects.gameObject.SetActive(true);
-        craftingEffects.Play();
+        ParticleEffects.Instance.PlayTypeAt(ParticleType.Creation, craftingPoint.transform.position);
         isCrafting = true;
         StartCoroutine(CraftingDelay(itemData));
     }
@@ -64,18 +62,11 @@ public class Workbench : Facility
 
         Debug.Log("Crafting Complete");
         CraftCompleted();
-
-
-        Debug.Log("Placing Item "+itemData.itemName+" ont the plate");
-        PickableItem item = Instantiate(genericPrefab, craftingPoint.transform);
-        item.Data = itemData;
+        ItemCreator.Instance.InstantiateGenericItemAt(itemData,craftingPoint.transform.position,craftingPoint.transform.rotation);
     }
 
     public void CraftCompleted()
     {
         isCrafting =false;
-        craftingEffects.Stop();
-        craftingEffects.gameObject.SetActive(false);
-        
     }
 }

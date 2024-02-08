@@ -2,21 +2,10 @@ using UnityEngine;
 
 public enum GameStates{Running,Paused}
 
-public class GameState : MonoBehaviour
+public static class GameState
 {
+	public static GameStates state;
 
-	public static GameState Instance { get; private set; }
-	public GameStates state;
-
-	private void Start()
-	{
-		if (Instance == null)
-			Instance = this;
-		else
-		{
-			Destroy(gameObject);
-			return;
-		}
-	}
+    public static bool IsPaused { get { return state == GameStates.Paused; } }
 
 }

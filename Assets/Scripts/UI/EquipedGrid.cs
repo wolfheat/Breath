@@ -82,8 +82,6 @@ public class EquipedGrid : MonoBehaviour
 
     public void RemoveIfEquipped(UIItem item)
     {
-        
-
         //Debug.Log("Removing equipped item data if equipped" + item.data.itemName);
 
         // Check if even equippable item
@@ -100,7 +98,7 @@ public class EquipedGrid : MonoBehaviour
             // Debug.Log("Removing equipped item data!");
             items[type] = null;
         }
-        EquipmentChanged.Invoke();
+        SetAllAdditions();
     }
 
     public bool HasItemOfTypeEquipped(int type)
@@ -148,42 +146,38 @@ public class EquipedGrid : MonoBehaviour
         //Debug.Log("Item at pos after " + item.transform.localPosition);
 
         items[itemType] = item;
-        Debug.Log("Equipping "+item.data.itemName);
-        EquipmentChanged.Invoke();
+        //Debug.Log("Equipping "+item.data.itemName);
+        SetAllAdditions();
     }
 
-    public int GetHealthAddition()
-    {
-        int addition = 0;
-        // HArdcoding these values since its faster redo later
-        if (items[(int)EquipType.Head] != null)
-            addition += 20;
-        if (items[(int)EquipType.Body] != null)
-            addition += 50;
-        if (items[(int)EquipType.Feet] != null)
-            addition += 20;
-        return addition;
-    }
+    public int Oxygen { get; set; }
+    public int Health { get; set; }
+    public int Speed { get; set; }
 
-    public int GetOxygenAddition()
+    public void SetAllAdditions()
     {
-        if (items[(int)EquipType.Tank] != null)
+        Debug.Log(" -> Setting all Additions");
+        Oxygen = 0;
+        Health = 0;
+        Speed = 0;
+        foreach (var item in items)
         {
-            if (items[(int)EquipType.Tank].data.itemName == "Small Oxygen Tank")
-                return 20;
-            else if (items[(int)EquipType.Tank].data.itemName == "Oxygen Tank")
-                return 50;
-            else if (items[(int)EquipType.Tank].data.itemName == "Large Oxygen Tank")
-                return 120;
+            if (item != null)
+            {
+                EquipableData data = item.data as EquipableData;
 
+                foreach (var benefit in data.benefits)
+                {
+                    if (benefit is OxygenBenefitData oxygenBenefit)
+                        Oxygen += oxygenBenefit.oxygen;
+                    if (benefit is HealthBenefitData healthBenefit)
+                        Health += healthBenefit.health;
+                    if (benefit is SpeedBenefitData speedBenefit)
+                        Speed += speedBenefit.speed;
+                }
+            }
         }
-        return 0;
-    }
 
-    public int GetSpeedAddition()
-    {
-        if (items[(int)EquipType.JetPack] != null)
-            return 3;
-        return 0;
+        EquipmentChanged.Invoke();
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2138885375709764871}
   - component: {fileID: 9028886551859230365}
   - component: {fileID: 693132785794168031}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Textile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

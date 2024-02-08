@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public enum EquippableType { BlasterGun, Drill, SledgeHammer, JetPack, OxygenTankSmall, OxygenTank, OxygenTankMax, SpaceBoots, SpaceHelmet, SpaceSuit}
 
@@ -9,5 +10,8 @@ public class EquipableData : ObjectData
     public EquipType equipType;
 
     public EquippableType subType;
-    public override int SubType { get { return (int)subType; } }    
+    public override int SubType { get { return (int)subType; } }
+
+    public List<BenefitData> benefits;
 }
+

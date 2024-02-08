@@ -70,12 +70,14 @@ public class PlayerStats : MonoBehaviour
 
     private void UpdateEquipment()
     {
-        Debug.Log("PlayerStats Updated");
+        Debug.Log(" -> Updating Stats from Equipment Benefits");
+
+        //Debug.Log("PlayerStats Updated");
 
         // Change max values
-        maxHealth = StartHealth + equiped.GetHealthAddition();
-        maxOxygen = StartOxygen + equiped.GetOxygenAddition();
-        maxSpeed  = StartSpeed  + equiped.GetSpeedAddition();
+        maxHealth = StartHealth + equiped.Health;
+        maxOxygen = StartOxygen + equiped.Oxygen;
+        maxSpeed  = StartSpeed  + equiped.Speed;
 
         // Limit oxygen if removing tank
         oxygen = Math.Min(oxygen, maxOxygen);
@@ -124,7 +126,7 @@ public class PlayerStats : MonoBehaviour
                         {
                             Debug.Log("PlayerDIED");
                             IsDead = true;
-                            uiController.ShowDeathScreen(); //TODO
+                            uiController.ShowDeathScreen();
                         }
                     }
                 }
@@ -188,14 +190,13 @@ public class PlayerStats : MonoBehaviour
         //Loading all data from file
         rb.position = SavingUtility.V3AsVector3(data.PlayerPosition);
         rb.rotation = Quaternion.LookRotation(SavingUtility.V3AsVector3(data.PlayerRotation),Vector3.up);
-        Debug.Log("  Player position: "+rb.position);
 
         health = SavingUtility.playerGameData.PlayerHealth;
         oxygen = SavingUtility.playerGameData.PlayerOxygen;
 
-        Debug.Log("  Player health: "+health);
         OxygenUpdated.Invoke(oxygen,maxOxygen);
-        Debug.Log("  Player oxygen: "+oxygen);
+        Debug.Log("  * Updating Player *");
+        Debug.Log("    Player loaded: position: "+rb.position+ " oxygen: "+oxygen+" health: "+health);
         HealthUpdated.Invoke(health,maxHealth);
     }
 

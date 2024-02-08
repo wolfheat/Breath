@@ -99,6 +99,15 @@ public class SaveItem
 }
 
 [Serializable]
+public class SaveDroppedItem
+{
+    public int mainType; 
+    public int subType; 
+    public float[] position; 
+    public float[] rotation;
+}
+
+[Serializable]
 public class PlayerGameData
 {
     public PlayerGameData()
@@ -120,6 +129,7 @@ public class PlayerGameData
     public int PlayerHealth { get; set; }
     public float PlayerOxygen { get; set; }
     public InventorySave Inventory { get; set; }
+    public SaveDroppedItem[] Pickables { get; set; }
 
     // Action Events
     public static Action InventoryUpdate;
