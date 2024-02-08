@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Wolfheat.StartMenu;
 
 public class Inputs : MonoBehaviour
 {
@@ -9,6 +8,15 @@ public class Inputs : MonoBehaviour
     public InputAction Actions { get; set; }
 
     public static Inputs Instance { get; private set; }
+
+    private void OnEnable()
+    {
+        Controls.Player.M.performed += SoundMaster.Instance.ToggleMusic;
+    }
+    private void OnDisable()
+    {
+        Controls.Player.M.performed -= SoundMaster.Instance.ToggleMusic;
+    }
 
     // Start is called before the first frame update
     void Awake()

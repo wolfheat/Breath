@@ -161,6 +161,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""M"",
+                    ""type"": ""Button"",
+                    ""id"": ""40ccf40a-8c85-45ec-a120-6698492850f1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -460,6 +469,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Esc"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8a08d5b-dff3-42ff-a91e-3d7854b4212d"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""M"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -483,6 +503,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_LCtrl = m_Player.FindAction("LCtrl", throwIfNotFound: true);
         m_Player_MouseHeld = m_Player.FindAction("MouseHeld", throwIfNotFound: true);
         m_Player_Esc = m_Player.FindAction("Esc", throwIfNotFound: true);
+        m_Player_M = m_Player.FindAction("M", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -559,6 +580,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LCtrl;
     private readonly InputAction m_Player_MouseHeld;
     private readonly InputAction m_Player_Esc;
+    private readonly InputAction m_Player_M;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -578,6 +600,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @LCtrl => m_Wrapper.m_Player_LCtrl;
         public InputAction @MouseHeld => m_Wrapper.m_Player_MouseHeld;
         public InputAction @Esc => m_Wrapper.m_Player_Esc;
+        public InputAction @M => m_Wrapper.m_Player_M;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -632,6 +655,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Esc.started += instance.OnEsc;
             @Esc.performed += instance.OnEsc;
             @Esc.canceled += instance.OnEsc;
+            @M.started += instance.OnM;
+            @M.performed += instance.OnM;
+            @M.canceled += instance.OnM;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -681,6 +707,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Esc.started -= instance.OnEsc;
             @Esc.performed -= instance.OnEsc;
             @Esc.canceled -= instance.OnEsc;
+            @M.started -= instance.OnM;
+            @M.performed -= instance.OnM;
+            @M.canceled -= instance.OnM;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -715,5 +744,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnLCtrl(InputAction.CallbackContext context);
         void OnMouseHeld(InputAction.CallbackContext context);
         void OnEsc(InputAction.CallbackContext context);
+        void OnM(InputAction.CallbackContext context);
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace Wolfheat.StartMenu
@@ -20,7 +21,7 @@ public class StartMenuController : MonoBehaviour
     [SerializeField] StartMenuPanel startMenu;
     [SerializeField] private MenuOption nextMenu;
     public static MenuButton lastButton;
-
+    private MyDefaultInputActions actions;
     private StartMenuPanel currentOption;
 
     public void SetNextMenu(int nextMenuindex)
@@ -44,8 +45,11 @@ public class StartMenuController : MonoBehaviour
         currentOption = startMenu;
         InitiateStartMenu();
         SoundMaster.Instance.PlayMusic(MusicName.MenuMusic);
-        }
-
+        
+        actions = new MyDefaultInputActions();
+        actions.Enable();
+        actions.Player.M.performed += SoundMaster.Instance.ToggleMusic;
+    }
     private void OnEnable()
     {
         // Leave this
@@ -58,7 +62,15 @@ public class StartMenuController : MonoBehaviour
         settings.gameObject.SetActive(false);
         credits.gameObject.SetActive(false);
 
+        Debug.Log("Soundmaster "+SoundMaster.Instance);
     }
+
+
+    private void OnDisable()
+    {
+        actions.Player.M.performed -= SoundMaster.Instance.ToggleMusic;
+    }
+
 
         public void ShowMenu(MenuOption menu)
     {

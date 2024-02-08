@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] PlayerStats playerStats;
     [SerializeField] UIController uiController;
     [SerializeField] Transform tilt;
+    [SerializeField] GameObject feet;
     [SerializeField] private PickableItem genericPrefab;
 
     public bool InGravity { get { return rb.useGravity; } }
@@ -22,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 boosterAcceleration = new Vector3();
     float boosterAccelerationSpeed = 5f;
     float walkingAccelerationSpeed = 1f;
-    float dampening = 0.2f;
+    float dampening = 0.08f;
     float stopDampening = 6f;
     private const float StopingSpeedLimit = 0.1f; // go slower than this and you imidiately stop
     private const float DistanceLimit = 0.1f; // go slower than this and you imidiately stop
@@ -32,13 +33,20 @@ public class PlayerMovement : MonoBehaviour
     private const float RotationUpperLimit = 271;
     private const float WalkSpeed = 1.5f;
     private const float WalkSpeedMinimum = 0.3f;
+    private const float JumpColliderRadius = 0.4f;
+    private const float JumpForce = 7f;
+    private const float JumpDelay = 0.3f;
         
+    private float jumpTimer;
     private Coroutine throwCoroutine;
+    private LayerMask jumpables;
 
     public void OnEnable()
     {
         screenCenter = new Vector2();
         lastSafePoint = rb.transform.position;
+        jumpables = 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("Interactables");
+        Debug.Log("Jumpables set to: "+Convert.ToString(jumpables,2));
     }
     public void OnDisable()
     {
@@ -138,6 +146,33 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = planeParts.normalized * WalkSpeed + rb.velocity.y * Vector3.up;
             }
 
+            // Jumping
+            if(jumpTimer>0)
+                jumpTimer-= Time.deltaTime;
+            if(jumpTimer <= 0)
+            {
+                float upDown = Inputs.Instance.Controls.Player.UpDown.ReadValue<float>();
+                if (upDown==1)
+                {
+                    // If moving upwards or not in contact with ground dont jump
+                    Collider[] colliders = Physics.OverlapSphere(feet.transform.position, JumpColliderRadius, jumpables);
+                    bool onGround = false;
+                    foreach (Collider item in colliders)
+                    {
+                        Debug.Log("Collider " + item.gameObject.name + " is "+item.gameObject.layer);
+                        if ((jumpables & (1 << item.gameObject.layer)) != 0)
+                        {
+                            onGround = true; 
+                            break;
+                        }
+                    }
+                    if (onGround)
+                    {
+                        rb.AddForce(Vector3.up*JumpForce,ForceMode.Impulse);
+                        jumpTimer = JumpDelay;
+                    }
+                }
+            }
             /*
             if (boosterAcceleration.magnitude>0)
                 rb.velocity = boosterAcceleration.normalized * minSpeed + rb.velocity.y * Vector3.up;

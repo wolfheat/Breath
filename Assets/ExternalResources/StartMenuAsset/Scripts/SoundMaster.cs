@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 namespace Wolfheat.StartMenu
@@ -72,11 +72,10 @@ public class SoundMaster : MonoBehaviour
     AudioSource musicSource;
     MusicName activeMusic;
     AudioSource stepSource;
+    bool playMusic = true;
 
-    private void Awake()
+    private void OnEnable()
     {
-        Debug.Log("SoundMaster Start");
-
         if (Instance == null)
             Instance = this;
         else
@@ -84,6 +83,10 @@ public class SoundMaster : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+    }
+    private void Awake()
+    {
+        Debug.Log("SoundMaster Start");        
         // Define all sounds
         foreach (var sound in sounds)
         {
@@ -109,11 +112,14 @@ public class SoundMaster : MonoBehaviour
         }
 
         // Play theme sound
-        PlayMusic(MusicName.MenuMusic,true);
+        PlayMusic(MusicName.MenuMusic);
+        
     }
     
-    public void PlayMusic(MusicName name,bool firstPlay = false)
+    public void PlayMusic(MusicName name)
     {
+        activeMusic = name;
+        if (!playMusic) return;
         //Debug.Log("Playing Music: "+name+" at:" + Time.realtimeSinceStartup);
         
         if (musicDictionary.ContainsKey(name))
@@ -125,7 +131,6 @@ public class SoundMaster : MonoBehaviour
             musicSource.pitch = musicDictionary[name].pitch;
             musicSource.loop = musicDictionary[name].loop;
             musicSource.Play();
-            activeMusic = name;
         }
         else
             Debug.LogWarning("No clip named "+name+" in dictionary.");
@@ -177,9 +182,29 @@ public class SoundMaster : MonoBehaviour
         
         // Set SFX
         mixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
-
+        if (!musicSource.isPlaying && musicVolume > 0.01f)
+            ToggleMusic();
     }
 
+    public void ToggleMusic(InputAction.CallbackContext context)
+    {
+        ToggleMusic();
+    }
+    public void ToggleMusic()
+    {
+        Debug.Log("TOGGLE MUSIC");
+        if (musicSource.isPlaying)
+        {
+            musicSource.Stop();
+            playMusic = false;
+        }
+        else
+        {
+            playMusic = true;
+            PlayMusic(activeMusic);
+        }
+        SavingUtility.gameSettingsData.soundSettings.UseMusic = playMusic;
+    }   
     public void StopSound(SoundName name)
     {
         Debug.Log("Stop Sound: "+name);
@@ -198,7 +223,7 @@ public class SoundMaster : MonoBehaviour
     public void ResumeMusic()
     {
         Debug.Log("Resume Music");
-        musicSource.Play();
+        PlayMusic(activeMusic);
     }
 
     public void PlayStepSound()
