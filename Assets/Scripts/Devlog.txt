@@ -170,32 +170,33 @@ Jan 2024
 		* Fixed player dampening affecting gravity speed
 		* Crafting UI rewamped.
 		* Fixed sound issue where lost items because of enum change
+		* Remade inventory UI, Crafting UI, Crafting Info Screen
 
 
 		 - UI
 		* Make ingame UI fancier?
 		* Crafting UI have grey out items if not craftable? Red/Green Background? - MAYBE
-		* FIx issue with moving fromone craft submenu to main buttons disabling the submenu
+		
 		 - BOSS
 		* Boss implode animation? More boss action, movement shooting towards player etc.
 		* Trouble with boss colliders, hard to make more animation and movement?
 		
 		 - CREDITS
 		* Credits for each SFX sound?
+		* Add all used assets
 
 		 - SETTINGS
 		* Gray Out bar when muted - MAYBE
 
 		 - MECHANICS
 		* Limit player from going up walls - MAYBE
-
-		* Make bullet impact eccho in cavern?
-		
 		* have boss shoot water drips that player can hit with gun and generate water drops - MAYBE
 
+		 - SOUNDS
+		* Make bullet impact eccho in cavern?
+		
 		* not have player start with resources? Decide
 
-		* Add all used assets
 
 		 - GRAPHICS
 		* Barking Dog - 3D Scifi Base Vol 1 - Single Entity
