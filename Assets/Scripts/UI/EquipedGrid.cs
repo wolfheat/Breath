@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum EquipType{Head,Body,Feet,Tank,JetPack,Hammer,Drill,Gun,Sword};
 public class EquipedGrid : MonoBehaviour
@@ -14,11 +15,16 @@ public class EquipedGrid : MonoBehaviour
     public Vector2 GetItemRectSize(ItemData data)
     {
         EquipableData equipableData = (EquipableData)data;
-        float equipheight = itemspots[(int)equipableData.equipType].GetComponent<RectTransform>().rect.size.y;
+        Rect equipmentRect = itemspots[(int)equipableData.equipType].GetComponent<RectTransform>().rect;
+        float equipheight = equipmentRect.size.y;
         // Determine items scale in equipped
         float ratio = data.picture.rect.size.x/data.picture.rect.size.y;
-        //Debug.Log("Image ratio = "+ratio);
-        return new Vector2(equipheight*ratio,equipheight);
+        Vector2 equipSize = new Vector2(equipheight * ratio, equipheight);
+        if (data.itemName == "Space Helmet")
+        {
+            Debug.Log("Getting item rect size for "+data.itemName+ " Rect = "+equipmentRect.size+" => equipSize = "+equipSize+" Ratio = "+ratio);
+        }
+        return equipSize;
             
     }
 
@@ -141,7 +147,7 @@ public class EquipedGrid : MonoBehaviour
         // Determin offset
 
 
-        item.SetHomePositionAndSpot(itemspots[itemType].transform.localPosition,new Vector2Int(-1,-1));
+        item.SetHomePositionAndSpot(itemspots[itemType].transform.parent.localPosition,new Vector2Int(-1,-1));
 
         //Debug.Log("Item at pos after " + item.transform.localPosition);
 

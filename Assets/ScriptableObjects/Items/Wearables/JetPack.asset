@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Jetpack
   size: {x: 3, y: 2}
-  picture: {fileID: 21300000, guid: 365596fc7838b7b4998fe5e01b0ee8c9, type: 3}
+  picture: {fileID: 21300000, guid: edd141e443647f948897d244180026e2, type: 3}
   equipType: 4
   subType: 3
   benefits:

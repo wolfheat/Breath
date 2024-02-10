@@ -24,14 +24,13 @@ public class RecipeInfo : MonoBehaviour
 
     public void CloseMenu()
     {
-        Debug.Log("Closing INFO menu");
+        Debug.Log("  Closing: "+activeRecipe.result.itemName);
         MakeVisible(false);
     }
     public void ShowRecipe(RecipeData data)
     {
-        Debug.Log("Showing INFO");
+        Debug.Log("Opening: " + data.result.itemName);
         
-        MakeVisible(true);
 
         activeRecipe = data;
         // Display this recipe
@@ -41,11 +40,15 @@ public class RecipeInfo : MonoBehaviour
 
         recipeResult.OccupyByData(activeRecipe.result,canCreateResult);
 
+        MakeVisible(true);
+
     }
     private void MakeVisible(bool doMakeVisible)
     {
         
         panelOpen = doMakeVisible;
+        Debug.Log((doMakeVisible?"Activate ":"Close ")+activeRecipe?.result.itemName);
+        animator.StopPlayback();
         animator.CrossFade(doMakeVisible ? "MakeVisible" : "MakeInVisible",0.1f);
     }
 
@@ -90,7 +93,7 @@ public class RecipeInfo : MonoBehaviour
     // ANIMATIONS
     public void AnimationComplete()
     {
-        Debug.Log("Hiding INFO Completed, Close Complete invoked");
+        Debug.Log("Hiding INFO Completed, Close Complete invoked from "+activeRecipe.result.itemName);
         CloseComplete?.Invoke();
     }
 }

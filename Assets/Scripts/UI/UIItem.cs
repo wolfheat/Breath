@@ -37,8 +37,9 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     {
         //Debug.Log("Setting spot to "+spotIn);
         Spot = spotIn;
-        if(Spot == new Vector2Int(-1,-1))
+        if (Spot == new Vector2Int(-1, -1))
             homePosition = pos+EquippedRectOffset;
+            //homePosition = pos+EquippedRectOffset;
         else
             homePosition = pos;
         transform.localPosition = homePosition;
@@ -57,6 +58,10 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
     {
         equippedRectSize = new Vector2(equippedSize.x, equippedSize.y);
         EquippedRectOffset = new Vector2(-equippedSize.x / 2, equippedSize.y / 2);
+        if(dataIn.itemName == "Space Helmet")
+        {
+            Debug.Log("Set data for "+dataIn.itemName+" offset is "+EquippedRectOffset);
+        }
         SetData(dataIn);
     }
 

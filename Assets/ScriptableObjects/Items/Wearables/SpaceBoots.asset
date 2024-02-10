@@ -18,4 +18,4 @@ MonoBehaviour:
   equipType: 2
   subType: 7
   benefits:
-  - {fileID: 11400000, guid: be86c9389f11e14479f8635ee11c1496, type: 2}
+  - {fileID: 11400000, guid: 38b24c1b3edf0694e96df5cc708dfe05, type: 2}

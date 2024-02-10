@@ -1,6 +1,69 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &276874930963196310
+--- !u!1 &188074072290326225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 131805112850419238}
+  - component: {fileID: 5766944671991951665}
+  m_Layer: 5
+  m_Name: subPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &131805112850419238
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188074072290326225}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1733888337987081369}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 132.5, y: 50.3}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5766944671991951665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188074072290326225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!1001 &2851321421476946097
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,7 +74,7 @@ PrefabInstance:
     - target: {fileID: 3813101112876312974, guid: e686e93452b184f40a1f265cfd310354,
         type: 3}
       propertyPath: m_Name
-      value: CraftingOption Grey
+      value: CraftingOptionSquare
       objectReference: {fileID: 0}
     - target: {fileID: 4576202545125520424, guid: e686e93452b184f40a1f265cfd310354,
         type: 3}
@@ -26,7 +89,7 @@ PrefabInstance:
     - target: {fileID: 4576202545125520424, guid: e686e93452b184f40a1f265cfd310354,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4576202545125520424, guid: e686e93452b184f40a1f265cfd310354,
         type: 3}
@@ -118,23 +181,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4996399605640823006, guid: e686e93452b184f40a1f265cfd310354,
+    - target: {fileID: 6248320853995981055, guid: e686e93452b184f40a1f265cfd310354,
         type: 3}
-      propertyPath: m_Color.b
-      value: 0.41509432
-      objectReference: {fileID: 0}
-    - target: {fileID: 4996399605640823006, guid: e686e93452b184f40a1f265cfd310354,
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 86d74a49983c5f14f8f3ca5758471c84,
         type: 3}
-      propertyPath: m_Color.g
-      value: 0.41509432
-      objectReference: {fileID: 0}
-    - target: {fileID: 4996399605640823006, guid: e686e93452b184f40a1f265cfd310354,
+    - target: {fileID: 7740949223746100727, guid: e686e93452b184f40a1f265cfd310354,
         type: 3}
-      propertyPath: m_Color.r
-      value: 0.41509432
-      objectReference: {fileID: 0}
+      propertyPath: subMenu
+      value: 
+      objectReference: {fileID: 188074072290326225}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4576202545125520424, guid: e686e93452b184f40a1f265cfd310354,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 131805112850419238}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e686e93452b184f40a1f265cfd310354, type: 3}
+--- !u!224 &1733888337987081369 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4576202545125520424, guid: e686e93452b184f40a1f265cfd310354,
+    type: 3}
+  m_PrefabInstance: {fileID: 2851321421476946097}
+  m_PrefabAsset: {fileID: 0}

@@ -6,7 +6,12 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     public GameObject subMenu;
     [SerializeField] RecipeData recipeData;
+    [SerializeField] Material grayscaleMaterial;
+
+    //"93FF86"
+    private Color greenColor = new Color32(0x93, 0xE7, 0x86, 0xFF);
     public Image image;
+    public Image imageBackground;
     public int ButtonID { get; set; }
 
 
@@ -15,9 +20,11 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         recipeData = data;
         SetImage(data.result.picture);
     }
-    public void SetImage(Sprite sprite)
+    public void SetImage(Sprite sprite, bool afford = false)
     {
         image.sprite = sprite;
+        SetAfford(afford);
+        
     }
     public void Click()
     {
@@ -48,6 +55,7 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (!subMenu)
         {
+            // interrupt closing of menu here?
             CraftingUI.Instance.ShowInfo(recipeData);
         }
         else
@@ -65,5 +73,11 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         //else
             //CraftingUI.Instance.Reset();
+    }
+
+    public void SetAfford(bool afford)
+    {
+        image.material = afford ? null : grayscaleMaterial;
+        imageBackground.color = afford ? greenColor : Color.white;
     }
 }

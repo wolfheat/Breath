@@ -171,12 +171,17 @@ Jan 2024
 		* Crafting UI rewamped.
 		* Fixed sound issue where lost items because of enum change
 		* Remade inventory UI, Crafting UI, Crafting Info Screen
+		* Updated jetpack slightly, better position of equipments
+		* Fixed centering issue in equipped items
+		* Crafting menu now displays craftable recipes in color and rest greyscale
 
+
+		* Player can shoot when crafting?
 
 		 - UI
-		* Make ingame UI fancier?
-		* Crafting UI have grey out items if not craftable? Red/Green Background? - MAYBE
-		
+		* Have equipped circles not filled with green?
+		* Still Issue where moving from craft button quickly, 1-2-1 will close the infoscreen instead of showing it for 1. fix.
+
 		 - BOSS
 		* Boss implode animation? More boss action, movement shooting towards player etc.
 		* Trouble with boss colliders, hard to make more animation and movement?
