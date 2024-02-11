@@ -19119,7 +19119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Shift+Click - Drop Item \t R-Click - Equip / Consume\t\t"
+  m_text: "Shift+Click - Drop Item    Right Click - Equip / Consume\t\t"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fa26963c85491e1478543b95a03db0d6, type: 2}
   m_sharedMaterial: {fileID: 4604725082095245766, guid: fa26963c85491e1478543b95a03db0d6,
@@ -20039,8 +20039,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Move - WASD + (Space, Ctrl)\t\tLook - Right Mouse Button\t\tInventory
-    - TAB\t\tInteract - E\t \tUse Tool - LClick  \tToggle Music - M"
+  m_text: "Move - WASD + (Space, Ctrl)\t\tInventory - TAB\t\tInteract - E\t \tUse
+    Tool - LClick  \tToggle Music - M"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fa26963c85491e1478543b95a03db0d6, type: 2}
   m_sharedMaterial: {fileID: 4604725082095245766, guid: fa26963c85491e1478543b95a03db0d6,

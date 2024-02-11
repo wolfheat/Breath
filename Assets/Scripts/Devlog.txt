@@ -179,16 +179,18 @@ Jan 2024
 		* Fixed issue moving between two recipes fast closing info panel
 		* Updated healthbars with UI change -
 		* bug fixed healthbar not showing bar at low health scaling of bar was hardcoded)
-		* Greyscale artifacts went away when restarting unity	
+		* Greyscale artifacts went away when restarting unity -	
 				
 		* M not working correctly in game sometimes, is this due to it not being saved correctly and loading a game with mute on	
-
+		* Update InfoScreen visuals
+			
 		 - UI
 		* Healthbars do not align with inventory fix?
 
 		 - BOSS
 		* Boss implode animation? More boss action, movement shooting towards player etc.
 		* Trouble with boss colliders, hard to make more animation and movement?
+		* have boss shoot water drips that player can hit with gun and generate water drops - MAYBE
 		
 		 - CREDITS
 		* Credits for each SFX sound?
@@ -199,7 +201,6 @@ Jan 2024
 
 		 - MECHANICS
 		* Limit player from going up walls - MAYBE
-		* have boss shoot water drips that player can hit with gun and generate water drops - MAYBE
 
 		 - SOUNDS
 		* Make bullet impact eccho in cavern?

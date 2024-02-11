@@ -275,7 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subMenu: {fileID: 0}
   recipeData: {fileID: 0}
-  grayscaleMaterial: {fileID: 2100000, guid: 2931978eceebd534491017077dc8d33e, type: 2}
+  grayscaleMaterial: {fileID: 2100000, guid: 2a9c135b399c9c14194860ee0eef96a3, type: 2}
   highLight: {fileID: 3883745504990478493}
   animator: {fileID: 5557960294848058903}
   image: {fileID: 7986687008754259660}
