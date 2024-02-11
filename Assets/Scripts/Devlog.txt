@@ -171,17 +171,22 @@ Jan 2024
 		* Crafting UI rewamped.
 		* Fixed sound issue where lost items because of enum change
 		* Remade inventory UI, Crafting UI, Crafting Info Screen
-		* Updated jetpack slightly, better position of equipments
+9/2		* Updated jetpack slightly, better position of equipments
 		* Fixed centering issue in equipped items
 		* Crafting menu now displays craftable recipes in color and rest greyscale
+10/2	* Limited shooting when using menu
+		* Remade crafting menu to subnautica style = click to open menues or craft recipes, recipe info updates on mouseover
+		* Fixed issue moving between two recipes fast closing info panel
+		* Updated healthbars with UI change
 
-
-		* Player can shoot when crafting?
+		* New bug with healthbar not showing bar at 10hp, but it shows on higher (did change width and height of bars, thats why?)
+			
+		* M not working correctly in game sometimes, is this due to it not being saved correctly and loading a game with mute on	
 
 		 - UI
+		* Have on Mouse Over highlight craftbuttons?
 		* Have equipped circles not filled with green?
-		* Still Issue where moving from craft button quickly, 1-2-1 will close the infoscreen instead of showing it for 1. fix.
-
+		
 		 - BOSS
 		* Boss implode animation? More boss action, movement shooting towards player etc.
 		* Trouble with boss colliders, hard to make more animation and movement?

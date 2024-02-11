@@ -103,12 +103,7 @@ public class Player : MonoBehaviour
         // Detect if there is an object to interact with in front of player
         if (pickupController.ActiveInteractable != null && pickupController.ActiveInteractable is DestructableItem) return;
 
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            //Debug.Log("Clicked on the UI");
-            return;
-        }
-
+        if (EventSystem.current.IsPointerOverGameObject() || UIController.InventoryActive || UIController.CraftingActive) return;
 
         //Try shoot if having a gun equipped
         if (inventory.PlayerHasEquipped(DestructType.Flesh))

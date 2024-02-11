@@ -34,6 +34,7 @@ public class CraftingUI : MonoBehaviour
 
         // Subscribe to Info Closing Event
         recipeInfo.CloseComplete += RecipeHasBeenClosed;
+
     }
     private void OnDisable()
     {
@@ -74,7 +75,7 @@ public class CraftingUI : MonoBehaviour
         {
             baseCraftingButtons[i].ButtonID = i;
         }
-        RequestBaseCrafting(-1);
+        OpenSubMenu(-1);
     }
 
     private void DisableSubmenu(int id)
@@ -82,7 +83,7 @@ public class CraftingUI : MonoBehaviour
         baseCraftingButtons[id].ActivateSubMenu(false);
     }
 
-    public void RequestBaseCrafting(int id)
+    public void OpenSubMenu(int id)
     {
         // Requesting action to show this subMenu
         // If any menu is open wait for it to close
@@ -99,14 +100,22 @@ public class CraftingUI : MonoBehaviour
         Debug.Log("Enable only sub menu: "+id);
         for (int i = 0; i < baseCraftingButtons.Count; i++) {
             baseCraftingButtons[i].ActivateSubMenu(id==i);
+            if (id == i)
+            {
+                Debug.Log("Bubble all these buttons in menu "+id);
+                foreach (var button in allRecipeButtons[id])
+                    button.PlayBubbleAnimation();
+
+            }
         }
     }
 
     public void Reset()
     {
+        Debug.Log("RESET");
         WaitingForRecipeToHide = false;
         WaitingForMenuToClose = false;
-        RequestBaseCrafting(-1);
+        OpenSubMenu(-1);
     }
 
     public void CraftItem(ItemData itemData)
@@ -140,7 +149,7 @@ public class CraftingUI : MonoBehaviour
     private void UpdateAvailableRecipes()
     {
         Debug.Log("Update available Recipes");
-        for (int i = 0; i < allRecipes.Length; i++)
+        for (int i = 0; i < baseCraftingButtons.Count; i++)
         {
             RecipeData[] recipeList = allRecipes[i];
             bool hasCraftable = false;
@@ -181,7 +190,7 @@ public class CraftingUI : MonoBehaviour
 
     public void HideInfoOnly()
     {
-        //Debug.Log("Hiding Recipe Info, panel active:"+recipeInfo.panelOpen);
+        Debug.Log("CRAFTING UI - Hiding Recipe Info, panel active:"+recipeInfo.panelOpen);
         if (recipeInfo.panelOpen)
         {
             recipeInfo.CloseMenu();
@@ -213,19 +222,6 @@ public class CraftingUI : MonoBehaviour
             toggle.HideMenu();
             return;
         }
-
-        // Left crafting sub button but are not above main menu button
-        if (nextMenuToOpen == -1)
-            return;
-        else if (!recipeInfo.panelOpen)
-        {
-            Debug.Log("RecipeInfo is closed, close invoked, close all sub menus");
-            // Left crafting sub button and above main menu button
-            EnableOnlySubMenu(nextMenuToOpen);
-            nextMenuToOpen = -1;
-        }
-        else Debug.Log("RecipeInfo is open, but close invoked, do nothing");
-
     }
 
 }

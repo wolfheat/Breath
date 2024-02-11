@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class RecipeInfo : MonoBehaviour
 {
@@ -24,14 +26,10 @@ public class RecipeInfo : MonoBehaviour
 
     public void CloseMenu()
     {
-        Debug.Log("  Closing: "+activeRecipe.result.itemName);
         MakeVisible(false);
     }
     public void ShowRecipe(RecipeData data)
     {
-        Debug.Log("Opening: " + data.result.itemName);
-        
-
         activeRecipe = data;
         // Display this recipe
         recipeName.text = data.recipeName;
@@ -45,13 +43,28 @@ public class RecipeInfo : MonoBehaviour
     }
     private void MakeVisible(bool doMakeVisible)
     {
-        
+        Debug.Log("* "+(doMakeVisible?"SHOW":"HIDE")+" RECIPE *");
         panelOpen = doMakeVisible;
-        Debug.Log((doMakeVisible?"Activate ":"Close ")+activeRecipe?.result.itemName);
-        animator.StopPlayback();
-        animator.CrossFade(doMakeVisible ? "MakeVisible" : "MakeInVisible",0.1f);
+        //Debug.Log("Panel Open set to: "+panelOpen);
+
+        Debug.Log(" Crossfade to "+(doMakeVisible? "MakeVisible" : "MakeInVisible"));
+
+        storedCrossfades.Enqueue(doMakeVisible ? "MakeVisible" : "MakeInVisible");
+    }
+    private void Update()
+    {
+        if (storedCrossfades.Count>0) 
+            animator.CrossFade(storedCrossfades.Dequeue(), 0.1f);
     }
 
+    Queue<string> storedCrossfades = new Queue<string>(); 
+
+    private IEnumerator RunAnimatorDelay(string name)
+    {
+        yield return new WaitForFixedUpdate();        
+        animator.CrossFade("MakeInVisible", 0.1f);
+        animator.CrossFade("MakeVisible", 0.1f);
+    }
 
     private bool PlaceIngrediences()
     {
@@ -93,7 +106,8 @@ public class RecipeInfo : MonoBehaviour
     // ANIMATIONS
     public void AnimationComplete()
     {
-        Debug.Log("Hiding INFO Completed, Close Complete invoked from "+activeRecipe.result.itemName);
+        Debug.Log(" MakeInvisible Completed - Close Complete invoked from "+activeRecipe.result.itemName);
         CloseComplete?.Invoke();
     }
+
 }

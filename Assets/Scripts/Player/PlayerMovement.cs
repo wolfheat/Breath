@@ -299,12 +299,12 @@ public class PlayerMovement : MonoBehaviour
             float resultAngle = oldAngle + rotationAngle;
             if (rotationAngle > 0 && oldAngle <= RotationLowerLimit + 1 && oldAngle >= RotationLowerLimit - 20f && resultAngle >= RotationLowerLimit)
             {
-                Debug.Log("Changing valid rotationangle");
+                //Debug.Log("Changing valid rotationangle");
                 rotationAngle = RotationLowerLimit - oldAngle;
             }
             else if (rotationAngle < 0 && oldAngle >= RotationUpperLimit - 1 && oldAngle <= RotationUpperLimit + 20f && resultAngle <= RotationUpperLimit)
             {
-                Debug.Log("Changing to max rotationangle");
+                //Debug.Log("Changing to max rotationangle");
 
                 rotationAngle = RotationUpperLimit - oldAngle;
             }

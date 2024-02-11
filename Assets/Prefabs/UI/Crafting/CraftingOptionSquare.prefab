@@ -71,10 +71,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 229605265962680981, guid: e686e93452b184f40a1f265cfd310354,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 229605265962680981, guid: e686e93452b184f40a1f265cfd310354,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4584d9595cc007a42b69a6801fad33f4,
+        type: 3}
     - target: {fileID: 3813101112876312974, guid: e686e93452b184f40a1f265cfd310354,
         type: 3}
       propertyPath: m_Name
       value: CraftingOptionSquare
+      objectReference: {fileID: 0}
+    - target: {fileID: 3883745504990478493, guid: e686e93452b184f40a1f265cfd310354,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4576202545125520424, guid: e686e93452b184f40a1f265cfd310354,
         type: 3}
@@ -187,6 +203,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 86d74a49983c5f14f8f3ca5758471c84,
         type: 3}
+    - target: {fileID: 6931121025546991980, guid: e686e93452b184f40a1f265cfd310354,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931121025546991980, guid: e686e93452b184f40a1f265cfd310354,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931121025546991980, guid: e686e93452b184f40a1f265cfd310354,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.05
+      objectReference: {fileID: 0}
     - target: {fileID: 7740949223746100727, guid: e686e93452b184f40a1f265cfd310354,
         type: 3}
       propertyPath: subMenu

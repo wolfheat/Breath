@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Wolfheat.StartMenu;
 
 public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject subMenu;
     [SerializeField] RecipeData recipeData;
     [SerializeField] Material grayscaleMaterial;
+    [SerializeField] GameObject highLight;
+    [SerializeField] Animator animator;
 
     //"93FF86"
     private Color greenColor = new Color32(0x93, 0xE7, 0x86, 0xFF);
@@ -28,9 +31,23 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void Click()
     {
-        if (subMenu) return;
+        Debug.Log("Craft button Click");
+
+        PlayBubbleAnimation();
+
+        if (subMenu)
+        {
+            Debug.Log("Open Sub Menu / refresh if open");
+
+            // Is Main Button - Open submenu            
+            CraftingUI.Instance.OpenSubMenu(ButtonID);
+            SoundMaster.Instance.PlaySound(SoundName.MenuStep);
 
 
+            return;
+        }
+
+        // Request create recipe
         bool afford = Inventory.Instance.CanAfford(recipeData);
         if (afford)
         {
@@ -58,26 +75,33 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             // interrupt closing of menu here?
             CraftingUI.Instance.ShowInfo(recipeData);
         }
-        else
-        {
-            //Open submenu            
-            CraftingUI.Instance.RequestBaseCrafting(ButtonID);
-        }
+        // HighLight button
+        HighLight(true);
+    }
+
+    private void HighLight(bool v)
+    {
+        highLight.SetActive(v);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        Debug.Log("ON Exit called for "+recipeData?.recipeName);
         if (!subMenu)
         {
             CraftingUI.Instance.HideInfoOnly();
         }
-        //else
-            //CraftingUI.Instance.Reset();
+        HighLight(false);
     }
 
     public void SetAfford(bool afford)
     {
         image.material = afford ? null : grayscaleMaterial;
         imageBackground.color = afford ? greenColor : Color.white;
+    }
+
+    public void PlayBubbleAnimation()
+    {
+        animator.CrossFade("BubbleTransit", 0.1f);
     }
 }
