@@ -6,8 +6,11 @@ public class GUIBarController : MonoBehaviour
     [SerializeField] BarController healthBar;
     [SerializeField] PlayerStats playerHealth;
 
+    public static float Barwidth;
+
     private void OnEnable()
     {
+        Barwidth = oxygenBar.GetComponent<RectTransform>().rect.size.x;
         playerHealth.OxygenUpdated += SetOxygen;
         playerHealth.HealthUpdated += SetHealth;
     }

@@ -177,16 +177,15 @@ Jan 2024
 10/2	* Limited shooting when using menu
 		* Remade crafting menu to subnautica style = click to open menues or craft recipes, recipe info updates on mouseover
 		* Fixed issue moving between two recipes fast closing info panel
-		* Updated healthbars with UI change
-
-		* New bug with healthbar not showing bar at 10hp, but it shows on higher (did change width and height of bars, thats why?)
-			
+		* Updated healthbars with UI change -
+		* bug fixed healthbar not showing bar at low health scaling of bar was hardcoded)
+		* Greyscale artifacts went away when restarting unity	
+				
 		* M not working correctly in game sometimes, is this due to it not being saved correctly and loading a game with mute on	
 
 		 - UI
-		* Have on Mouse Over highlight craftbuttons?
-		* Have equipped circles not filled with green?
-		
+		* Healthbars do not align with inventory fix?
+
 		 - BOSS
 		* Boss implode animation? More boss action, movement shooting towards player etc.
 		* Trouble with boss colliders, hard to make more animation and movement?

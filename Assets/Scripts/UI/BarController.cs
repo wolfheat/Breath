@@ -18,6 +18,6 @@ public class BarController : MonoBehaviour
         text.text = textValue;
         //text.text = (int)value+"/"+maxValue;
         float size = bar.rect.size.x;
-        bar.sizeDelta = new Vector2(-1212*(1-value),0);
+        bar.sizeDelta = new Vector2(-GUIBarController.Barwidth*(1-value),0);
     }
 }
