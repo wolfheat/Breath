@@ -12,26 +12,30 @@ namespace Wolfheat.StartMenu
         [SerializeField] Slider master;
         [SerializeField] Slider music;
         [SerializeField] Slider sfx;
+        [SerializeField] Slider mouse;
         [SerializeField] GameObject muted;
+        [SerializeField] TextMeshProUGUI mousePercent;
         [SerializeField] TextMeshProUGUI masterPercent;
         [SerializeField] TextMeshProUGUI musicPercent;
         [SerializeField] TextMeshProUGUI sfxPercent;
         private bool listenForSliderValues = false;
 
-        private SoundSettings settings = new SoundSettings();
+        private SoundSettings soundSettings = new SoundSettings();
+        private PlayerInputSettings inputSettings = new PlayerInputSettings();
         private void OnEnable()
         {
             listenForSliderValues = false;
             Debug.Log("Settings Controller enabled, read data from file");
             //Read data from file
-            settings = SavingUtility.gameSettingsData.soundSettings;
-
-            if (settings != null)
+            soundSettings = SavingUtility.gameSettingsData.soundSettings;
+            inputSettings = SavingUtility.gameSettingsData.playerInputSettings;
+            if (soundSettings != null)
             {
-                UpdateUISettingsPage(settings);
+                UpdateUISettingsPage();
             }
 
             UpdateSoundPercent();
+            UpdateMouseSensitivityPercent();
             StartCoroutine(EnableSliderListeners());
             SoundMaster.Instance.GlobalMuteChanged += MuteChanged;
         }
@@ -47,12 +51,14 @@ namespace Wolfheat.StartMenu
             muted.SetActive(!SavingUtility.gameSettingsData.soundSettings.GlobalMaster);
         }
 
-        private void UpdateUISettingsPage(SoundSettings settings)
+        private void UpdateUISettingsPage()
         {
-            master.value = settings.MasterVolume;
-            music.value = settings.MusicVolume;
-            sfx.value = settings.SFXVolume;
-            muted.SetActive(!settings.GlobalMaster);
+            Debug.Log("SETTING MOUSE SENS TO "+ inputSettings.MouseSensitivity);
+            master.value = soundSettings.MasterVolume;
+            music.value = soundSettings.MusicVolume;
+            sfx.value = soundSettings.SFXVolume;
+            mouse.value = inputSettings.MouseSensitivity;
+            muted.SetActive(!soundSettings.GlobalMaster);
         }
 
         private IEnumerator EnableSliderListeners()
@@ -62,6 +68,14 @@ namespace Wolfheat.StartMenu
             listenForSliderValues = true;
         }
 
+        public void UpdateMouseSensitivityPercent()
+        {
+            Debug.Log("SETTINGSCONTROLLER - Update Mouse sensitivity: " + mouse.value);
+
+            // Update percent
+            mousePercent.text = (mouse.value * 250).ToString("F0");
+        }
+        
         public void UpdateSoundPercent()
         {
             Debug.Log("SETTINGSCONTROLLER - Update Sound percent, Music Slider value: " + music.value);
@@ -72,6 +86,18 @@ namespace Wolfheat.StartMenu
             sfxPercent.text = sfx.value <= SoundMaster.MuteBoundary ? "MUTED" : (sfx.value*100).ToString("F0");
         }
 
+        public void UpdateInputSetting()
+        {
+            if (!listenForSliderValues)
+            {
+                Debug.Log("Slider value changed but disregarded "+mouse.value);
+                return;
+            }
+            Debug.Log("SETTINGSCONTROLLER - Slider value changed for Mouse Input");
+
+            SavingUtility.gameSettingsData.playerInputSettings.MouseSensitivity = mouse.value;
+            UpdateMouseSensitivityPercent();
+        }
         public void UpdateSound()
         {
             if (!listenForSliderValues)
@@ -83,7 +109,7 @@ namespace Wolfheat.StartMenu
             Debug.Log("SETTINGSCONTROLLER - Slider value changed");
          
 
-            Debug.Log("SAVINGUTILITY - update dound setting values");
+            Debug.Log("SAVINGUTILITY - update sound setting values");
             SavingUtility.gameSettingsData.SetSoundSettings(master.value, music.value, sfx.value);
 
             SoundMaster.Instance.UpdateVolume();
@@ -98,7 +124,7 @@ namespace Wolfheat.StartMenu
         public void UnMute()
         {
             Debug.Log("Request Unmute");
-            settings.GlobalMaster = true;
+            soundSettings.GlobalMaster = true;
             UpdateSound();
         }
     }

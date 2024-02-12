@@ -98,6 +98,8 @@ public class Player : MonoBehaviour
     
     private void Update()
     {
+        if (GameState.IsPaused) return;
+
         if (!Inputs.Instance.Controls.Player.MouseHeld.IsPressed() || LimitShots) return;
 
         // Detect if there is an object to interact with in front of player

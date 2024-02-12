@@ -188,7 +188,8 @@ Jan 2024
 		* Start Menu is prevented from triggering music in soundmaster before data load is complete
 		* Version 0.2.0 Built
 12/2	* Added low oxygen notice at 9 and 2 seconds
-		* Made health and Oxygen bar 3D look with gradient
+		* Made health and Oxygen bar 3D look with gradient -
+
 
 		* Sometimes player moves slow in doors other times super fast, why?	
 

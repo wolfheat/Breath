@@ -51,10 +51,9 @@ public class LightSettings
 }
 
 [Serializable]
-public class GameEffectsSettings
+public class PlayerInputSettings
 {
-    public bool UseShake { get; set; } = true;
-    public bool AnimatedWater { get; set; } = true;
+    public float MouseSensitivity { get; set; } = 0.36f;
 }
 
 [Serializable]
@@ -153,7 +152,7 @@ public class GameSettingsData
 
     public SoundSettings soundSettings = new SoundSettings();
     public LightSettings lightSettings = new LightSettings();
-    public GameEffectsSettings gameEffectsSettings = new GameEffectsSettings(); // Use shake etc
+    public PlayerInputSettings playerInputSettings = new PlayerInputSettings(); // Use shake etc
 
     // Action Events
     public static Action GameSettingsUpdated;

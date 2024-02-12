@@ -290,7 +290,7 @@ namespace Wolfheat.StartMenu
         {
             Debug.Log("Updating Sound Volumes from saved file");
             UpdateVolume();
-    }
+        }
 
     }
 }

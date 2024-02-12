@@ -25,14 +25,16 @@ public class PlayerMovement : MonoBehaviour
     float walkingAccelerationSpeed = 1f;
     float dampening = 0.08f;
     float stopDampening = 6f;
+
+    public float LookSensitivity { get; set; } = 0.15f;
+
     private const float StopingSpeedLimit = 0.1f; // go slower than this and you imidiately stop
     private const float DistanceLimit = 0.1f; // go slower than this and you imidiately stop
     private const float MaxDistanceLimit = 2.5f; // safe messure if moving to far away from throw point
-    private const float LookSensitivity = 0.15f;
     private const float RotationLowerLimit = 89;
     private const float RotationUpperLimit = 271;
-    private const float WalkSpeed = 1.5f;
-    private const float WalkSpeedMinimum = 0.3f;
+    private const float WalkSpeed = 3.0f;
+    private const float WalkSpeedNeededToMakeStepSound = 0.3f;
     private const float JumpColliderRadius = 0.4f;
     private const float JumpForce = 7f;
     private const float JumpDelay = 0.3f;
@@ -47,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
         lastSafePoint = rb.transform.position;
         jumpables = 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("Interactables");
         Debug.Log("Jumpables set to: "+Convert.ToString(jumpables,2));
+        LookSensitivity = SavingUtility.gameSettingsData.playerInputSettings.MouseSensitivity;
+        Debug.Log("Mouse Sensitivity updated to: "+LookSensitivity);
     }
     public void OnDisable()
     {
@@ -76,8 +80,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         DetemineCursor();
-        Move();
         Look();
+    }
+    private void FixedUpdate()
+    {
+        Move();
     }
 
     private void DetemineCursor()
@@ -182,10 +189,10 @@ public class PlayerMovement : MonoBehaviour
         else if (planeParts.magnitude > maxSpeed)
             rb.velocity = planeParts.normalized * maxSpeed+rb.velocity.y*Vector3.up;
         */
-            DampenSpeedInDoors();
+            //DampenSpeedInDoors();
 
             // STEP SOUND
-            if (planeParts.magnitude > WalkSpeedMinimum)
+            if (planeParts.magnitude > WalkSpeedNeededToMakeStepSound)
                 SoundMaster.Instance.PlayStepSound();
 
         }
@@ -279,6 +286,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Look()
     {
+        // Is this sensitiv to when cursor wont show up and paused = yes
         if (Cursor.visible == true) return;
         
         // When holding right button rotate player by mouse movement
