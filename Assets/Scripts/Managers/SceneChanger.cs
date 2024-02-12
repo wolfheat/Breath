@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,7 +15,13 @@ public class SceneChanger : MonoBehaviour
         }
         Instance = this;
 
-        CheckedForScenes();
+#if UNITY_EDITOR
+            CheckedForScenes();
+#else      
+            ChangeScene("StartMenu");            
+#endif
+
+
     }
 
     private void CheckedForScenes()

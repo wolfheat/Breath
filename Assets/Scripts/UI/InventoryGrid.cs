@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Wolfheat.StartMenu;
-using static UnityEditor.Progress;
 
 public enum UIItemSizes{size3x3, size3x2, size2x2, size2x1, size1x1 }
 

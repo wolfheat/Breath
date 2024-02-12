@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 
 //public enum Resource { Al, Cu, Ti, Plastic, Textile, Water, Food };
