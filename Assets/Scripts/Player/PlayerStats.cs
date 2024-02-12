@@ -27,6 +27,8 @@ public class PlayerStats : MonoBehaviour
     private const int StartSpeed = 2;
     
     private const int OxygenUsage = 1;
+    private const int OxygenWarningLevel = 10;
+    private const int SecondOxygenWarningLevel = 2;
     private const int OxygenRefillSpeed = 10;
     private const float delay = 0.1f;
     WaitForSeconds coroutineDelay = new WaitForSeconds(delay);
@@ -105,7 +107,14 @@ public class PlayerStats : MonoBehaviour
                 
                 if (oxygen > 0)
                 {
+                    bool aboveWarning = oxygen >= OxygenWarningLevel;
+                    bool aboveSecondWarning = oxygen >= SecondOxygenWarningLevel;
                     oxygen -= OxygenUsage* delay;
+                    // Give warning od low oxygen
+                    if(aboveWarning && oxygen < OxygenWarningLevel)
+                        HUDMessage.Instance.ShowMessage("Oxygen!",sound: SoundName.LowOxygen);
+                    else if (aboveSecondWarning && oxygen < SecondOxygenWarningLevel)
+                        HUDMessage.Instance.ShowMessage("Quickly Now!",sound: SoundName.LowOxygen);
                 }
                 else
                 {
@@ -116,8 +125,7 @@ public class PlayerStats : MonoBehaviour
                         SoundMaster.Instance.PlaySound(SoundName.Drowning);
                         SoundMaster.Instance.FadeMusic();
 
-                    }
-
+                    }                    
                     if (noOxygenSurvival > 0)
                         noOxygenSurvival -= delay;
                     else

@@ -15,7 +15,8 @@ namespace Wolfheat.StartMenu
         CraftComplete,
         HitMetal,
         Drill,
-        PickUp
+        PickUp,
+        LowOxygen
     }
     public enum MusicName {MenuMusic, OutDoorMusic, IndoorMusic, DeadMusic}
 

@@ -24,11 +24,11 @@ public class HUDMessage : MonoBehaviour
     }
 
 
-    public void ShowMessage(string message, bool isNegative = true)
+    public void ShowMessage(string message, bool isNegative = true,SoundName sound = SoundName.HUDError)
     {
         positiveText.text = isNegative?"":message;
         negativeText.text = isNegative ? message:"";
         animator.Play("ShowMessage");
-        SoundMaster.Instance.PlaySound(isNegative?SoundName.HUDError: SoundName.HUDPositive);
+        SoundMaster.Instance.PlaySound(sound);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using Wolfheat.StartMenu;
 
 public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHandler, IPointerClickHandler
 {
@@ -125,7 +125,7 @@ public class UIItem : MonoBehaviour,IDragHandler,IEndDragHandler, IBeginDragHand
                 PlayerStats.Instance.Consume(consumeData);
                 // Try consume
                 inventoryGrid.RemoveFromInventory(this);
-                HUDMessage.Instance.ShowMessage("You regained some health!",false);
+                HUDMessage.Instance.ShowMessage("You regained some health!",false,SoundName.HUDPositive);
             }
 
         }
