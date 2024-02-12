@@ -17,4 +17,4 @@ MonoBehaviour:
   - resourceData: {fileID: 11400000, guid: 7be56ba9920b5ea40a32231de777217a, type: 2}
     amount: 4
   result: {fileID: 11400000, guid: a99cd9198cb7ef74ea40f3542bf41ca3, type: 2}
-  recipeInfo: Cake - Makes you regain health. (50hp)
+  recipeInfo: Cake - Regain health.  (50hp)

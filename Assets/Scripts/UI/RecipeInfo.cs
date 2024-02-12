@@ -88,7 +88,7 @@ public class RecipeInfo : MonoBehaviour
         if (i + 1 > recipeItems.Count)
         {
             RecipeItem item;
-            item = Instantiate(recipeItemPrefab, ingredienceHolder.transform);
+            item = Instantiate(recipeItemPrefab, ingredienceHolder.transform);            
             recipeItems.Add(item);
             return item;
         }

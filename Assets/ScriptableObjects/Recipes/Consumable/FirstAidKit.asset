@@ -17,4 +17,4 @@ MonoBehaviour:
   - resourceData: {fileID: 11400000, guid: a2eafc1d6bdb12e4695f37c7ad8a43c3, type: 2}
     amount: 10
   result: {fileID: 11400000, guid: 16b072943df56014388da9fb06c5f582, type: 2}
-  recipeInfo: First Aid Kit - Makes you regain health. (100hp)
+  recipeInfo: First Aid Kit - Regain health.  (100hp)

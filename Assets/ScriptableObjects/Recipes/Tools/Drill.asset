@@ -21,4 +21,4 @@ MonoBehaviour:
   - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
     amount: 3
   result: {fileID: 11400000, guid: 11601023ba8211144929bb4400349200, type: 2}
-  recipeInfo: Drill - Used to drill materials in asteroids.
+  recipeInfo: Drill - Drill materials from asteroids.

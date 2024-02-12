@@ -21,4 +21,4 @@ MonoBehaviour:
   - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
     amount: 2
   result: {fileID: 11400000, guid: fdae26719650a5c45a9941d78a923a86, type: 2}
-  recipeInfo: Oxygen Tank - Makes you survive longer in space. (+50s)
+  recipeInfo: Oxygen Tank - Survive longer in space. (+50s)

@@ -23,4 +23,4 @@ MonoBehaviour:
   - resourceData: {fileID: 11400000, guid: 1b00c50423dde2d428351503be1a27e2, type: 2}
     amount: 3
   result: {fileID: 11400000, guid: 4c30456dab9813a448d12e8c9a4cd107, type: 2}
-  recipeInfo: Blaster Gun - Used to defend yourself from enemies.
+  recipeInfo: Blaster Gun - Defend yourself against enemies.

@@ -19,4 +19,4 @@ MonoBehaviour:
   - resourceData: {fileID: 11400000, guid: 7be56ba9920b5ea40a32231de777217a, type: 2}
     amount: 2
   result: {fileID: 11400000, guid: e8446f799d0c965479c47e93606a6dfd, type: 2}
-  recipeInfo: Bread - Makes you regain health. (30hp)
+  recipeInfo: Bread - Regain health. (30hp)

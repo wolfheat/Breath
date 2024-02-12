@@ -180,9 +180,9 @@ Jan 2024
 		* Updated healthbars with UI change -
 		* bug fixed healthbar not showing bar at low health scaling of bar was hardcoded)
 		* Greyscale artifacts went away when restarting unity -	
-				
+11/2	* Updated InfoPanel Visuals
+
 		* M not working correctly in game sometimes, is this due to it not being saved correctly and loading a game with mute on	
-		* Update InfoScreen visuals
 			
 		 - UI
 		* Healthbars do not align with inventory fix?

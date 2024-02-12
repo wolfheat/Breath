@@ -21,4 +21,4 @@ MonoBehaviour:
   - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
     amount: 2
   result: {fileID: 11400000, guid: b51d102373ca47f4daa59fa955fb7eb0, type: 2}
-  recipeInfo: Space Suit- Makes you withstand damage (+50Hp)
+  recipeInfo: Space Suit- Protection against damage. (+50Hp)

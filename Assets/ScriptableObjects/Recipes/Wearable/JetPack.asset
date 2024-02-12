@@ -21,4 +21,4 @@ MonoBehaviour:
   - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
     amount: 2
   result: {fileID: 11400000, guid: abed5eb779ec5a043a867ac14561813f, type: 2}
-  recipeInfo: Jetpack - Used to move faster in space.
+  recipeInfo: Jetpack - Move faster in space.

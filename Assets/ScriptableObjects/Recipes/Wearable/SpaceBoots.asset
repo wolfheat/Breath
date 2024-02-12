@@ -21,4 +21,4 @@ MonoBehaviour:
   - resourceData: {fileID: 11400000, guid: c29078b9f6dda00498e674ca8b23018f, type: 2}
     amount: 1
   result: {fileID: 11400000, guid: cf3b600e183b6d54ebf8eda914d8bdcb, type: 2}
-  recipeInfo: Space Boots - Makes you withstand damage (+20Hp)
+  recipeInfo: Space Boots - Protection against damage. (+20Hp)
