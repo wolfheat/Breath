@@ -98,7 +98,6 @@ namespace Wolfheat.StartMenu
 
         private void Awake()
         {
-
             Debug.Log("SoundMaster Start");        
             // Define all sounds
             foreach (var sound in sounds)
@@ -125,15 +124,16 @@ namespace Wolfheat.StartMenu
             }
 
             // Play theme sound
-            PlayMusic(MusicName.MenuMusic);
+            activeMusic = MusicName.MenuMusic;
+            //PlayMusic(MusicName.MenuMusic);
         
         }
-    
+
         public void PlayMusic(MusicName name)
         {
             activeMusic = name; // Leave this here so the correct music that should be played is still updated if music is reenabled
 
-            if (!soundSettings.GlobalMaster || !soundSettings.UseMaster || !soundSettings.UseMusic) return;
+            if (!soundSettings.GlobalMaster || !soundSettings.UseMaster || !soundSettings.UseMusic || !SavingUtility.HasLoaded) return;
             
             if (musicDictionary.ContainsKey(name))
             {

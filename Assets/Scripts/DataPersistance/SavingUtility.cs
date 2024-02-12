@@ -15,6 +15,7 @@ public class SavingUtility : MonoBehaviour
     public static PlayerGameData playerGameData;
     public static GameSettingsData gameSettingsData;
     public static bool useLoadedData = false;
+    public static bool HasLoaded = false;
 
 
     private void Start()
@@ -122,6 +123,7 @@ public class SavingUtility : MonoBehaviour
             PlayerGameData.InventoryUpdate += SavePlayerDataToFile;
             GameSettingsData.GameSettingsUpdated += SaveSettingsDataToFile;
 
+            HasLoaded = true;
 
             // Load Up settings with this data? No do it 
 

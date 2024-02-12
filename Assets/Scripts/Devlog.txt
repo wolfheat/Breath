@@ -183,9 +183,18 @@ Jan 2024
 11/2	* Updated InfoPanel Visuals
 		* Made workable build with scene settings loading startmenu
 		* reworked inventory resource panel positions
+		* BUILD: 210Mb zipped (295Mb)
+		* Adjusted Buttons in credits screen
+		* Start Menu is prevented from triggering music in soundmaster before data load is complete
+		* Version 0.2.0 Built
 
+
+		* Some issue with game not closing when pressing exit still occures in build
 		* M not working correctly in game sometimes, is this due to it not being saved correctly and loading a game with mute on	
 			
+		* Give heads up warning when low on oxygen?
+		* Change E to Click for everything?
+
 		 - UI
 		* Healthbars do not align with inventory fix?
 
