@@ -189,16 +189,17 @@ Jan 2024
 		* Version 0.2.0 Built
 12/2	* Added low oxygen notice at 9 and 2 seconds
 		* Made health and Oxygen bar 3D look with gradient -
-
+		* Implemented mouse sensitivity setting in settings fully implemented
+		* UI can now be made in one file and exported into unity as one image as a PSD. format due to the PSD importer plugin
+		* BUILD 126Mb zipped (264MB) V 0.2.1
 
 		* Sometimes player moves slow in doors other times super fast, why?	
 
 		* Some issue with game not closing when pressing exit still occures in build
 		* M not working correctly in game sometimes, is this due to it not being saved correctly and loading a game with mute on	
 			
-		* Change E to Click for everything?
+		* Change from E to Click for everything?
 
-		* UI can now be made in one file and exported into unity as one image as a PSD. format due to the PSD importer plugin
 
 		 - UI
 		* Healthbars do not align with inventory fix?

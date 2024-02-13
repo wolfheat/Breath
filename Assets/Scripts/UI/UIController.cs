@@ -13,6 +13,7 @@ public class UIController : MonoBehaviour
     [SerializeField] Volume volume;
     [SerializeField] DeathScreen deathScreen;
     [SerializeField] WinScreen winScreen;
+    [SerializeField] GameObject debugHelpText;
     [SerializeField] PauseController pauseScreen;
     [SerializeField] GameObject tempHair;
 
@@ -41,6 +42,9 @@ public class UIController : MonoBehaviour
         }
         Instance = this;
 
+#if !UNITY_EDITOR
+        debugHelpText.SetActive(false);
+#endif
     }
 
     public void OnEnable()
