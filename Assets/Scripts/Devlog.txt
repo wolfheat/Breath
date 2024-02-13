@@ -192,7 +192,7 @@ Jan 2024
 		* Implemented mouse sensitivity setting in settings fully implemented
 		* UI can now be made in one file and exported into unity as one image as a PSD. format due to the PSD importer plugin
 		* BUILD 126Mb zipped (264MB) V 0.2.1
-13/2	* Remade Inventory UI again
+13/2	* Remade Inventory UI again and Info screen
 		
 
 		* Sometimes player moves slow in doors other times super fast, why?	Not any longer? fixed?

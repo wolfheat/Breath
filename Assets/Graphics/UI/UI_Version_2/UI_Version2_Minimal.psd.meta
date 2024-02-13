@@ -99,6 +99,48 @@ ScriptedImporter:
     spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
+  - name: UI_V2_CraftingInfoMain
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1824
+      width: 741
+      height: 602
+    spriteID: 83b336a364de692419e5e675f8c6a1b6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: -557, y: 1576}
+    spritePosition: {x: 561, y: 248}
+  - name: UI_V2_CraftingInfoBackground
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2434
+      width: 727
+      height: 589
+    spriteID: 85a324f513efb8243b6b831a12ed95f9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: -564, y: 2179}
+    spritePosition: {x: 568, y: 255}
   - name: UI_V2_BarMain
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -106,7 +148,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 244
+      x: 753
       y: 1824
       width: 1050
       height: 152
@@ -118,7 +160,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: -212, y: 904}
+    uvTransform: {x: 297, y: 904}
     spritePosition: {x: 456, y: 920}
   - name: UI_V2_BarBAckground
     originalName: 
@@ -127,7 +169,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 244
+      x: 753
       y: 1984
       width: 1034
       height: 138
@@ -139,7 +181,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: -219, y: 1057}
+    uvTransform: {x: 290, y: 1057}
     spritePosition: {x: 463, y: 927}
   - name: UI_V2_InventoryMain
     originalName: 
@@ -191,7 +233,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 1824
+      y: 3031
       width: 232
       height: 988
     spriteID: de9685650590d364f92440a8eae3e81e
@@ -202,7 +244,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 1794}
+    uvTransform: {x: 4, y: 3001}
     spritePosition: {x: 0, y: 30}
   - name: UI_V2_ResourcesBackground
     originalName: 
@@ -211,8 +253,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 2820
+      x: 244
+      y: 3031
       width: 210
       height: 970
     spriteID: 2ba5606b7666a3649aa92d46b91468a6
@@ -223,7 +265,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: -3, y: 2781}
+    uvTransform: {x: 237, y: 2992}
     spritePosition: {x: 7, y: 39}
   characterData:
     bones: []
@@ -240,7 +282,79 @@ ScriptedImporter:
     characterGroups: []
     pivot: {x: 0, y: 0}
     boneReadOnly: 0
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Server
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Android
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: iPhone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   mosaicLayers: 1
   characterMode: 1
   documentPivot: {x: 0, y: 0}
@@ -261,7 +375,7 @@ ScriptedImporter:
   resliceFromLayer: 0
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: Bars copy
+  - name: CraftingInfo
     spriteName: 
     isGroup: 1
     parentIndex: -1
@@ -271,10 +385,50 @@ ScriptedImporter:
     flatten: 0
     isImported: 0
     isVisible: 1
-  - name: UI_V2_Filled_Decals_Smeared #2
+  - name: UI_V2_CraftingInfoMain
+    spriteName: UI_V2_CraftingInfoMain
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 83b336a364de692419e5e675f8c6a1b6
+    layerID: -1725284477
+    mosaicPosition: {x: 4, y: 1824}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: UI_V2_CraftingInfoBackground
+    spriteName: UI_V2_CraftingInfoBackground
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 85a324f513efb8243b6b831a12ed95f9
+    layerID: 1766979808
+    mosaicPosition: {x: 4, y: 2434}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: CraftingInfoA.png copy
     spriteName: 
     isGroup: 0
     parentIndex: 0
+    spriteID: fe29a6adf2cc4134f92562577d0f4b3c
+    layerID: -2130442369
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Bars copy
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 455e0c417c87a2c43ae721de95219743
+    layerID: -136087849
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: UI_V2_Filled_Decals_Smeared #2
+    spriteName: 
+    isGroup: 0
+    parentIndex: 4
     spriteID: ac9566cfcd2046d4ab7ac524da0b936f
     layerID: -144341040
     mosaicPosition: {x: 0, y: 0}
@@ -284,20 +438,20 @@ ScriptedImporter:
   - name: UI_V2_BarMain
     spriteName: UI_V2_BarMain
     isGroup: 0
-    parentIndex: 0
+    parentIndex: 4
     spriteID: 63bb4a60f85795142b243e38b2d28c81
     layerID: -804947966
-    mosaicPosition: {x: 244, y: 1824}
+    mosaicPosition: {x: 753, y: 1824}
     flatten: 0
     isImported: 1
     isVisible: 1
   - name: UI_V2_BarBAckground
     spriteName: UI_V2_BarBAckground
     isGroup: 0
-    parentIndex: 0
+    parentIndex: 4
     spriteID: c46c4ac31b1f2f14281aef8d000a7e16
     layerID: -1457224845
-    mosaicPosition: {x: 244, y: 1984}
+    mosaicPosition: {x: 753, y: 1984}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -314,7 +468,7 @@ ScriptedImporter:
   - name: UI_V2_Filled_Decals_Smeared
     spriteName: 
     isGroup: 0
-    parentIndex: 4
+    parentIndex: 8
     spriteID: 89acc24622a736b43b318a2372f2e1f4
     layerID: 1757452215
     mosaicPosition: {x: 0, y: 0}
@@ -324,7 +478,7 @@ ScriptedImporter:
   - name: UI_V2_InventoryMain
     spriteName: UI_V2_InventoryMain
     isGroup: 0
-    parentIndex: 4
+    parentIndex: 8
     spriteID: e48e05cbd35df4a4eac6dea6686379d4
     layerID: -155092559
     mosaicPosition: {x: 4, y: 4}
@@ -334,7 +488,7 @@ ScriptedImporter:
   - name: Background #2
     spriteName: Background #2
     isGroup: 0
-    parentIndex: 4
+    parentIndex: 8
     spriteID: e0d73867a34782f4f891becc95e5bb48
     layerID: 1060092347
     mosaicPosition: {x: 4, y: 918}
@@ -354,7 +508,7 @@ ScriptedImporter:
   - name: UI_V2_Filled_Decals_Smeared #1
     spriteName: 
     isGroup: 0
-    parentIndex: 8
+    parentIndex: 12
     spriteID: aa00114949e66724cb86567a5df2529f
     layerID: -547625567
     mosaicPosition: {x: 0, y: 0}
@@ -364,20 +518,20 @@ ScriptedImporter:
   - name: UI_V2_ResourcesMain
     spriteName: UI_V2_ResourcesMain
     isGroup: 0
-    parentIndex: 8
+    parentIndex: 12
     spriteID: de9685650590d364f92440a8eae3e81e
     layerID: 1280903682
-    mosaicPosition: {x: 4, y: 1824}
+    mosaicPosition: {x: 4, y: 3031}
     flatten: 0
     isImported: 1
     isVisible: 1
   - name: UI_V2_ResourcesBackground
     spriteName: UI_V2_ResourcesBackground
     isGroup: 0
-    parentIndex: 8
+    parentIndex: 12
     spriteID: 2ba5606b7666a3649aa92d46b91468a6
     layerID: 1461213579
-    mosaicPosition: {x: 4, y: 2820}
+    mosaicPosition: {x: 244, y: 3031}
     flatten: 0
     isImported: 1
     isVisible: 1
