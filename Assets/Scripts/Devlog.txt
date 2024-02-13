@@ -192,8 +192,10 @@ Jan 2024
 		* Implemented mouse sensitivity setting in settings fully implemented
 		* UI can now be made in one file and exported into unity as one image as a PSD. format due to the PSD importer plugin
 		* BUILD 126Mb zipped (264MB) V 0.2.1
+13/2	* Remade Inventory UI again
+		
 
-		* Sometimes player moves slow in doors other times super fast, why?	
+		* Sometimes player moves slow in doors other times super fast, why?	Not any longer? fixed?
 
 		* Some issue with game not closing when pressing exit still occures in build
 		* M not working correctly in game sometimes, is this due to it not being saved correctly and loading a game with mute on	
