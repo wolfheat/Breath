@@ -113,6 +113,7 @@ public class UIController : MonoBehaviour
         {
             DestructableItem destructableItem = (DestructableItem)follow; 
             canInteractWith = Inventory.Instance.PlayerHasEquipped(destructableItem.Data.destructType);
+            Debug.Log("This is Destructable and player can interact: "+canInteractWith);
         }
         hudIcons.Set(type, follow,canInteractWith);
     }

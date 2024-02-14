@@ -85,6 +85,7 @@ public class CraftingUI : MonoBehaviour
 
     public void OpenSubMenu(int id)
     {
+        if (WaitingForMenuToClose && id!=-1) return;
         // Requesting action to show this subMenu
         // If any menu is open wait for it to close
         Debug.Log("Request base crafting "+id+ " WaitingForRecipeToHide: "+ WaitingForRecipeToHide);
@@ -199,6 +200,7 @@ public class CraftingUI : MonoBehaviour
     }
     public void ShowInfo(RecipeData recipeData)
     {
+        if (WaitingForMenuToClose) return;
         recipeInfo.ShowRecipe(recipeData);
     }
     public void SetActiveWorkbench(Workbench workbench)

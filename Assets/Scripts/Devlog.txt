@@ -194,7 +194,11 @@ Jan 2024
 		* BUILD 126Mb zipped (264MB) V 0.2.1
 13/2	* Remade Inventory UI again and Info screen
 		* Remade Inventory UI yet again and Info screen
-		
+		* Fixed correct tool shown when using a tool
+		* Player now only need left button to interract with anything
+		* Click is all input now, but E can be used for anything but shoot
+
+		* Sometimes crafting menu lingers when crafting item
 
 		* Sometimes player moves slow in doors other times super fast, why?	Not any longer? fixed?
 

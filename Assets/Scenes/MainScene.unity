@@ -19421,8 +19421,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Move - WASD + (Space, Ctrl)\t\tInventory - TAB\t\tInteract - E\t \tUse
-    Tool - LClick  \tToggle Music - M"
+  m_text: "Move - WASD + (Space, Ctrl)\t\tInventory - TAB\t\tInteract - Click (or
+    E)\t \tShoot - Click  \tToggle Music - M"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fa26963c85491e1478543b95a03db0d6, type: 2}
   m_sharedMaterial: {fileID: 4604725082095245766, guid: fa26963c85491e1478543b95a03db0d6,
@@ -25568,8 +25568,6 @@ MonoBehaviour:
   - {fileID: 194193595}
   - {fileID: 1114713059}
   - {fileID: 1815260689}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &1049615289
 GameObject:
   m_ObjectHideFlags: 0

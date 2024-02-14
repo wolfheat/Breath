@@ -3,15 +3,13 @@ using UnityEngine;
 public class ToolHolder : MonoBehaviour
 {
     [SerializeField] GameObject[] tools;
-    private int activeTool = 0;
 
     public void ChangeTool(DestructType type)
     {
-        if(activeTool != (int)type)
-        {
-            tools[activeTool].SetActive(false);
-            activeTool = (int)type;
-            tools[activeTool].SetActive(true);
-        }
+        Debug.Log("Tool Changed to "+type);
+        foreach (var tool in tools)
+            tool.SetActive(false);
+        tools[(int)type].SetActive(true);
+        
     }
 }

@@ -87,22 +87,14 @@ public class PlayerPickupAreaController : MonoBehaviour
 
         bool same = ActiveInteractable == closest;
         ActiveInteractable = closest;
+
         if (ActiveInteractable != null)
         {
-            if (!same)
-            {
-                ItemSelector.Instance.SetToPosition(closest.transform);
-                // Determin screen position here
+            if (same) return;
 
-                if(ActiveInteractable is PickableItem)
-                    uIController.ShowHUDIconAt(HUDIconType.PickUp, ActiveInteractable);
-                else if(ActiveInteractable is DestructableItem)
-                    uIController.ShowHUDIconAt(HUDIconType.LeftClick, ActiveInteractable);
-                else if(ActiveInteractable is Facility)
-                    uIController.ShowHUDIconAt(HUDIconType.Interact, ActiveInteractable);
-                else
-                    uIController.ShowHUDIconAt(HUDIconType.Generic, ActiveInteractable);
-            }
+            // Determine HUD Icons screen position
+            ItemSelector.Instance.SetToPosition(closest.transform);
+            uIController.ShowHUDIconAt(HUDIconType.LeftClick, ActiveInteractable);
         }
         else
         {

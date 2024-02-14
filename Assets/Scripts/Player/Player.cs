@@ -23,8 +23,8 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Created Player");
         // set up input actions
-        Inputs.Instance.Controls.Player.Click.performed += Click;
-        Inputs.Instance.Controls.Player.Click.started += MouseDown;
+        Inputs.Instance.Controls.Player.Click.performed += InterractWith;
+        //Inputs.Instance.Controls.Player.Click.started += MouseDown;
         Inputs.Instance.Controls.Player.E.performed += InterractWith;       
 
     }
@@ -33,12 +33,14 @@ public class Player : MonoBehaviour
     public void InterractWith(CallbackContext context)
     {
         // Disable interact when inventory
-        if (UIController.InventoryActive || GameState.IsPaused)
+        if (UIController.CraftingActive || UIController.InventoryActive || GameState.IsPaused)
         {
-            if(UIController.InventoryActive)
-                Debug.Log("Cannot interract because inventory is active");
-            else
-                Debug.Log("Cannot interract because game is paused");
+            if (UIController.CraftingActive && !EventSystem.current.IsPointerOverGameObject())
+            {
+                //Close Crafting menu
+                CraftingUI.Instance.CloseCraftingMenu();
+
+            }
 
             return;
         }
@@ -47,6 +49,9 @@ public class Player : MonoBehaviour
         // Interact with closest visible item 
         if(pickupController.ActiveInteractable != null)
         {
+            // Each time interacting with an item, reset timer to be able to shoot again
+            playerShootController.ResetTimer();
+
             bool didPickUp = false;
 
             Interactable activeObject = pickupController.ActiveInteractable;
@@ -67,67 +72,14 @@ public class Player : MonoBehaviour
                     Debug.Log("Interact with inventoryitem!");
                     didPickUp = inventory.AddItem((activeObject as PickableItem).Data);
                 }
-            }
 
-            if (didPickUp)
-            {
-                pickupController.InteractWithActiveItem();
-                SoundMaster.Instance.PlaySound(SoundName.PickUp);
-                Debug.Log("Did Pick Up = " + didPickUp);
-            }
-            
-        }
-        else
-        {
-            Debug.Log("This is not pickable");
-        }
-    }
-
-    private bool LimitShots = false;
-    private void MouseDown(CallbackContext context)
-    {
-        if (pickupController.ActiveInteractable != null && pickupController.ActiveInteractable is DestructableItem)
-        {
-            LimitShots = true;
-        }
-        else
-        {
-            LimitShots = false;
-        }
-    }
-    
-    private void Update()
-    {
-        if (GameState.IsPaused) return;
-
-        if (!Inputs.Instance.Controls.Player.MouseHeld.IsPressed() || LimitShots) return;
-
-        // Detect if there is an object to interact with in front of player
-        if (pickupController.ActiveInteractable != null && pickupController.ActiveInteractable is DestructableItem) return;
-
-        if (EventSystem.current.IsPointerOverGameObject() || UIController.InventoryActive || UIController.CraftingActive) return;
-
-        //Try shoot if having a gun equipped
-        if (inventory.PlayerHasEquipped(DestructType.Flesh))
-        {
-            if (playerShootController.RequestShoot())
-            {
-                //playerAnimationController.SetState(PlayerState.Hit);
-                toolHolder.ChangeTool(DestructType.Flesh);
-            }
-
-        }
-    }
-    public void Click(CallbackContext context)
-    {
-        // Raycast from mouse into screen get first item thats interactable
-                
-        // Detect what tool to use
-        if (pickupController.ActiveInteractable != null)        
-        {
-            
-            // Check what itemtype it is and if player has the tool
-            if(pickupController.ActiveInteractable is DestructableItem)
+                if (didPickUp)
+                {
+                    pickupController.InteractWithActiveItem();
+                    SoundMaster.Instance.PlaySound(SoundName.PickUp);
+                    Debug.Log("Did Pick Up = " + didPickUp);
+                }
+            }else if (pickupController.ActiveInteractable is DestructableItem)
             {
 
                 DestructableItem destructable = pickupController.ActiveInteractable as DestructableItem;
@@ -139,7 +91,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    HUDMessage.Instance.ShowMessage("Equip a "+ Enum.GetName(typeof(EquipType), (int)destructable.Data.destructType+5));
+                    HUDMessage.Instance.ShowMessage("Equip a " + Enum.GetName(typeof(EquipType), (int)destructable.Data.destructType + 5));
                     return;
                 }
 
@@ -162,13 +114,43 @@ public class Player : MonoBehaviour
 
             }
 
-
         }
         else
         {
-            
+            Debug.Log("This is not pickable");
         }
+    }
         
+    private void Update()
+    {
+        if (GameState.IsPaused) return;
+
+        if (Inputs.Instance.Controls.Player.MouseHeld.IsPressed()) 
+            RequestShoot();
+        
+    }
+
+    private void RequestShoot()
+    {
+        // Detect if there is an object to interact with in front of player
+        if (pickupController.ActiveInteractable != null) return;
+
+        if (EventSystem.current.IsPointerOverGameObject() || UIController.InventoryActive || UIController.CraftingActive) return;
+
+        //Try shoot if having a gun equipped
+        if (inventory.PlayerHasEquipped(DestructType.Flesh))
+        {
+            if (playerShootController.RequestShoot())
+            {
+                //playerAnimationController.SetState(PlayerState.Hit);
+                toolHolder.ChangeTool(DestructType.Flesh);
+            }
+
+        }
+    }
+
+    public void Click(CallbackContext context)
+    {
         
 
 

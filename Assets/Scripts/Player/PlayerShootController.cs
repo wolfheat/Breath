@@ -14,6 +14,10 @@ public class PlayerShootController : MonoBehaviour
             reloadTime -= Time.deltaTime;
     }
 
+    public void ResetTimer()
+    {
+        reloadTime = ReloadTime;
+    }
     public bool RequestShoot()
     {
         if (reloadTime <= 0)
