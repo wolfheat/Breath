@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 5202276198724263840}
   - component: {fileID: 4273797048926332552}
   m_Layer: 5
-  m_Name: UI_Resources_Background
+  m_Name: UI_Info_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8945891928897006623, guid: 14ef89757df738546a5fbba530fd4e3f,
+  m_Sprite: {fileID: -1871273078760524672, guid: d11c3f1ee8dd2d44ca690387e5f07509,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -600,7 +600,7 @@ GameObject:
   - component: {fileID: 3610589206903862628}
   - component: {fileID: 5112396052915082808}
   m_Layer: 5
-  m_Name: UI_Resources_MainBorders
+  m_Name: UI_Info_MainEmboss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -623,8 +623,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.87750244, y: 0.06930542}
-  m_SizeDelta: {x: 12.6878, y: 9.7672}
+  m_AnchoredPosition: {x: -0.3901062, y: -0.11691284}
+  m_SizeDelta: {x: 26.5739, y: 18.9083}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3610589206903862628
 CanvasRenderer:
@@ -654,7 +654,84 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6575273929356063639, guid: 14ef89757df738546a5fbba530fd4e3f,
+  m_Sprite: {fileID: 7915512686839281588, guid: d11c3f1ee8dd2d44ca690387e5f07509,
+    type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8878531280583329581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7900029298403153101}
+  - component: {fileID: 2453344190730471560}
+  - component: {fileID: 8164788150535986312}
+  m_Layer: 5
+  m_Name: UI_Info_MainGloss
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7900029298403153101
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878531280583329581}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1682278524533561291}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.87750244, y: 0.06930542}
+  m_SizeDelta: {x: 12.6878, y: 9.7672}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2453344190730471560
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878531280583329581}
+  m_CullTransparentMesh: 1
+--- !u!114 &8164788150535986312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878531280583329581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 7915512686839281588, guid: d11c3f1ee8dd2d44ca690387e5f07509,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -696,6 +773,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6554470249556665536}
+  - {fileID: 7900029298403153101}
   - {fileID: 2277499999524918003}
   - {fileID: 3393717116610594799}
   - {fileID: 8052133580511690660}
