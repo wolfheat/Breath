@@ -196,30 +196,18 @@ Jan 2024
 		* Remade Inventory UI yet again and Info screen
 		* Fixed correct tool shown when using a tool
 		* Player now only need left button to interract with anything
-		* Click is all input now, but E can be used for anything but shoot
-
-		* Sometimes crafting menu lingers when crafting item
-
-		* Sometimes player moves slow in doors other times super fast, why?	Not any longer? fixed?
-
-		* Some issue with game not closing when pressing exit still occures in build
-		* M not working correctly in game sometimes, is this due to it not being saved correctly and loading a game with mute on	
+		* Click is all input now, but E can be used for anything but shoot -
+		* Crafting menu no longer lingers after crafting item
+15/2	* Added general Sound assets from soundcloud to credits
+		* Cleaned up credits page
+		* Started Animation Rigging for Spider
+		
 			
-		* Change from E to Click for everything?
-
-
-		 - UI
-		* Healthbars do not align with inventory fix?
-
 		 - BOSS
 		* Boss implode animation? More boss action, movement shooting towards player etc.
 		* Trouble with boss colliders, hard to make more animation and movement?
 		* have boss shoot water drips that player can hit with gun and generate water drops - MAYBE
 		
-		 - CREDITS
-		* Credits for each SFX sound?
-		* Add all used assets
-
 		 - SETTINGS
 		* Gray Out bar when muted - MAYBE
 
