@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {        
-        Debug.Log("Bullet collided with "+other.gameObject.name);
+        //Debug.Log("Bullet collided with "+other.gameObject.name);
         ParticleEffects.Instance.PlayTypeAt(ParticleType.Plasma,transform.position);
         SoundMaster.Instance.PlaySound(SoundName.BulletImpact,true);
         Destroy(gameObject);
@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
     {
         life -= Time.deltaTime;
         if(life <= 0){
-            Debug.Log("Destroy bullet");
+            //Debug.Log("Destroy bullet");
             Destroy(gameObject);
         }
     }

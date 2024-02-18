@@ -337,6 +337,18 @@ MonoBehaviour:
     loop: 0
     audioSource: {fileID: 0}
     name: 15
+  - clip: {fileID: 8300000, guid: 15ef2eaa5faf07245a8f9e9f0d01911e, type: 3}
+    volume: 0.181
+    pitch: 1
+    loop: 0
+    audioSource: {fileID: 0}
+    name: 16
+  - clip: {fileID: 8300000, guid: 70d919f4010d3dc4d9decb1f12ea8c72, type: 3}
+    volume: 0.181
+    pitch: 1
+    loop: 0
+    audioSource: {fileID: 0}
+    name: 17
   musics:
   - clip: {fileID: 8300000, guid: 45fcb276ef2214243a676750aaddb080, type: 3}
     volume: 0.619
@@ -356,6 +368,21 @@ MonoBehaviour:
     loop: 1
     audioSource: {fileID: 0}
     name: 1
+  swosh:
+  - {fileID: 8300000, guid: 1195d1b380f363c40a9d96a4e428b1cf, type: 3}
+  - {fileID: 8300000, guid: 07df2b6038bbe5e48b512ca2c883a5f0, type: 3}
+  - {fileID: 8300000, guid: de7eff5b8b64a3446b790594f365dd31, type: 3}
+  - {fileID: 8300000, guid: 627aefae6ec26ca40b51880aa30c565b, type: 3}
+  - {fileID: 8300000, guid: 9866ad98a3ffc3745b8dbf8a5bdf7466, type: 3}
+  - {fileID: 8300000, guid: 3853aff575867f14bab0b0144ad6829c, type: 3}
+  - {fileID: 8300000, guid: 62884cdbc148fed49b75d53f8ef6a473, type: 3}
+  getHit:
+  - {fileID: 8300000, guid: 3aa15b2d01b89d747bd6c27775c0c6ef, type: 3}
+  - {fileID: 8300000, guid: 0851136b87c9dd9439954c77347e0090, type: 3}
+  - {fileID: 8300000, guid: 427ecae4c7ce06e4496ebacbfe0ac69c, type: 3}
+  - {fileID: 8300000, guid: 7564ff231f972d64da5c9ce373a5978b, type: 3}
+  - {fileID: 8300000, guid: fc05147d5afdc444cae245a4f7c6573d, type: 3}
+  - {fileID: 8300000, guid: 9cf9e0fb277c6c8479ab77b1012c674c, type: 3}
   footstep:
   - {fileID: 8300000, guid: 2f2c7754171a32f4cab8af3dba2763c7, type: 3}
   - {fileID: 8300000, guid: 9b1d48bfc3ed3da46b0ef01d4f8214ac, type: 3}

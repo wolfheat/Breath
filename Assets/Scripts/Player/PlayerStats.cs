@@ -93,6 +93,17 @@ public class PlayerStats : MonoBehaviour
         HealthUpdated.Invoke(health, maxHealth);
     }
 
+    public void TakeDamage(int amt)
+    {
+        health -= amt;
+        HealthUpdated.Invoke(health,maxHealth);
+        if (health <= 0)
+        {
+            health = 0;
+            IsDead = true;
+            uiController.ShowDeathScreen();
+        }
+    }
     private IEnumerator UseOxygen()
     {
         while (true)

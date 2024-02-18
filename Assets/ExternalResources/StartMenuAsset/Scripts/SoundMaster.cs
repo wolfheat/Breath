@@ -16,7 +16,9 @@ namespace Wolfheat.StartMenu
         HitMetal,
         Drill,
         PickUp,
-        LowOxygen
+        LowOxygen,
+        EnemyShoot,
+        Pinch
     }
     public enum MusicName {MenuMusic, OutDoorMusic, IndoorMusic, DeadMusic}
 
@@ -67,7 +69,11 @@ namespace Wolfheat.StartMenu
         public AudioMixerGroup SFXMixerGroup;  
         [SerializeField] private Sound[] sounds;
         [SerializeField] private Music[] musics;
+
+        [SerializeField]private AudioClip[] swosh;
+        [SerializeField]private AudioClip[] getHit;
         [SerializeField]private AudioClip[] footstep;
+
         private Dictionary<SoundName,Sound> soundsDictionary = new();
         private Dictionary<MusicName,Music> musicDictionary = new();
         AudioSource musicSource;
@@ -278,6 +284,19 @@ namespace Wolfheat.StartMenu
             PlayMusic(activeMusic);
         }
 
+        public void PlaySwoshSound()
+        {
+            if (!soundSettings.GlobalMaster || !soundSettings.UseMaster || !soundSettings.UseSFX) return;
+            stepSource.PlayOneShot(swosh[Random.Range(0, swosh.Length)]);
+        }
+        public void PlayGetHitSound()
+        {
+            if (!soundSettings.GlobalMaster || !soundSettings.UseMaster || !soundSettings.UseSFX) return;
+
+            // Only play foot step if last footstep is finished playing
+            if (!stepSource.isPlaying)
+                stepSource.PlayOneShot(getHit[Random.Range(0, getHit.Length)]);
+        }
         public void PlayStepSound()
         {
             if (!soundSettings.GlobalMaster || !soundSettings.UseMaster || !soundSettings.UseSFX) return;

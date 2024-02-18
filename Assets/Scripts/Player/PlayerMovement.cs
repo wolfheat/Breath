@@ -49,11 +49,19 @@ public class PlayerMovement : MonoBehaviour
         lastSafePoint = rb.transform.position;
         jumpables = 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("Interactables");
         Debug.Log("Jumpables set to: "+Convert.ToString(jumpables,2));
-        LookSensitivity = SavingUtility.gameSettingsData.playerInputSettings.MouseSensitivity;
         Debug.Log("Mouse Sensitivity updated to: "+LookSensitivity);
+        SavingUtility.LoadingComplete += LoadingComplete;
     }
+
+    private void LoadingComplete()
+    {
+        Debug.Log("Loading of settings complete update");
+        LookSensitivity = SavingUtility.gameSettingsData.playerInputSettings.MouseSensitivity;
+    }
+
     public void OnDisable()
     {
+        SavingUtility.LoadingComplete -= LoadingComplete;
     }
 
     private void OnTriggerEnter(Collider other)

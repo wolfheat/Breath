@@ -201,12 +201,36 @@ Jan 2024
 15/2	* Added general Sound assets from soundcloud to credits
 		* Cleaned up credits page
 		* Started Animation Rigging for Spider
-		
-			
+16/2	* Created attack animation for spider
+		* Spider can now shoot from abdomen
+17/2	* Added pinch attack for enemy
+		* Implemented player taking damage, player can die from health
+
+
+		* Make 3d gun for shooting animation
+
+		* Make sure boss is removed after it dies
+		* Make sure player only needs to press win screen once and the game is reset.
+
+		* Add repeated explosions around enemy as it dies to make it clear its defeted
+
+		* Make small spiderlings? player can kill easially and they drop food?
+
+		* IDLE
+			- Attack 1 if getting hit by player
+			- attack 2 hit player if within reach
+			- Attack 3 eat player if within reach and player low on life
+			- Attack 4 spiderlings craft once every 4 minutes? When spiderlings are out enemy is invincible? portected? Maybe?
+
 		 - BOSS
+		* Attacks
+			- Attack 1 - Boss shoots webs with bottom, they create water when dieing or shot by player bullet?
+			- Attack 2 - Boss hits player with arms
+			- Attack 3 - Boss grabs player and eat the head (if player has lower life than X)
+			- Attack 4 - Boss makes a cocoon with spiderlings that is erupted and small spiders appear
+		* Maybe have one mockup spider that lures player. after killing it main boss will appear - MAYBE
+		* Change enemy bullet to enemy layer and new visuals and slower speed larger
 		* Boss implode animation? More boss action, movement shooting towards player etc.
-		* Trouble with boss colliders, hard to make more animation and movement?
-		* have boss shoot water drips that player can hit with gun and generate water drops - MAYBE
 		
 		 - SETTINGS
 		* Gray Out bar when muted - MAYBE

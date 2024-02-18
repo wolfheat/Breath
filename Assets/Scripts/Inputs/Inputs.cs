@@ -11,8 +11,14 @@ public class Inputs : MonoBehaviour
 
     private void OnEnable()
     {
+        SavingUtility.LoadingComplete += LoadingComplete;
+    }
+
+    private void LoadingComplete()
+    {
         Controls.Player.M.performed += SoundMaster.Instance.ToggleMusic;
     }
+
     private void OnDisable()
     {
         Controls.Player.M.performed -= SoundMaster.Instance.ToggleMusic;

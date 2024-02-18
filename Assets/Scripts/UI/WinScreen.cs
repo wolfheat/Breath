@@ -7,7 +7,7 @@ public class WinScreen : MonoBehaviour
 
     public void ShowScreen()
     {
-        Debug.Log("Show Death panel");
+        Debug.Log("Show Win panel");
         panel.SetActive(true);
     }
     public void CloseClicked()

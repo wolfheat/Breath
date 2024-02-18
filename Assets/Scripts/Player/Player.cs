@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Wolfheat.StartMenu;
@@ -8,7 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] UIController uiController;
     [SerializeField] PlayerMovement playerMovement;
-    [SerializeField] PlayerStats playerHealth;
+    [SerializeField] PlayerStats playerStats;
     [SerializeField] PlayerShootController playerShootController;
     [SerializeField] Inventory inventory;
     [SerializeField] PlayerPickupAreaController pickupController;
@@ -29,7 +28,22 @@ public class Player : MonoBehaviour
 
     }
 
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("EnemyPinchAttackArea"))
+        {
+            Debug.Log("Player Hit By Enemy Attack area");
+            SoundMaster.Instance.PlayGetHitSound();
+            playerStats.TakeDamage(1);
+        }else if (other.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
+        {
+            Debug.Log("Player Hit By Enemy Bullet");
+            SoundMaster.Instance.PlayGetHitSound();
+            playerStats.TakeDamage(1);
+        }
+    }
+
     public void InterractWith(CallbackContext context)
     {
         // Disable interact when inventory
@@ -158,7 +172,7 @@ public class Player : MonoBehaviour
 
     public void Reset()
     {
-        playerHealth.Reset();
+        playerStats.Reset();
         playerMovement.SetToSafePoint();        
     }
 }

@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 public class BulletCreator : MonoBehaviour
 {
     [SerializeField] Bullet bulletPrefab;
+    [SerializeField] Bullet enemyBulletPrefab;
     public static BulletCreator Instance { get; private set; }
 
     private void Start()
@@ -16,8 +16,24 @@ public class BulletCreator : MonoBehaviour
     public void GenerateBullet(Transform fromObject)
     {
         Bullet bullet = Instantiate(bulletPrefab, fromObject.position,fromObject.rotation,transform);
-        
-
 
     }
+    
+    public void GenerateBulletStorm(Vector3 fromPos,Vector3 toPos,int amount)
+    {
+        StartCoroutine(BulletStorm(fromPos, toPos, amount));    
+    }
+    private IEnumerator BulletStorm(Vector3 fromPos, Vector3 toPos, int amount)
+    {
+        Vector3 forward = (toPos - fromPos).normalized;
+
+        int created = 0;
+        while (created<amount) {
+            Vector3 random = UnityEngine.Random.insideUnitSphere*0.3f;
+            Bullet bullet = Instantiate(enemyBulletPrefab, fromPos, Quaternion.LookRotation(forward+random), transform);
+            created++;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
 }

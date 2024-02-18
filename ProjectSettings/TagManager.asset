@@ -24,8 +24,8 @@ TagManager:
   - Enemy
   - WorkbenchConstructArea
   - UI Top
-  - 
-  - 
+  - EnemyPinchAttackDetectArea
+  - EnemyPinchAttackArea
   - 
   - 
   - 
