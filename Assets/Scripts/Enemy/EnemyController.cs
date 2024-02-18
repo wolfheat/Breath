@@ -9,7 +9,7 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
     public EnemyData Data;
     [SerializeField] Rigidbody rb;
 
-    private int health = 25;
+    private int health = 5;
     private int damage = 5;
 
     [SerializeField] EnemyPichAttackController pichAttackController;
@@ -21,6 +21,7 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
     [SerializeField] GameObject attackState;
     [SerializeField] Transform shootPoint;
     [SerializeField] GameObject pinchAttackPoint;
+    [SerializeField] GameObject[] explosionPoints;
     Player player;
     private bool isDead = false;
     Coroutine deathProcess = null;
@@ -42,6 +43,23 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
     private void Start()
     {
         player = FindObjectOfType<Player>();
+        PlayerStats.Instance.PlayerDied += PlayerDied;
+    }
+
+    private void OnDisable()
+    {
+        PlayerStats.Instance.PlayerDied -= PlayerDied;
+    }
+
+
+    public void PlayerDied()
+    {
+        Debug.Log(" Boss recieved player dies info, set to Idle");
+        isAttacking = false;
+        idleState.SetActive(true);
+        attackState.SetActive(false);
+        animator.CrossFade("Idle",0.1f);
+        agitateTimer = 0.1f;
     }
 
     public void WebAttackAnimationComplete()
@@ -261,7 +279,18 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
 
     private IEnumerator DeathProcess()
     {
-        yield return new WaitForSeconds(7f);
+        float explodeTimer = 4f;
+        while (explodeTimer >= 0)
+        {
+            explodeTimer += Time.deltaTime;
+            Vector3 randomPosition = explosionPoints[UnityEngine.Random.Range(0,explosionPoints.Length)].transform.position;
+            ParticleEffects.Instance.PlayTypeAt(ParticleType.Small,randomPosition);
+            randomPosition = explosionPoints[UnityEngine.Random.Range(0, explosionPoints.Length)].transform.position;
+            ParticleEffects.Instance.PlayTypeAt(ParticleType.Small,randomPosition);
+            SoundMaster.Instance.PlaySound(SoundName.BulletImpact, true);
+            yield return new WaitForSeconds(0.3f);
+        }
+        yield return new WaitForSeconds(3f);
         Debug.Log("Show PLayer win screen here");
         UIController.Instance.ShowWinScreen();
     }

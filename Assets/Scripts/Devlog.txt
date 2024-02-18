@@ -207,9 +207,12 @@ Jan 2024
 		* Implemented player taking damage, player can die from health -
 		* Boss is removed after it dies
 18/2	* Boss turns towards player when pinchattacking needs more tweaking
+		* Boss goes to idle when player dies
+		* Particle Effects set to Instances
+
+		* Pool ParticleEffects? or destroy them when used?
 		
-		
-		* Make sure boss goes back to idle when player dies
+		* Make explosions instances so particle effects can play simultaniously
 
 		* Make 3d gun for shooting animation
 

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 
 public enum ParticleType{Small,Plasma,PickUp,Creation}
-
 public class ParticleEffects : MonoBehaviour
 {
     public static ParticleEffects Instance;
-    [SerializeField] ParticleSystem[] particleSystems;
+    [SerializeField] ParticleEffect[] particleSystems;
 
     private void Awake()
     {
@@ -20,7 +19,8 @@ public class ParticleEffects : MonoBehaviour
 
     public void PlayTypeAt(ParticleType type, Vector3 pos)
     {
-        particleSystems[(int)type].Play();
-        transform.position = pos;
+        // Create instance
+        ParticleEffect particleEffect = Instantiate(particleSystems[(int)type],pos,Quaternion.identity,transform);
+        particleEffect.Play();
     }
 }

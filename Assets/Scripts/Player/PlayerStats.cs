@@ -39,6 +39,8 @@ public class PlayerStats : MonoBehaviour
 
     public static PlayerStats Instance;
 
+    public Action PlayerDied;
+
     public void SetToDead()
     {
         IsDead = true;
@@ -101,6 +103,7 @@ public class PlayerStats : MonoBehaviour
         {
             health = 0;
             IsDead = true;
+            PlayerDied?.Invoke();
             uiController.ShowDeathScreen();
         }
     }
@@ -145,6 +148,7 @@ public class PlayerStats : MonoBehaviour
                         {
                             Debug.Log("PlayerDIED");
                             IsDead = true;
+                            PlayerDied?.Invoke();
                             uiController.ShowDeathScreen();
                         }
                     }
