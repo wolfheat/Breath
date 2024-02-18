@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class ParticleEffect : MonoBehaviour
 {
@@ -7,6 +8,18 @@ public class ParticleEffect : MonoBehaviour
     public void Play()
     {
         system.Play();
+
+        StopAllCoroutines();
+        StartCoroutine(CheckForComplete());
     }
 
+    private IEnumerator CheckForComplete()
+    {
+        while (true)
+        {
+            yield return null;
+            if(!system.isPlaying)
+                gameObject.SetActive(false);
+        }
+    }
 }

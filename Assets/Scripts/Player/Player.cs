@@ -170,9 +170,9 @@ public class Player : MonoBehaviour
 
     }
 
-    public void Reset()
+    public void ResetPlayer(bool keepStats=false)
     {
-        playerStats.Reset();
+        playerStats.ResetPlayer(keepStats);
         playerMovement.SetToSafePoint();        
     }
 }

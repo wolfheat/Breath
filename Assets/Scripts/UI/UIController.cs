@@ -154,17 +154,18 @@ public class UIController : MonoBehaviour
     public void ShowDeathScreen()
     {
         Pause();
+        playerStats.SetToDead();
         deathScreen.ShowScreen();
     }
     public void ShowWinScreen()
     {
         Debug.Log("Player WON");
-        playerStats.SetToDead();
+        GameState.state = GameStates.Paused;
         winScreen.ShowScreen();
     }
-    public void ResetPlayer()
+    public void ResetPlayer(bool keepStats = false)
     {
-        player.Reset();
+        player.ResetPlayer(keepStats);
         Pause(false);
     }
 

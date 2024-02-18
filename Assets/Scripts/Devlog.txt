@@ -209,8 +209,8 @@ Jan 2024
 18/2	* Boss turns towards player when pinchattacking needs more tweaking
 		* Boss goes to idle when player dies
 		* Particle Effects set to Instances 
-		* ParticleEffects are pooled
-		
+		* ParticleEffects are pooled and enabled/Disabled		
+
 		* Reset after player win should not reset health to 10
 		* Make explosions instances so particle effects can play simultaniously
 

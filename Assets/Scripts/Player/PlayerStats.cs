@@ -187,11 +187,14 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public void Reset() 
+    public void ResetPlayer(bool keepstats = false) 
     {
-        noOxygenSurvival = NoOxygenSurvivalMax;
-        oxygen = maxOxygen;
-        health = StartHealth;
+        if (IsDead)
+        {
+            noOxygenSurvival = NoOxygenSurvivalMax;
+            oxygen = maxOxygen;
+            health = StartHealth;
+        }
         IsDead = false;
         SoundMaster.Instance.PlayMusic(MusicName.IndoorMusic);
         OxygenUpdated.Invoke(oxygen, maxOxygen);
