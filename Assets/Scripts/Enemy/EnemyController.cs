@@ -279,16 +279,18 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
 
     private IEnumerator DeathProcess()
     {
+        Debug.Log("Deathprocess started");
         float explodeTimer = 4f;
+        const float ExplosionInterval = 0.3f;
         while (explodeTimer >= 0)
         {
-            explodeTimer += Time.deltaTime;
             Vector3 randomPosition = explosionPoints[UnityEngine.Random.Range(0,explosionPoints.Length)].transform.position;
             ParticleEffects.Instance.PlayTypeAt(ParticleType.Small,randomPosition);
             randomPosition = explosionPoints[UnityEngine.Random.Range(0, explosionPoints.Length)].transform.position;
             ParticleEffects.Instance.PlayTypeAt(ParticleType.Small,randomPosition);
             SoundMaster.Instance.PlaySound(SoundName.BulletImpact, true);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(ExplosionInterval);
+            explodeTimer -= ExplosionInterval;
         }
         yield return new WaitForSeconds(3f);
         Debug.Log("Show PLayer win screen here");

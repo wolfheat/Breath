@@ -208,10 +208,10 @@ Jan 2024
 		* Boss is removed after it dies
 18/2	* Boss turns towards player when pinchattacking needs more tweaking
 		* Boss goes to idle when player dies
-		* Particle Effects set to Instances
-
-		* Pool ParticleEffects? or destroy them when used?
+		* Particle Effects set to Instances 
+		* ParticleEffects are pooled
 		
+		* Reset after player win should not reset health to 10
 		* Make explosions instances so particle effects can play simultaniously
 
 		* Make 3d gun for shooting animation
