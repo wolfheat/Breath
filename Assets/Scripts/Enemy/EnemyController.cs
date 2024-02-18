@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Wolfheat.StartMenu;
 
 public class EnemyController : BaseObjectWithType, IObjectWithType
@@ -159,7 +161,9 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
                 // Check if player is within strike range
                 if (pichAttackController.PlayerInRange)
                 {
-                    StartAttack(AttackType.Pinch);
+                    // Face player then pinch attack
+                    StartCoroutine(FaceAndPinch(player.transform.position));
+                    
                 }else
                     StartAttack();
 
@@ -171,6 +175,31 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
         }
 
 
+    }
+
+    private IEnumerator FaceAndPinch(Vector3 target)
+    {
+        Quaternion rotation = transform.rotation;
+        // Rotate
+        Vector3 targetDirection = target-transform.position;
+
+        targetDirection.y = 0; 
+        Quaternion targetRotation = Quaternion.LookRotation(Vector3.down,targetDirection);
+        //float angle = Quaternion.Angle(rotation, targetRotation);
+        float angle = Vector3.Angle(transform.up, targetDirection);
+        const float AngleVelocity = 80f;
+        float turnTime = angle / AngleVelocity;
+        float timer = 0;
+        while(timer < turnTime)
+        {
+            rb.transform.rotation = Quaternion.Lerp(rotation,targetRotation,timer/turnTime);
+            //Debug.Log("Turning towards player "+(Vector3.Angle(transform.forward,targetDirection)));
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("Turning complete.");
+        rb.transform.rotation = targetRotation;
+        StartAttack(AttackType.Pinch);
     }
 
     private void OnTriggerEnter(Collider other)

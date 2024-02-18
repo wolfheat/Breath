@@ -204,12 +204,15 @@ Jan 2024
 16/2	* Created attack animation for spider
 		* Spider can now shoot from abdomen
 17/2	* Added pinch attack for enemy
-		* Implemented player taking damage, player can die from health
-
+		* Implemented player taking damage, player can die from health -
+		* Boss is removed after it dies
+18/2	* Boss turns towards player when pinchattacking needs more tweaking
+		
+		
+		* Make sure boss goes back to idle when player dies
 
 		* Make 3d gun for shooting animation
 
-		* Make sure boss is removed after it dies
 		* Make sure player only needs to press win screen once and the game is reset.
 
 		* Add repeated explosions around enemy as it dies to make it clear its defeted

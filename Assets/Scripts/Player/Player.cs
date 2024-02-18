@@ -33,12 +33,12 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("EnemyPinchAttackArea"))
         {
-            Debug.Log("Player Hit By Enemy Attack area");
+            //Debug.Log("Player Hit By Enemy Attack area");
             SoundMaster.Instance.PlayGetHitSound();
             playerStats.TakeDamage(1);
         }else if (other.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
         {
-            Debug.Log("Player Hit By Enemy Bullet");
+            //Debug.Log("Player Hit By Enemy Bullet");
             SoundMaster.Instance.PlayGetHitSound();
             playerStats.TakeDamage(1);
         }
