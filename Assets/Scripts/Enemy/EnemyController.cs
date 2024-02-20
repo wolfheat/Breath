@@ -9,7 +9,7 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
     public EnemyData Data;
     [SerializeField] Rigidbody rb;
 
-    private int health = 5;
+    private int health = 15;
     private int damage = 5;
 
     [SerializeField] EnemyPichAttackController pichAttackController;
@@ -180,11 +180,10 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
                 if (pichAttackController.PlayerInRange)
                 {
                     // Face player then pinch attack
-                    StartCoroutine(FaceAndPinch(player.transform.position));
+                    StartCoroutine(FaceAndAttack(player.transform.position,AttackType.Pinch));
                     
                 }else
-                    StartAttack();
-
+                    StartCoroutine(FaceAndAttack(player.transform.position, AttackType.Web));
 
                 attackWaitTimer += AttackDelayTime;
             }
@@ -195,29 +194,50 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
 
     }
 
-    private IEnumerator FaceAndPinch(Vector3 target)
+    private IEnumerator FaceAndAttack(Vector3 target,AttackType attackType)
     {
         Quaternion rotation = transform.rotation;
         // Rotate
         Vector3 targetDirection = target-transform.position;
 
+        // Get max angle or angle towards player in z direction
+        //float ZAngle = Vector3.Angle(Mathf.Cos)
+        // If decided enemy can do pinch then pinch towards that posint without limitations?
+
+
         targetDirection.y = 0; 
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.down,targetDirection);
         //float angle = Quaternion.Angle(rotation, targetRotation);
         float angle = Vector3.Angle(transform.up, targetDirection);
+        Debug.Log("Turn angle " + angle);   
         const float AngleVelocity = 80f;
         float turnTime = angle / AngleVelocity;
         float timer = 0;
-        while(timer < turnTime)
+        while (timer < turnTime)
         {
-            rb.transform.rotation = Quaternion.Lerp(rotation,targetRotation,timer/turnTime);
+            rb.transform.rotation = Quaternion.Lerp(rotation, targetRotation, timer / turnTime);
             //Debug.Log("Turning towards player "+(Vector3.Angle(transform.forward,targetDirection)));
             timer += Time.deltaTime;
             yield return null;
         }
-        Debug.Log("Turning complete.");
+
+        Debug.Log("Turning complete. Now Tilt");
+        targetDirection = target - transform.position;
+        angle = Vector3.SignedAngle(transform.up, targetDirection,Vector3.right);
+        Debug.Log("Tilt angle "+angle);
+        turnTime = angle / AngleVelocity;
+        timer = 0;
+        while (timer < turnTime)
+        {
+            rb.transform.rotation = Quaternion.Lerp(rotation, targetRotation, timer / turnTime);
+            //Debug.Log("Turning towards player "+(Vector3.Angle(transform.forward,targetDirection)));
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("Tilt complete.");
+
         rb.transform.rotation = targetRotation;
-        StartAttack(AttackType.Pinch);
+        StartAttack(attackType);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -225,16 +245,8 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
 
         if (other.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))    
         {
-            agitateTimer = AgitateTimeOutTime;
-            // Enemy is getting hit
-            if (!agitated)
-            {
-                attackWaitTimer = 1f;
-                Debug.Log("Enemy set to Agitated");
-            }
-            agitated = true;
-            agitator.SetActive(true);
-
+            Agitate();
+            
             Bullet bullet = other.GetComponentInParent<Bullet>();
             Debug.Log(" Enemy Hit by player bullet, damage"+bullet?.Damage);
             health -= bullet.Damage;
@@ -243,7 +255,26 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
                 Die();
             }
         }
+        else if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            Agitate();
+        }
     }
+
+    private void Agitate()
+    {
+        agitateTimer = AgitateTimeOutTime;
+        // Enemy is getting hit
+        if (!agitated)
+        {
+            attackWaitTimer = 1f;
+            Debug.Log("Enemy set to Agitated");
+        }
+        agitated = true;
+        agitator.SetActive(true);
+
+    }
+
     // Not currently used, the position is set the same way as items, directly to the transform
     public void SetLocation(Vector3 pos,Quaternion rot)
     {

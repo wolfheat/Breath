@@ -213,13 +213,11 @@ Jan 2024
 		* Player health not reset when winning against boss
 19/2	* Added physical Blaster Gun made in Blender
 		* Animation added for Blastergun
+20/2	* Enemy is now aggregated if player enters pinch-area
 
-		* Make 3d gun for shooting animation
+		* Make enemy charge forward in some vertical alignment up and down pinch attack - Tried to implement
 
 		* Make sure player only needs to press win screen once and the game is reset.
-
-		* Add repeated explosions around enemy as it dies to make it clear its defeted
-
 		* Make small spiderlings? player can kill easially and they drop food?
 
 		* IDLE
