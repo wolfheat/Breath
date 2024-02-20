@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum PlayerState {Idle,Hit,Drill}
+public enum PlayerState {Idle,Hit,Drill,Shoot}
 
 public class PlayerAnimationController : MonoBehaviour
 {
@@ -19,7 +19,10 @@ public class PlayerAnimationController : MonoBehaviour
                 break;
             case PlayerState.Drill:
                 animator.CrossFade("Drill", 0.1f);
-                break;            
+                break;
+            case PlayerState.Shoot:
+                animator.CrossFade("Shoot", 0.1f);
+                break;
             default:
                 break;
         }

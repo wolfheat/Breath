@@ -156,8 +156,10 @@ public class Player : MonoBehaviour
         {
             if (playerShootController.RequestShoot())
             {
+                Debug.Log("SHOOT");
                 //playerAnimationController.SetState(PlayerState.Hit);
-                toolHolder.ChangeTool(DestructType.Flesh);
+                toolHolder.ChangeTool(DestructType.Flesh); 
+                playerAnimationController.SetState(PlayerState.Shoot);
             }
 
         }

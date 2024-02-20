@@ -209,10 +209,10 @@ Jan 2024
 18/2	* Boss turns towards player when pinchattacking needs more tweaking
 		* Boss goes to idle when player dies
 		* Particle Effects set to Instances 
-		* ParticleEffects are pooled and enabled/Disabled		
-
-		* Reset after player win should not reset health to 10
-		* Make explosions instances so particle effects can play simultaniously
+		* ParticleEffects are pooled and enabled/Disabled -		
+		* Player health not reset when winning against boss
+19/2	* Added physical Blaster Gun made in Blender
+		* Animation added for Blastergun
 
 		* Make 3d gun for shooting animation
 
