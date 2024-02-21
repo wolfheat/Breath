@@ -8,7 +8,8 @@ public class Bullet : MonoBehaviour
     
     private const float StartLife = 2f;
     private float life;
-    public int Damage { get; set; } = 1;
+    private int damage = 1;
+    public int Damage { get { return damage; }}
 
     private void Start()
     {

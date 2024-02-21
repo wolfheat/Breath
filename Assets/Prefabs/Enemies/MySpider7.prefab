@@ -1904,7 +1904,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6078282964915669786}
   - component: {fileID: 2621122065794600435}
-  - component: {fileID: 9067562951796322720}
   m_Layer: 19
   m_Name: leftArm
   m_TagString: Untagged
@@ -1950,19 +1949,6 @@ CapsuleCollider:
   m_Height: 0.2
   m_Direction: 0
   m_Center: {x: -0.09, y: 0, z: 0}
---- !u!114 &9067562951796322720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2537663081528275566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 356cd3747b6ee2846982ffcc6b0ec6ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyController: {fileID: 1972454276894271298}
 --- !u!1 &2540316416607099797
 GameObject:
   m_ObjectHideFlags: 0
@@ -3508,7 +3494,6 @@ GameObject:
   m_Component:
   - component: {fileID: 864291888237163647}
   - component: {fileID: 8288971122987065694}
-  - component: {fileID: 3013810912461789964}
   m_Layer: 19
   m_Name: rightArm
   m_TagString: Untagged
@@ -3554,19 +3539,6 @@ CapsuleCollider:
   m_Height: 0.2
   m_Direction: 0
   m_Center: {x: -0.09, y: 0, z: 0}
---- !u!114 &3013810912461789964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4877266047524513702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 356cd3747b6ee2846982ffcc6b0ec6ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyController: {fileID: 1972454276894271298}
 --- !u!1 &4929567973190004917
 GameObject:
   m_ObjectHideFlags: 0

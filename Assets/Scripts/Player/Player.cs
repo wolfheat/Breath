@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Wolfheat.StartMenu;
@@ -34,16 +33,14 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("EnemyPinchAttackArea"))
         {
-            EnemyController enemyController = other.gameObject.GetComponent<EnemyHandController>().enemyController;
-
+            //Debug.Log("Player Hit By Enemy Attack area");
             SoundMaster.Instance.PlayGetHitSound();
-            playerStats.TakeDamage(enemyController.PinchDamage);
+            playerStats.TakeDamage(1);
         }else if (other.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
         {
-            Bullet bullet = other.gameObject.GetComponentInParent<Bullet>();
             //Debug.Log("Player Hit By Enemy Bullet");
             SoundMaster.Instance.PlayGetHitSound();
-            playerStats.TakeDamage(bullet.Damage);
+            playerStats.TakeDamage(1);
         }
     }
 

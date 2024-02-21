@@ -214,13 +214,8 @@ Jan 2024
 19/2	* Added physical Blaster Gun made in Blender
 		* Animation added for Blastergun
 20/2	* Enemy is now aggregated if player enters pinch-area
-		* Enemy damage and attacks tweaked
-		* Fixed help text not toggling
-		* Fixed enemy keep attacking after player dies
-		* BUILD 129Mb zipped (265MB) V 0.2.2
 
 		* Make enemy charge forward in some vertical alignment up and down pinch attack - Tried to implement
-		* Enemy fight still not good, needs more tweak
 
 		* Make sure player only needs to press win screen once and the game is reset.
 		* Make small spiderlings? player can kill easially and they drop food?
