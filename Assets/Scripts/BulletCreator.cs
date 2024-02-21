@@ -19,20 +19,21 @@ public class BulletCreator : MonoBehaviour
 
     }
     
-    public void GenerateBulletStorm(Vector3 fromPos,Vector3 toPos,int amount)
+    public void GenerateBulletStorm(Vector3 fromPos,Vector3 toPos,int amount, int damage = 1)
     {
-        StartCoroutine(BulletStorm(fromPos, toPos, amount));    
+        StartCoroutine(BulletStorm(fromPos, toPos, amount, damage));    
     }
-    private IEnumerator BulletStorm(Vector3 fromPos, Vector3 toPos, int amount)
+    private IEnumerator BulletStorm(Vector3 fromPos, Vector3 toPos, int amount, int damage = 1)
     {
         Vector3 forward = (toPos - fromPos).normalized;
 
         int created = 0;
         while (created<amount) {
-            Vector3 random = UnityEngine.Random.insideUnitSphere*0.3f;
+            Vector3 random = UnityEngine.Random.insideUnitSphere*0.35f;
             Bullet bullet = Instantiate(enemyBulletPrefab, fromPos, Quaternion.LookRotation(forward+random), transform);
+            bullet.Damage = damage;
             created++;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.03f);
         }
     }
 
