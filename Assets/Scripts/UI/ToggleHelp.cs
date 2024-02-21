@@ -6,6 +6,7 @@ public class ToggleHelp : MonoBehaviour
     
     public void Toggle()
     {
+        Debug.Log("Toggle Help");
         panelToToggle.SetActive(!panelToToggle.gameObject.activeSelf);
     }
 }

@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Wolfheat.StartMenu;
 
 public class EnemyController : BaseObjectWithType, IObjectWithType
@@ -9,8 +7,10 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
     public EnemyData Data;
     [SerializeField] Rigidbody rb;
 
-    private int health = 15;
-    private int damage = 5;
+    private int health = 100;
+    private int webDamage = 12;
+    private int pinchDamage = 5;
+    public int PinchDamage { get { return pinchDamage; }}
 
     [SerializeField] EnemyPichAttackController pichAttackController;
     [SerializeField] Animator animator;
@@ -58,8 +58,12 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
         isAttacking = false;
         idleState.SetActive(true);
         attackState.SetActive(false);
+        StopAllCoroutines();
         animator.CrossFade("Idle",0.1f);
+        animator.SetBool("web", false); // Go back to Idle
+        animator.SetBool("pinch", false); // Go back to Idle
         agitateTimer = 0.1f;
+        agitated = false;
     }
 
     public void WebAttackAnimationComplete()
@@ -126,7 +130,7 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
 
         Quaternion direction = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
 
-        BulletCreator.Instance.GenerateBulletStorm(shootPoint.position, player.transform.position,20);
+        BulletCreator.Instance.GenerateBulletStorm(shootPoint.position, player.transform.position,35,webDamage);
         //BulletCreator.Instance.GenerateBullet(shootPoint.transform.position,player.transform.position);
         SoundMaster.Instance.PlaySound(SoundName.EnemyShoot, true);
         
@@ -242,7 +246,7 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
 
     private void OnTriggerEnter(Collider other)
     {
-
+        if (PlayerStats.Instance.IsDead) return;
         if (other.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))    
         {
             Agitate();
@@ -257,6 +261,7 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
         }
         else if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            Debug.Log("PLayer inside enemy pinch area");
             Agitate();
         }
     }
