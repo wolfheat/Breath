@@ -1,22 +1,20 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
 public class LevelLoader : MonoBehaviour
 {
-
     public static LevelLoader Instance { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         if (Instance != null)
         {
             Destroy(gameObject);
             return;
         }
-        Instance = this;
-    
-        Debug.Log("LevelLoader Started");
+        Instance = this;        
+    }
+    private void Start()
+    {    
         if (SavingUtility.playerGameData == null)
             SavingUtility.LoadingComplete += LevelDataLoaded;
         else
@@ -25,7 +23,7 @@ public class LevelLoader : MonoBehaviour
 
     private void LevelDataLoaded()
     {
-        Debug.Log("Level Data is reported as loaded.");
+        // Level Data is reported as loaded
         LoadLevel();
     }
     

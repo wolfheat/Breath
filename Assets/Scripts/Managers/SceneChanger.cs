@@ -5,15 +5,18 @@ using UnityEngine.SceneManagement;
 public class SceneChanger : MonoBehaviour
 {
     public static SceneChanger Instance { get; private set; }
-
-    private void Start()
+    private void Awake()
     {
         if (Instance != null)
         {
             Destroy(gameObject);
             return;
         }
-        Instance = this;
+        Instance = this;        
+    }
+
+    private void Start()
+    {
 
 #if UNITY_EDITOR
             CheckedForScenes();
@@ -24,9 +27,10 @@ public class SceneChanger : MonoBehaviour
 
     }
 
+    // This method only runs in editor mode, used to be able to start game from Start menu or In game correctly
     private void CheckedForScenes()
     {
-        Debug.Log("** Checking Scenes to Set active. **");
+        // Checking Scenes to Set active
         if (SceneManager.GetSceneByName("StartMenu").IsValid())
         {
             if (SceneManager.GetSceneByName("MainScene").IsValid())
@@ -35,12 +39,12 @@ public class SceneChanger : MonoBehaviour
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
                 return;
             }
+            // StartMenu is set as active
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("StartMenu"));
-            Debug.Log("  StartMenu is set as active.");
         }else if (SceneManager.GetSceneByName("MainScene").IsValid())
         {
+            // MainScene is set as active
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
-            Debug.Log("  MainScene is set as active.");
         }
     }
 
