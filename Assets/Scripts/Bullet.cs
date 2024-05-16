@@ -4,33 +4,32 @@ using Wolfheat.StartMenu;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    private const float Speed = 24f;
-    
+    public int Damage { get; set; } = 1;
+    private const float Speed = 24f;    
     private const float StartLife = 2f;
     private float life;
-    public int Damage { get; set; } = 1;
 
     private void Start()
     {
+        // Set the initial life and speed for the bullet
         life = StartLife;
         rb.AddForce(Speed*transform.forward,ForceMode.VelocityChange);
     }
 
     private void OnTriggerEnter(Collider other)
     {        
-        //Debug.Log("Bullet collided with "+other.gameObject.name);
+        // Hitting anything defined in collission matrix
         ParticleEffects.Instance.PlayTypeAt(ParticleType.Plasma,transform.position);
         SoundMaster.Instance.PlaySound(SoundName.BulletImpact,true);
+        // Pool item later?
         Destroy(gameObject);
     }
 
     private void Update()
     {
         life -= Time.deltaTime;
-        if(life <= 0){
-            //Debug.Log("Destroy bullet");
+        if(life <= 0)
             Destroy(gameObject);
-        }
     }
 
 }

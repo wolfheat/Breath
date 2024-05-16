@@ -8,13 +8,14 @@ public class DestructableItem : Interactable
 
     public override void InteractWith()
     {
-        Debug.Log("Interact with this destructable: " + Data.itemName);
-
+        // Play Particle effect when destroying item
         ParticleEffects.Instance.PlayTypeAt(ParticleType.Small,transform.position);
 
+        // Spawn resources contained inside the item
         foreach (var resource in Data.resources)
             ItemCreator.Instance.InstantiateTypeAtRandomSpherePos(resource, transform.position);
 
+        // No need to pool, items are never created again
         Destroy(gameObject);
     }
 }

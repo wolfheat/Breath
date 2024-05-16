@@ -7,17 +7,13 @@ public class DoorTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Player>() != null)
-        {
             controller.OpenDoors(true);            
-        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.GetComponent<Player>() != null)
-        {
             controller.OpenDoors(false);
-        }
     }
 }
 

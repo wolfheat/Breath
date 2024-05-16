@@ -7,11 +7,10 @@ public class DoorThrower : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerMovement>() != null)
+        if (other.gameObject.TryGetComponent(out PlayerMovement playerMovement))
         {
-            Debug.Log("Player entered a thrower, disable both throwers");
             controller.SetThrowTriggersActivation(false);
-            other.gameObject.GetComponent<PlayerMovement>().ThrowPlayer(this);
+            playerMovement.ThrowPlayer(this);
         }
     }
 }
