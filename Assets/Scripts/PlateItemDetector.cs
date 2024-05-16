@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlateItemDetector : MonoBehaviour
 {
+    // Detects if an item is on top of the creation plate prohibiting initiation af a new item creation
     public bool HasItem { get {return CheckCollider(); }}
     [SerializeField] private GameObject colliderDefinition;
     private float radius;
@@ -17,11 +16,8 @@ public class PlateItemDetector : MonoBehaviour
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
         foreach (Collider collider in colliders)
-        {
-            Debug.Log("Checking collider for interactable: "+collider.gameObject.layer+" "+collider.gameObject.name);
             if(collider.gameObject.GetComponent<PickableItem>()!=null)
                 return true;
-        }
         return false;
     }
 }

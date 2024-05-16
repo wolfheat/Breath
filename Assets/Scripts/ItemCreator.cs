@@ -33,7 +33,7 @@ public class ItemCreator : MonoBehaviour
     {
         // Save all items to file
 
-        // Save Destructables, Pickables and Enemies
+        // Save Destructables, Resources, Pickables and Enemies
         SavingUtility.playerGameData.Destructables = ReadGame<DestructableItem, ItemData, SaveItem>(destructablesHolders); 
         SavingUtility.playerGameData.Resources = ReadGame<ResourceItem, ItemData, SaveItem>(resourceHolders);
         SavingUtility.playerGameData.Enemies = ReadGame<EnemyController, EnemyData, SaveEnemy>(enemyHolders);
@@ -149,16 +149,13 @@ public class ItemCreator : MonoBehaviour
     
     public IEnumerator InstantiateTypeAtRandomSpherePos(Resource[] types, Vector3 randomPointCenter)
     {
-        Debug.Log("Instantiate COroutine runs "+types.Length);
         yield return null;
-        Debug.Log("Instantiate COroutine runs "+types.Length);
         foreach (var type in types)
             InstantiateTypeAtRandomSpherePos(type, randomPointCenter);
     }
     public void InstantiateTypeAtRandomSpherePos(Resource type, Vector3 randomPointCenter)
     {
-
-        // Try instantiating at random positions 10 times to not overlap colliders
+        // Try instantiating at random positions 20 times to not overlap colliders 
         int tries = 0;
         float creationRadius = 0.3f;
         Vector3 pos = new Vector3(); 

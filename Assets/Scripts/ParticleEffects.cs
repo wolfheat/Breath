@@ -12,7 +12,6 @@ public class ParticleEffects : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("ItemDestructEffect initialized");
         if (Instance != null)
         {
             Destroy(this);
