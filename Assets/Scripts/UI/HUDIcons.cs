@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public enum HUDIconType {Generic,PickUp, LeftClick, Interact };

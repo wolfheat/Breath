@@ -15,14 +15,8 @@ public class GUIBarController : MonoBehaviour
         playerHealth.HealthUpdated += SetHealth;
     }
 
-    private void SetHealth(float health, int maxHealth)
-    {
-        healthBar.SetBar(health / maxHealth, ((int)health).ToString());
-    }
-    
-    private void SetOxygen(float oxygen, int maxOxygen)
-    {
-        oxygenBar.SetBar(oxygen / maxOxygen, ((int)oxygen).ToString());
-    }
+    private void SetHealth(float health, int maxHealth) => healthBar.SetBar(health / maxHealth, ((int)health).ToString());
+
+    private void SetOxygen(float oxygen, int maxOxygen) => oxygenBar.SetBar(oxygen / maxOxygen, ((int)oxygen).ToString());
 
 }

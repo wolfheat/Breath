@@ -4,6 +4,8 @@ using Wolfheat.StartMenu;
 
 public class HUDMessage : MonoBehaviour
 {
+    // Shows information to the player as a popup message
+
     [SerializeField] private TextMeshProUGUI negativeText;
     [SerializeField] private GameObject negative;
     [SerializeField] private TextMeshProUGUI positiveText;
@@ -13,7 +15,7 @@ public class HUDMessage : MonoBehaviour
 
 
     public static HUDMessage Instance;
-    private void Start()
+    private void Awake()
     {
         if (Instance != null)
         {
@@ -22,7 +24,6 @@ public class HUDMessage : MonoBehaviour
         }
         Instance = this;
     }
-
 
     public void ShowMessage(string message, bool isNegative = true,SoundName sound = SoundName.HUDError)
     {

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class RecipeInfo : MonoBehaviour
 {
@@ -16,43 +15,43 @@ public class RecipeInfo : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Inventory inventory;
 
+    public bool IsActive { get { return panel.activeSelf; } }
+    public bool panelOpen = false;
+
     private List<RecipeItem> recipeItems = new();
+    private RecipeData activeRecipe;
 
     public Action CloseComplete;
-    public bool IsActive { get { return panel.activeSelf; } }
 
-    public bool panelOpen = false;
-    RecipeData activeRecipe;
+    public void CloseMenu() => MakeVisible(false);
 
-    public void CloseMenu()
-    {
-        MakeVisible(false);
-    }
     public void ShowRecipe(RecipeData data)
     {
-        activeRecipe = data;
         // Display this recipe
+        activeRecipe = data;
         recipeName.text = data.recipeName;
         recipeInfo.text = data.recipeInfo;
-        bool canCreateResult = PlaceIngrediences();
 
-        recipeResult.OccupyByData(activeRecipe.result,canCreateResult);
+        // Check if player can produce this
+        bool canProduceItem = PlaceIngrediences();
 
+        // Update the info
+        recipeResult.OccupyByData(activeRecipe.result,canProduceItem);
+
+        // Show this panel
         MakeVisible(true);
-
     }
+
     private void MakeVisible(bool doMakeVisible)
     {
-        Debug.Log("* "+(doMakeVisible?"SHOW":"HIDE")+" RECIPE *");
+        // Define panel to open or closed and queue up the transition to this state
         panelOpen = doMakeVisible;
-        //Debug.Log("Panel Open set to: "+panelOpen);
-
-        Debug.Log(" Crossfade to "+(doMakeVisible? "MakeVisible" : "MakeInVisible"));
-
         storedCrossfades.Enqueue(doMakeVisible ? "MakeVisible" : "MakeInVisible");
     }
+
     private void Update()
     {
+        // If there is queued transitions do next transition
         if (storedCrossfades.Count>0) 
             animator.CrossFade(storedCrossfades.Dequeue(), 0.1f);
     }
@@ -68,6 +67,7 @@ public class RecipeInfo : MonoBehaviour
 
     private bool PlaceIngrediences()
     {
+        // Updates the Ingrediences requirements for the recipe
         bool canCreate = true;
         ClearItems();
         for (int i=0; i<activeRecipe.ingredienses.Length; i++) 
@@ -76,15 +76,21 @@ public class RecipeInfo : MonoBehaviour
             RecipeItem item = GetNextRecipeItem(i);
             item.gameObject.SetActive(true);
             int playerHas = inventory.GetResources()[(int)ingredienceData.resourceData.resource];
+
+            // Update info for the resource
             item.OccupyByData(ingredienceData.resourceData, ingredienceData.amount, playerHas);
+
+            // Keep track if player affords all
             if(ingredienceData.amount>playerHas)
                 canCreate = false;
         }
+        // Return If player had all resources
         return canCreate;
     }
 
     private RecipeItem GetNextRecipeItem(int i)
     {
+        // if there is to few items in the List add a new one
         if (i + 1 > recipeItems.Count)
         {
             RecipeItem item;
@@ -98,9 +104,7 @@ public class RecipeInfo : MonoBehaviour
     private void ClearItems()
     {
         foreach (var item in recipeItems)
-        {
             item.gameObject.SetActive(false);
-        }
     }
     
     // ANIMATIONS

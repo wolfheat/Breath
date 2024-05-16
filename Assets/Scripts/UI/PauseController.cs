@@ -9,36 +9,29 @@ public class PauseController : MonoBehaviour
 
     public void ToMainMenu()
     {
-        Debug.Log("Pause Controller Main Menu Clicked");
-
-        // Save player data here
+        // Save player data when going to menu
         if(SavingUtility.playerGameData == null)
-        {
             Debug.LogWarning("Going to Main Menu, saving but playerGameData is null");
-        }
         else
         {
-            Debug.Log("** SAVING LEVEL **");
+            // Saving Level
             LevelLoader.Instance.DefineGameDataForSave();
             SavingUtility.Instance.SavePlayerDataToFile();
-            
         }
         
+        // Stops drowning sound from playing and resets the music
         SoundMaster.Instance.ResetMusic();
 
+        // Scene change
         SceneManager.UnloadSceneAsync("MainScene");
         SceneChanger.Instance.ChangeScene("StartMenu");
     }
-    public void SetActive(bool doSetActive)
-    {
-        Debug.Log("Setting pause menu active: "+doSetActive+" Savingutility.playerGameData: "+SavingUtility.playerGameData);
-        panel.SetActive(doSetActive);
-        
-    }
+
+    public void SetActive(bool doSetActive) => panel.SetActive(doSetActive);
 
     public void CloseClicked()
     {
-        Debug.Log("Pause Controller Close clicked");
+        // Unpause and close menu
         UIController.Pause(false);
         SetActive(false);
     }

@@ -26,17 +26,13 @@ public class InventoryGrid : MonoBehaviour
     private void Start()
     {
         ResetGrid();
-
         CreateInventoryBackgroundGrid();
 
         // Occupy With held items
         OccupyWithInitialItems();
     }
 
-    private void ResetGrid()
-    {
-        grid = new UIItem[8, 6];
-    }
+    private void ResetGrid() => grid = new UIItem[8, 6];
 
     private void CreateInventoryBackgroundGrid()
     {
@@ -54,9 +50,7 @@ public class InventoryGrid : MonoBehaviour
     private void OccupyWithInitialItems()
     {
         foreach (var data in heldItemsData)
-        {
-            bool didAd = AddItemToInventory(data);
-        }
+            AddItemToInventory(data);
     }
 
     public bool AddItemsToInventory(InventorySaveItem[] items)
@@ -146,89 +140,73 @@ public class InventoryGrid : MonoBehaviour
 
     public void PlaceAtSpot(int row, int col, UIItem item)
     {
+        // Remove the item if its in the inventory
         if (item.IsInInventory())
-        {
-            //Debug.Log("Removing Items placement Spot: "+item.Spot);
             RemovePlacement(item);
-        }
+
+        // Occupy the new positions with this item
         for (int k = 0; k < item.data.size.x; k++)
-        {
             for (int l = 0; l < item.data.size.y; l++)
-            {
                 grid[row + k, col + l] = item;
-            }
-        }
+
+        // Let the item recieve its position
         item.SetHomePositionAndSpot(gridTiles[row, col].localPosition,new Vector2Int(row,col));
+
+        // If item was equipped unequip
         equipped.RemoveIfEquipped(item);
     }
     
     public void RemovePlacement(UIItem item)
     {
+        // Remove all spots the item was placed at
         for (int k = 0; k < item.data.size.x; k++)
-        {
             for (int l = 0; l < item.data.size.y; l++)
-            {
-                //Debug.Log("Object "+item.data.itemName+" occupy ("+(row+k)+","+(col+l)+")");
                 grid[item.Spot.x + k, item.Spot.y + l] = null;
-            }
-        }
     }
 
     public bool PlaceItemAnywhere(UIItem item, bool alsoPlace = true)
     {
+        // Check for first place to place the item
         for (int row = 0; row < grid.GetLength(0); row++)
-        {
             for (int col = 0; col < grid.GetLength(1); col++)
-            {
                 if (ItemFits(row, col, item.data.size.x, item.data.size.y, item, alsoPlace))
                     return true;
-            }
-        }
+        // Item could not be placed
         return false;
     }
 
     public bool ItemFits(int row, int col, int x, int y, UIItem item,bool alsoPlace=true)
     {
-        // Outside
+        // Outside Grid Bounds
         if (row + x - 1 >= grid.GetLength(0) || col + y - 1 >= grid.GetLength(1)) return false;
+
+        // Check if item can be placed here
         for (int k = 0; k < x; k++)
-        {
             for (int l = 0; l < y; l++)
-            {
                 if (grid[row+k,col+l]!=null)
                     if(grid[row + k, col + l]!=item)
                         return false;
 
-                //Debug.Log("No item at (" + (row + k) + "," + (col + l) + ") item: "+ grid[row + k, col + l]);
-            }     
-        }
-        //Debug.Log("Item "+item.data.itemName+" fits at Spot ["+row +","+col+"] grid = ["+grid.GetLength(0)+","+ grid.GetLength(1)+"]");
-
+        // Item could be placed so placing it
         if (alsoPlace)
             PlaceAtSpot(row, col, item);
         return true;
     }
     public bool RequestEquip(UIItem item)
     {
-        //Debug.Log("Try equip item "+item.data.itemName);
+        
         if (equipped.IsEquipped(item))
         {
             if (!playerMovement.InGravity)
             {
                 HUDMessage.Instance.ShowMessage("Can only swap equipments in gravity!");
-                //item.ResetPosition();
                 return false;
             }
             if (PlaceItemAnywhere(item))
             {
-                //Debug.Log("Item is placed on grid "+item.data.itemName);
-
+                // Unequip item if have inventory space
                 equipped.RemoveIfEquipped(item);
                 return true;
-            }
-            else
-            {
-
             }
             HUDMessage.Instance.ShowMessage("Not enough space in inventory"); // Maybe drop on floor here?
         }
@@ -239,7 +217,7 @@ public class InventoryGrid : MonoBehaviour
     {
         // Check if equipped
 
-        // Drop Point (grid index)
+        // Get the Spot the item was dropped at
         (int col, int row) = DeriveGridIndex(drop);
 
         // Outside grid
@@ -250,11 +228,7 @@ public class InventoryGrid : MonoBehaviour
             {
                 bool placed = equipped.TryPlaceItem(uIItem);
                 if (placed)
-                {
-                    Debug.Log("Item was Equiped");
                     return;
-                }
-
             }
             
             // Not Equipping
@@ -267,27 +241,22 @@ public class InventoryGrid : MonoBehaviour
 
         // New Spot (place or reset)
         ItemFits(row, col, uIItem.data.size.x, uIItem.data.size.y, uIItem);
-        //if (!ItemFits(row, col, uIItem.data.size.x, uIItem.data.size.y,uIItem))
-        //uIItem.ResetPosition();
-
     }
 
     private (int col, int row) DeriveGridIndex(Vector2 drop)
     {
-        //Debug.Log("Grid recieved request of dropping item at " + drop + " GRID AT: " + transform.position);
+        // Derive at what spot the item was dropped at
 
         float scaleCorrection = Screen.height / 1080f;
-        //Debug.Log("Reading current game scale:" + scaleCorrection);
-
         float diffx = (drop.x - transform.position.x) / scaleCorrection;
         float diffy = (drop.y - transform.position.y) / scaleCorrection;
-        //Debug.Log("Drop at Spot difference (" + diffx + "," + diffy + ")");
 
         int col = (int)Math.Round(diffx / Tilesize);
         int row = -(int)Math.Round(diffy / Tilesize);
-        return (col, row);
 
+        return (col, row);
     }
+
     public bool ClickTimerLimited { get; private set; }
     public IEnumerator ClickTimerLimiter()
     {
@@ -299,14 +268,12 @@ public class InventoryGrid : MonoBehaviour
     public void ClearInventory()
     {
         foreach (var item in heldItems)
-        {
-            //Debug.Log("Trying to destroy "+item.data.itemName);
             Destroy(item.gameObject);
-        }
+
         heldItems.Clear();
         ResetGrid();
-
     }
+
     public void RemoveFromInventory(UIItem item)
     {
         if (item.IsInInventory())
@@ -318,7 +285,6 @@ public class InventoryGrid : MonoBehaviour
     }
     public void DropItem(UIItem item)
     {
-        Debug.Log("Dropping item "+item.data.itemName);
         // Remove item from inventory/equipped
         equipped.RemoveIfEquipped(item);
 
@@ -328,13 +294,9 @@ public class InventoryGrid : MonoBehaviour
         // Remove item form inventory   
         RemoveFromInventory(item);
 
-        // PLay drop sound
+        // Play drop sound
         SoundMaster.Instance.PlaySound(SoundName.DropItem);
-
     }
 
-    public List<UIItem> GetAllItems()
-    {
-        return heldItems;
-    }
+    public List<UIItem> GetAllItems() => heldItems;
 }

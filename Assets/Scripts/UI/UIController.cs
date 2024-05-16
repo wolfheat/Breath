@@ -33,15 +33,18 @@ public class UIController : MonoBehaviour
     public static bool CraftingActive { get { return Instance.craftingToggle.IsActive; }}
 
 
-    private void Start()
+    private void Awake()
     {
         if (Instance != null)
         {
             Destroy(this);
             return;
         }
-        Instance = this;
+        Instance = this;        
+    }
 
+    private void Start()
+    {
 #if !UNITY_EDITOR
         debugHelpText.SetActive(false);
 #endif

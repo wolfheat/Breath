@@ -31,66 +31,49 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void Click()
     {
-        Debug.Log("Craft button Click");
-
         PlayBubbleAnimation();
 
         if (subMenu)
         {
-            Debug.Log("Open Sub Menu / refresh if open");
-
-            // Is Main Button - Open submenu            
+            // If Main Button - Open the submenu            
             CraftingUI.Instance.OpenSubMenu(ButtonID);
             SoundMaster.Instance.PlaySound(SoundName.MenuStep);
-
-
             return;
         }
 
-        // Request create recipe
+        // Clicking on a recipe
         bool afford = Inventory.Instance.CanAfford(recipeData);
         if (afford)
         {
-            Debug.Log("Player can afford Remove requirements and start producing item");
+            // Player can afford this recipe - Remove resource requirements from player and start producing the item
             CraftingUI.Instance.CraftItem(recipeData.result);
             Inventory.Instance.RemoveItems(recipeData.ingredienses);
-
         }
         else
-        {
             HUDMessage.Instance.ShowMessage("Insufficent resources");
-        }
-        
     }
 
-    public void ActivateSubMenu(bool set)
-    {
-        subMenu.SetActive(set);
-    }
+    public void ActivateSubMenu(bool set) => subMenu.SetActive(set);
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!subMenu)
         {
-            // interrupt closing of menu here?
+            // Mouse Entering a Recipe
             CraftingUI.Instance.ShowInfo(recipeData);
         }
         // HighLight button
         HighLight(true);
     }
 
-    private void HighLight(bool v)
-    {
-        highLight.SetActive(v);
-    }
+    private void HighLight(bool v) => highLight.SetActive(v);
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("ON Exit called for "+recipeData?.recipeName);
+        // Mouse Exiting a Recipe
         if (!subMenu)
-        {
             CraftingUI.Instance.HideInfoOnly();
-        }
+
         HighLight(false);
     }
 
@@ -100,8 +83,5 @@ public class CraftButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         imageBackground.color = afford ? greenColor : Color.white;
     }
 
-    public void PlayBubbleAnimation()
-    {
-        animator.CrossFade("BubbleTransit", 0.1f);
-    }
+    public void PlayBubbleAnimation() => animator.CrossFade("BubbleTransit", 0.1f);
 }

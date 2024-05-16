@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public enum EquipType{Head,Body,Feet,Tank,JetPack,Hammer,Drill,Gun,Sword};
 public class EquipedGrid : MonoBehaviour
@@ -8,41 +7,38 @@ public class EquipedGrid : MonoBehaviour
     [SerializeField] InventoryGrid grid;
     [SerializeField] GameObject[] itemspots;
     [SerializeField] PlayerMovement playerMovement;
+
     private UIItem[] items = new UIItem[9];
 
     public Action EquipmentChanged;
 
     public Vector2 GetItemRectSize(ItemData data)
     {
+        // Get the Data and Extract the Image Information
         EquipableData equipableData = (EquipableData)data;
         Rect equipmentRect = itemspots[(int)equipableData.equipType].GetComponent<RectTransform>().rect;
         float equipheight = equipmentRect.size.y;
+
         // Determine items scale in equipped
         float ratio = data.picture.rect.size.x/data.picture.rect.size.y;
         Vector2 equipSize = new Vector2(equipheight * ratio, equipheight);
-        if (data.itemName == "Space Helmet")
-        {
-            Debug.Log("Getting item rect size for "+data.itemName+ " Rect = "+equipmentRect.size+" => equipSize = "+equipSize+" Ratio = "+ratio);
-        }
-        return equipSize;
-            
+
+        // Return the Calculated Rect Size
+        return equipSize;            
     }
 
-    public void ForcedEquip(UIItem item)
-    {
-        EquipItem(item);
-    }
+    public void ForcedEquip(UIItem item) => EquipItem(item);
+
     public bool PlaceItem(UIItem item)
     {
-        //Check what type the item is
-        //check if item is already placed (if so replace if item fits inventory?)
+        // Check what type the item is
+        // Check if the Item is Already Placed (if so replace if item fits inventory)
         if (item.data.itemType == ItemType.Equipable)
         {
+            // Determine if this item type is equipped allready
             EquipableData data = (item.data as EquipableData);
             int itemType = (int)data.equipType;
-            //Debug.Log("Placing data that is equipable "+data.itemName);
             UIItem used = items[itemType];
-            //Debug.Log("Used:  "+used);
 
             if (used)
             {
@@ -51,22 +47,20 @@ public class EquipedGrid : MonoBehaviour
                     item.ResetPosition();
                     return true;
                 }
-
-                // Debug.Log("Spot contains one item: "+ used.data.itemName);
-
+                // Spot has equipped item remove item to be placed from taking up a spot on the grid
                 grid.RemovePlacement(item);
 
+                // Place the previously equipped item on the grid
                 if (grid.PlaceItemAnywhere(used))
                 {
+                    // Equipped item placed on grid, now equip the new one
                     EquipItem(item);
                     return true;
                 }
-                // Reset the items placement
+                // Item could not be equipped due to no place in inventory
                 grid.PlaceAtSpot(item.Spot.x, item.Spot.y, item);
                 return false;
             }
-            //Debug.Log("No item in equipable so can equip" + data.itemName);
-
             grid.RemovePlacement(item);
             EquipItem(item);
             return true;
@@ -83,13 +77,10 @@ public class EquipedGrid : MonoBehaviour
             return false;
         }
         return PlaceItem(item);
-        
     }
 
     public void RemoveIfEquipped(UIItem item)
     {
-        //Debug.Log("Removing equipped item data if equipped" + item.data.itemName);
-
         // Check if even equippable item
         if (item.data.itemType != ItemType.Equipable)
             return;
@@ -98,19 +89,15 @@ public class EquipedGrid : MonoBehaviour
         EquipableData data = (item.data as EquipableData);
         int type = (int)data.equipType;
 
-        // remove if present
+        // Remove if present
         if (items[type] == item)
-        {
-            // Debug.Log("Removing equipped item data!");
             items[type] = null;
-        }
+
         SetAllAdditions();
     }
 
-    public bool HasItemOfTypeEquipped(int type)
-    {
-        return items[type] != null;
-    }
+    public bool HasItemOfTypeEquipped(int type) => items[type] != null;
+
     public bool IsEquipped(UIItem item)
     {
         // Check if an equippable item
@@ -121,7 +108,7 @@ public class EquipedGrid : MonoBehaviour
         EquipableData data = (item.data as EquipableData);
         int type = (int)data.equipType;
 
-        // is this the item
+        // Is this the item
         if (items[type] == item)
             return true;
         return false;
@@ -130,29 +117,19 @@ public class EquipedGrid : MonoBehaviour
     private void EquipItem(UIItem item)
     {
         if (item.data is not EquipableData)
-        {
-            Debug.LogWarning("This hould never happen");
             return; // should never happen
-        }
 
-        //Debug.Log("Equipping item since its Equipable" + item.data.itemName);
-
+        // Determine item type
         EquipableData data = (item.data as EquipableData);
         int itemType = (int)data.equipType;
-
-        //Debug.Log("Item at pos" + item.transform.localPosition);
-
-        //Debug.Log("Item set to itemspot " + itemspots[itemType].name+" which is at "+ itemspots[itemType].transform.localPosition);
-
+                
         // Determin offset
-
-
         item.SetHomePositionAndSpot(itemspots[itemType].transform.parent.localPosition,new Vector2Int(-1,-1));
 
-        //Debug.Log("Item at pos after " + item.transform.localPosition);
-
+        // place item in array as equipped
         items[itemType] = item;
-        //Debug.Log("Equipping "+item.data.itemName);
+
+        // Determine all equipped items stats effects
         SetAllAdditions();
     }
 
@@ -162,7 +139,7 @@ public class EquipedGrid : MonoBehaviour
 
     public void SetAllAdditions()
     {
-        Debug.Log(" -> Setting all Additions");
+        // Determine how all equipped items affect player stats
         Oxygen = 0;
         Health = 0;
         Speed = 0;
@@ -184,6 +161,7 @@ public class EquipedGrid : MonoBehaviour
             }
         }
 
+        // Notify of stats change from equipments
         EquipmentChanged.Invoke();
     }
 }

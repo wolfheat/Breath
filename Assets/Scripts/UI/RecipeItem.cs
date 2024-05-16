@@ -16,35 +16,40 @@ public class RecipeItem : MonoBehaviour
 
     public void OccupyByData(ResourceData ingredience, int amount = 1, int playerGot = 1)
     {
+        // Set sprite
         image.sprite = ingredience.picture;
-        //string newText = (amount == 1 ? "" : amount.ToString());
+
+        // Show the amount needed and the amount player has
         string newText = amount.ToString();
         if(playerGot>0)
             newText += " ("+playerGot.ToString()+ ")";
         amountText.text = newText;
+        
+        // Set ingredience name
         nameText.text = ingredience.itemName;
+
         // Set appropriate color
         background.color = playerGot<amount ? myGrey : green;
     }
 
-    public void OccupyByData(ItemData result, bool canCreate)
+    public void OccupyByData(ItemData result, bool canCreate)    
     {
+        // Set Sprite
         image.sprite = result.picture;
+
+        // Set result amount and name
         amountText.text = 1.ToString();
         nameText.text = result.itemName;
+
         // Set appropriate color
         background.color = canCreate ? green : myGrey;
-        //SetAfford(canCreate);
-
     }
+
     public void SetAfford(bool afford)
     {
         image.material = afford ? null : grayscaleMaterial;
         background.color = afford ? greenColor : greenColor;
     }
 
-    private void SetBackgroundHasItems()
-    {
-        background.color = Color.green;
-    }
+    private void SetBackgroundHasItems() => background.color = Color.green;
 }

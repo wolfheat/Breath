@@ -11,24 +11,39 @@ public class InventoryUI : MonoBehaviour
 
     private void Start()
     {
-        // remove all older 
-        foreach(Transform child in inventoryItemHolder.transform)
-            Destroy(child.gameObject);
+        // Remove all older 
+        RemoveExistingUI();
 
+        // Create from the Data array
+        CreateInventory();
+
+        // Update
+        UpdateInventory();
+    }
+
+    private void CreateInventory()
+    {
         texts = new TextMeshProUGUI[itemDatas.Length];
-        //Create inventory
-        for (int i=0; i< itemDatas.Length; i++)
+
+        for (int i = 0; i < itemDatas.Length; i++)
         {
             InventoryItem item = Instantiate(inventoryItemPrefab, inventoryItemHolder.transform);
             item.SetItem(itemDatas[i].picture, "0", itemDatas[i].itemName);
             texts[i] = item.textField;
         }
-        UpdateInventory();
     }
+
+    private void RemoveExistingUI()
+    {
+        foreach (Transform child in inventoryItemHolder.transform)
+            Destroy(child.gameObject);
+    }
+
     public void UpdateInventory()
     {
         int[] resources = inventory.GetResources();
-        Debug.Log("    Update resource inventory UI");
+
+        // Name the resources in the UI
         for(int i=0; i<texts.Length; i++) {
             if (i >= resources.Length) break;
             texts[i].text = resources[i].ToString();

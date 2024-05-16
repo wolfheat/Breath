@@ -43,25 +43,29 @@ public class CraftingUI : MonoBehaviour
 
     private void Start()
     {
+        // Setting the Full Recipe Jagged Array
         allRecipes = new RecipeData[][] { allRecipesData.armorRecipes, allRecipesData.toolRecipes, allRecipesData.foodRecipes, allRecipesData.resourceRecipes };
+        // All Ccreated Buttons are Placed in Separate array
         allRecipeButtons = new CraftButton[allRecipes.Length][];
+
         // Create Entire Menu Here
-        Debug.Log("Populating Crafting Menu. Menu has "+allRecipes.Length+" main otions.");
         for (int i = 0; i < allRecipes.Length; i++)
         {
             RecipeData[] recipeList = allRecipes[i];
 
+            // Empty Recipe List?
             if (recipeList.Length == 0)
                 continue;
 
-            Debug.Log("  Adding Main option with "+recipeList.Length+" items");
-
             // Add main button
             var mainButton = Instantiate(mainButtonPrefab,mainButtonHolder.transform);
+
             // Set main button to image in first recipe
             mainButton.SetImage(recipeList[0].result.picture); // Use first recipe result image
             baseCraftingButtons.Add(mainButton);
             allRecipeButtons[i] = new CraftButton[recipeList.Length];
+
+            // Add all sub buttons
             for (int j = 0; j < recipeList.Length; j++)
             {
                 RecipeData recipe = recipeList[j];
@@ -72,20 +76,18 @@ public class CraftingUI : MonoBehaviour
         }
 
         for (int i = 0; i < baseCraftingButtons.Count; i++)
-        {
             baseCraftingButtons[i].ButtonID = i;
-        }
+
+        // Close all menues to begin with
         OpenSubMenu(-1);
     }
 
-    private void DisableSubmenu(int id)
-    {
-        baseCraftingButtons[id].ActivateSubMenu(false);
-    }
+    private void DisableSubmenu(int id) => baseCraftingButtons[id].ActivateSubMenu(false);
 
     public void OpenSubMenu(int id)
     {
-        if (WaitingForMenuToClose && id!=-1) return;
+        if (WaitingForMenuToClose && id != -1) return;
+
         // Requesting action to show this subMenu
         // If any menu is open wait for it to close
         Debug.Log("Request base crafting "+id+ " WaitingForRecipeToHide: "+ WaitingForRecipeToHide);
@@ -98,12 +100,12 @@ public class CraftingUI : MonoBehaviour
 
     private void EnableOnlySubMenu(int id)
     {
-        Debug.Log("Enable only sub menu: "+id);
+        // Enable Only the SubMenu by it's ID);
         for (int i = 0; i < baseCraftingButtons.Count; i++) {
             baseCraftingButtons[i].ActivateSubMenu(id==i);
             if (id == i)
             {
-                Debug.Log("Bubble all these buttons in menu "+id);
+                // Bubble effect on all buttons in this sub menu
                 foreach (var button in allRecipeButtons[id])
                     button.PlayBubbleAnimation();
 
@@ -113,9 +115,10 @@ public class CraftingUI : MonoBehaviour
 
     public void Reset()
     {
-        Debug.Log("RESET");
         WaitingForRecipeToHide = false;
         WaitingForMenuToClose = false;
+
+        // Close all menues
         OpenSubMenu(-1);
     }
 
@@ -123,7 +126,7 @@ public class CraftingUI : MonoBehaviour
     {
         if (!activeWorkbench)
         {
-            Debug.LogWarning("Cant create item, no active workbench");
+            // Cant create item, no active workbench
             HUDMessage.Instance.ShowMessage("No active workbench");
             return;
         }
@@ -149,7 +152,7 @@ public class CraftingUI : MonoBehaviour
 
     private void UpdateAvailableRecipes()
     {
-        Debug.Log("Update available Recipes");
+        // Update available Recipes
         for (int i = 0; i < baseCraftingButtons.Count; i++)
         {
             RecipeData[] recipeList = allRecipes[i];
@@ -161,12 +164,11 @@ public class CraftingUI : MonoBehaviour
                 {
                     allRecipeButtons[i][j].SetAfford(true);
                     hasCraftable = true;
-                        //Debug.Log("Can afford" + recipe.result.itemName);
                 }
                 else
                 {
+                    // Can Not Afford
                     allRecipeButtons[i][j].SetAfford(false);
-                    Debug.Log("Can't afford " + recipe.result.itemName);
                 }
             }
             baseCraftingButtons[i].SetAfford(hasCraftable);
@@ -177,7 +179,6 @@ public class CraftingUI : MonoBehaviour
     {
         if (recipeInfo.IsActive)
         {
-            Debug.Log("Recipe Info is active");
             WaitingForMenuToClose = true;
             recipeInfo.CloseMenu();
         }
@@ -191,35 +192,28 @@ public class CraftingUI : MonoBehaviour
 
     public void HideInfoOnly()
     {
-        Debug.Log("CRAFTING UI - Hiding Recipe Info, panel active:"+recipeInfo.panelOpen);
+        // Hiding Recipe Info
         if (recipeInfo.panelOpen)
-        {
             recipeInfo.CloseMenu();
-        }
-        else Debug.Log("Disregard mouse exit cause already closing menu");
     }
+
     public void ShowInfo(RecipeData recipeData)
     {
+        // Show Recipe Info
         if (WaitingForMenuToClose) return;
         recipeInfo.ShowRecipe(recipeData);
     }
-    public void SetActiveWorkbench(Workbench workbench)
-    {
-         activeWorkbench = workbench;
-    }
+
+    public void SetActiveWorkbench(Workbench workbench) => activeWorkbench = workbench;
 
     // ACTIONS
     public void RecipeHasBeenClosed()
     {
-        Debug.Log("Recipe has been closed");
-        Debug.Log("WaitingForRecipeToHide: "+ WaitingForRecipeToHide+ " WaitingForMenuToClose: "+ WaitingForMenuToClose+ " nextMenuToOpen:"+ nextMenuToOpen);
-        
         WaitingForRecipeToHide = false;
 
         // Closing Entire Crafting Menu
         if (WaitingForMenuToClose)
         {
-            Debug.Log("Waiting for menu to Close, reset");
             Reset();
             toggle.HideMenu();
             return;

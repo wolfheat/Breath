@@ -10,52 +10,38 @@ public class ToggleMenu : MonoBehaviour
     private void Start()
     {
         panel.SetActive(false);
-
     }
 
     public void Toggle()
     {
-        //Debug.Log("Toggle Request, panel is active: "+ panel.activeSelf+" ID:"+gameObject.GetInstanceID());
-
+        // If item being dragged reset it
         if (panel.activeSelf)
             DragObject.Instance.UnSetDragedItem();
-        //panel.SetActive(!panel.activeSelf);
 
+        // Toggle the menu
         MakeVisible(!panel.activeSelf);
-        //Debug.Log("UIActive set to "+UIController.UIActive);
     }
 
-    // Animation
-    public void HideMenu()
-    {
-        MakeVisible(false);
-    }
-    public void ShowRecipe()
-    {
-        MakeVisible(true);
+    public void HideMenu() => MakeVisible(false);
 
-    }
+    public void ShowRecipe() => MakeVisible(true);
+
     private void MakeVisible(bool doMakeVisible)
     {
-        //Debug.Log("Make visible = "+doMakeVisible + " ID:" + gameObject.GetInstanceID());
-
         if (doMakeVisible)
             panel.SetActive(true);
 
         animator.enabled = true;
         animator.Play(doMakeVisible ? "MakeVisible" : "MakeInVisible");
-
     }
+
     public void AnimationComplete()
     {
-        //Debug.Log("Animation trigger speed:"+ animator.GetCurrentAnimatorStateInfo(0).speed + " ID:" + gameObject.GetInstanceID());
+        // Check if the invisible animation completed, if so unload the panel
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("MakeInVisible"))
         {
-            //Debug.Log("Animation closes" + " ID:" + gameObject.GetInstanceID());
             panel.SetActive(false);
             animator.enabled = false;
         }
-
     }    
-
 }
