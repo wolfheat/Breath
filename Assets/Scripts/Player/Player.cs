@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Wolfheat.StartMenu;
@@ -14,17 +13,12 @@ public class Player : MonoBehaviour
     [SerializeField] PlayerPickupAreaController pickupController;
     [SerializeField] Collider itemCollider;
     [SerializeField] ToolHolder toolHolder;
-    // Free movement of camera with sensitivity
-
     [SerializeField] PlayerAnimationController playerAnimationController;
-
 
     private void Start()
     {
-        Debug.Log("Created Player");
         // set up input actions
         Inputs.Instance.Controls.Player.Click.performed += InterractWith;
-        //Inputs.Instance.Controls.Player.Click.started += MouseDown;
         Inputs.Instance.Controls.Player.E.performed += InterractWith;       
 
     }
@@ -40,33 +34,28 @@ public class Player : MonoBehaviour
             playerStats.TakeDamage(enemyController.PinchDamage);
         }else if (other.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
         {
+            // Player Hit By Enemy Bullet
             Bullet bullet = other.gameObject.GetComponentInParent<Bullet>();
-            //Debug.Log("Player Hit By Enemy Bullet");
             SoundMaster.Instance.PlayGetHitSound();
             playerStats.TakeDamage(bullet.Damage);
         }
     }
 
-    public void InterractWith(CallbackContext context)
+    public void InterractWith(CallbackContext context) // E - Pressed
     {
-        // Disable interact when inventory
+        // No interaction with items when any inventory is open or game is paused
         if (UIController.CraftingActive || UIController.InventoryActive || GameState.IsPaused)
         {
+            // Close Crafting menu when clicking outside menu
             if (UIController.CraftingActive && !EventSystem.current.IsPointerOverGameObject())
-            {
-                //Close Crafting menu
                 CraftingUI.Instance.CloseCraftingMenu();
-
-            }
-
             return;
         }
 
-        Debug.Log("E - Pick up nearby item or interact ");
         // Interact with closest visible item 
         if(pickupController.ActiveInteractable != null)
         {
-            // Each time interacting with an item, reset timer to be able to shoot again
+            // Each time interacting with an item, restart timer to be able to shoot again
             playerShootController.ResetTimer();
 
             bool didPickUp = false;
@@ -94,7 +83,6 @@ public class Player : MonoBehaviour
                 {
                     pickupController.InteractWithActiveItem();
                     SoundMaster.Instance.PlaySound(SoundName.PickUp);
-                    Debug.Log("Did Pick Up = " + didPickUp);
                 }
             }else if (pickupController.ActiveInteractable is DestructableItem)
             {
@@ -170,9 +158,6 @@ public class Player : MonoBehaviour
 
     public void Click(CallbackContext context)
     {
-        
-
-
     }
 
     public void ResetPlayer(bool keepStats=false)

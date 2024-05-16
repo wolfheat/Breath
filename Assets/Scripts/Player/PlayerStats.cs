@@ -20,7 +20,7 @@ public class PlayerStats : MonoBehaviour
     private int maxOxygen = 70;
     private int maxSpeed = 2;
     public int MaxSpeed { get { return maxSpeed; }}
-    public bool AtMaxHealth { get { return health==maxHealth; }}
+    public bool AtMaxHealth => health == maxHealth;
     
     private const int StartHealth = 10;
     private const int StartOxygen = 10;
@@ -46,7 +46,7 @@ public class PlayerStats : MonoBehaviour
         IsDead = true;
     }
 
-    private void Start()
+    private void Awake()
     {
         if (Instance != null)
         {
@@ -54,11 +54,17 @@ public class PlayerStats : MonoBehaviour
             return;
         }
         Instance = this;
+    }
 
+    private void Start()
+    {
+        // Start the Use oxygen routine, this runs without stopping
         StartCoroutine(UseOxygen());
 
+        // Update Equipments every time the event of equipment change occure
         equiped.EquipmentChanged += UpdateEquipment;
 
+        // Initial values set
         maxOxygen = StartOxygen;
         maxHealth= StartHealth;
         maxSpeed= StartSpeed;
@@ -69,14 +75,11 @@ public class PlayerStats : MonoBehaviour
 
 
         UpdateEquipment();
-
     }
 
     private void UpdateEquipment()
     {
-        Debug.Log(" -> Updating Stats from Equipment Benefits");
-
-        //Debug.Log("PlayerStats Updated");
+        // Updating Stats from Equipment "Benefits"
 
         // Change max values
         maxHealth = StartHealth + equiped.Health;
@@ -109,8 +112,10 @@ public class PlayerStats : MonoBehaviour
     }
     private IEnumerator UseOxygen()
     {
+        // This routine always runs
         while (true)
         {
+            // This routines effect is "paused" when dead
             while (IsDead) 
                 yield return coroutineDelay; 
             yield return coroutineDelay;
@@ -118,32 +123,34 @@ public class PlayerStats : MonoBehaviour
 
             if (!rb.useGravity)
             {
-                
+                // Only use oxygen when in vaccuum = outside
                 if (oxygen > 0)
                 {
-                    bool aboveWarning = oxygen >= OxygenWarningLevel;
-                    bool aboveSecondWarning = oxygen >= SecondOxygenWarningLevel;
+                    bool aboveWarningBeforeDecrease = oxygen >= OxygenWarningLevel;
+                    bool aboveSecondWarningBeforeDecrease = oxygen >= SecondOxygenWarningLevel;
                     oxygen -= OxygenUsage* delay;
-                    // Give warning od low oxygen
-                    if(aboveWarning && oxygen < OxygenWarningLevel)
+
+                    // Give warning of low oxygen
+                    if(aboveWarningBeforeDecrease && oxygen < OxygenWarningLevel)
                         HUDMessage.Instance.ShowMessage("Oxygen!",sound: SoundName.LowOxygen);
-                    else if (aboveSecondWarning && oxygen < SecondOxygenWarningLevel)
+                    else if (aboveSecondWarningBeforeDecrease && oxygen < SecondOxygenWarningLevel)
                         HUDMessage.Instance.ShowMessage("Quickly Now!",sound: SoundName.LowOxygen);
                 }
                 else
                 {
+                    // All oxygen is used ,player starts to drown
+                    // No oxygen Survival stat is monitoring how long the player survives without oxygen, separate timer
                     if (noOxygenSurvival == NoOxygenSurvivalMax)
                     {
-                        Debug.Log("Starting to drown");
-                        // Starting to "drown"
+                        // Starting to drown
                         SoundMaster.Instance.PlaySound(SoundName.Drowning);
                         SoundMaster.Instance.FadeMusic();
-
                     }                    
                     if (noOxygenSurvival > 0)
                         noOxygenSurvival -= delay;
                     else
                     {
+                        // Kill player if not allready dead
                         if (!IsDead)
                         {
                             Debug.Log("PlayerDIED");
@@ -156,7 +163,7 @@ public class PlayerStats : MonoBehaviour
             }
             else
             {
-                //Debug.Log("In gravity: "+ noOxygenSurvival+"="+NoOxygenSurvivalMax+" oxygen: "+oxygen );
+                // Only regain oxygen when inside
                 if (noOxygenSurvival < NoOxygenSurvivalMax)
                 {
                     // Stops drowning clip from playing
@@ -165,10 +172,10 @@ public class PlayerStats : MonoBehaviour
                         Debug.Log("Stop drowning sound");
                         SoundMaster.Instance.StopSound(SoundName.Drowning);
                     }
-
+                    // Refills the drowning timer at same rate as the oxygen (not visible to player)
                     noOxygenSurvival = Math.Min(NoOxygenSurvivalMax, noOxygenSurvival + OxygenRefillSpeed * delay);
                 }
-
+                // Refills oxygen tank 
                 if (oxygen < maxOxygen)
                     oxygen += OxygenRefillSpeed * delay;
                 if (oxygen > maxOxygen)
@@ -180,10 +187,9 @@ public class PlayerStats : MonoBehaviour
             uiController.UpdateScreenDarkening(1-noOxygenSurvival/ NoOxygenSurvivalMax);
             uiController.SetOxygen(oxygen,maxOxygen);
 
+            // Check if the current oxygen is the same as we started with i.e no uptdates event dispatch needed
             if (oxygen != startOxygen)
                 OxygenUpdated.Invoke(oxygen,maxOxygen);
-            
-
         }
     }
 
@@ -199,7 +205,6 @@ public class PlayerStats : MonoBehaviour
         SoundMaster.Instance.PlayMusic(MusicName.IndoorMusic);
         OxygenUpdated.Invoke(oxygen, maxOxygen);
         HealthUpdated.Invoke(health, maxHealth);
-
     }
 
     public void Consume(ConsumableData data)
@@ -213,7 +218,7 @@ public class PlayerStats : MonoBehaviour
         PlayerGameData data = SavingUtility.playerGameData;
         if (data == null) return;
 
-        //Loading all data from file
+        // Loading all data from file
         rb.position = SavingUtility.V3AsVector3(data.PlayerPosition);
         rb.rotation = Quaternion.LookRotation(SavingUtility.V3AsVector3(data.PlayerRotation),Vector3.up);
 
@@ -231,8 +236,6 @@ public class PlayerStats : MonoBehaviour
         // Player position and looking direction (Tilt is disregarder, looking direction is good enough)
         SavingUtility.playerGameData.PlayerPosition = SavingUtility.Vector3AsV3(rb.transform.position);
         SavingUtility.playerGameData.PlayerRotation = SavingUtility.Vector3AsV3(rb.transform.forward);
-
-        // Inventory
 
         // Health, Oxygen
         SavingUtility.playerGameData.PlayerHealth = health;

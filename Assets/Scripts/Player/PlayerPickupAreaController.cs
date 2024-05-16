@@ -9,12 +9,12 @@ public class PlayerPickupAreaController : MonoBehaviour
 
     List<Interactable> items = new List<Interactable>();
 
+    // Pickup controller is constantly checking for the closest item and setting the item selector to this item
+
     private void FixedUpdate()
     {
         if (items.Count > 0)
-        {
             SelectClosest();
-        }
     }
 
     public bool InteractWithActiveItem()
@@ -35,10 +35,7 @@ public class PlayerPickupAreaController : MonoBehaviour
         {
             Interactable newItem = other.gameObject.GetComponent<Interactable>();
             if (!items.Contains(newItem))
-            {
                 items.Add(newItem);
-                //Debug.Log("Item " + newItem.name + " entered area, size is now " + items.Count);
-            } 
             SelectClosest();
         }
     }
@@ -50,15 +47,14 @@ public class PlayerPickupAreaController : MonoBehaviour
             SetSelected(null);
             return;
         }
-        // Solution checks distance between an item and its associated point thats placed the same distance along the forward direction
 
+        // Solution checks distance between an item and its associated point thats placed the same distance along the forward direction
         Interactable closest = items[0];
         Vector3 itemDirection = items[0].transform.position - player.transform.position;
         Vector3 pointOnSightLine = itemDirection.magnitude * transform.forward;
         float distanceFromSight = (itemDirection- pointOnSightLine).magnitude;
-        //float distanceFromSight = Math.Abs(Vector3.Dot(itemDirection, transform.forward));
         float bestDistance = distanceFromSight;
-        //Debug.Log("Item 0 distance: " + distanceFromSight);
+
         if (items.Count > 1)
         {
             for (int i = 1; i < items.Count; i++)
@@ -66,10 +62,8 @@ public class PlayerPickupAreaController : MonoBehaviour
                 itemDirection = items[i].transform.position - player.transform.position;
                 pointOnSightLine = itemDirection.magnitude * transform.forward;
                 distanceFromSight = (itemDirection - pointOnSightLine).magnitude;
-                //distanceFromSight = Math.Abs(Vector3.Dot(itemDirection, transform.forward));
-                // Calculate the distance from the player to the infinite line
 
-                //Debug.Log("Item " + i + " distance: " + distanceFromSight);
+                // Calculate the distance from the player to the infinite line in the forward direction
                 if (distanceFromSight < bestDistance)
                 {
                     closest = items[i];
@@ -84,7 +78,6 @@ public class PlayerPickupAreaController : MonoBehaviour
 
     private void SetSelected(Interactable closest)
     {
-
         bool same = ActiveInteractable == closest;
         ActiveInteractable = closest;
 
@@ -109,11 +102,8 @@ public class PlayerPickupAreaController : MonoBehaviour
         {
             Interactable item = other.gameObject.GetComponent<Interactable>();
             if (items.Contains(item))
-            {
                 items.Remove(item);
-                //Debug.Log("Item "+item.name+" exited area, size is now "+items.Count);
-            }
-        SelectClosest();
+            SelectClosest();
         }
     }
 }

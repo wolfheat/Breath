@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public float LookSensitivity { get; set; } = 0.15f;
 
     private const float StopingSpeedLimit = 0.1f; // go slower than this and you imidiately stop
-    private const float DistanceLimit = 0.1f; // go slower than this and you imidiately stop
+    private const float DistanceLimit = 0.1f; 
     private const float MaxDistanceLimit = 2.5f; // safe messure if moving to far away from throw point
     private const float RotationLowerLimit = 89;
     private const float RotationUpperLimit = 271;
@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        //Entering Gravity area
+        //Exiting Gravity area
         if (other.gameObject.GetComponent<GravityArea>() != null)
         {
             rb.useGravity = false;
@@ -97,24 +97,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void DetemineCursor()
     {
-        // Right button is not held or player is dead = regain normal cursor
+        // Paused game, inventory open or player is dead = regain normal cursor
         if (GameState.IsPaused || playerStats.IsDead || UIController.InventoryActive || UIController.CraftingActive)
         {
             if (Cursor.visible == true) return;
 
-            Debug.Log("Showing cursor");
+            // Showing cursor
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-
-            //RegainCursorPosition();
             return;
         }
         else
         {
             if (!Cursor.visible) return;
-            
-            Debug.Log("Hiding cursor");
-            // Hide cursor if changing view
+
+            // Hiding cursor
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -131,22 +128,19 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 move = Inputs.Instance.Controls.Player.Move.ReadValue<Vector2>();
         
+        // Disregard player input if in a throwing animation
         if(throwCoroutine != null)
-        {
-            //if (move.magnitude != 0) Debug.Log("Can not move while being thrown");
             return;
-        }
 
         // SIDEWAY MOVEMENT
         boosterAcceleration = move[0] * transform.right;
         // SPEED BOOSTER MOVEMENT
         boosterAcceleration += move[1] * tilt.forward;
 
-        
 
         if (rb.useGravity)
         {
-            //remove up and down
+            // Remove up and down part for the booster when in gravity
             boosterAcceleration = new Vector3(boosterAcceleration.x, 0, boosterAcceleration.z);
             
             // Movement in Gravity            
@@ -188,21 +182,10 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
             }
-            /*
-            if (boosterAcceleration.magnitude>0)
-                rb.velocity = boosterAcceleration.normalized * minSpeed + rb.velocity.y * Vector3.up;
-            else
-                rb.velocity = rb.velocity.y * Vector3.up;
-        }
-        else if (planeParts.magnitude > maxSpeed)
-            rb.velocity = planeParts.normalized * maxSpeed+rb.velocity.y*Vector3.up;
-        */
-            //DampenSpeedInDoors();
 
             // STEP SOUND
             if (planeParts.magnitude > WalkSpeedNeededToMakeStepSound)
                 SoundMaster.Instance.PlayStepSound();
-
         }
         else
         {
@@ -215,13 +198,13 @@ public class PlayerMovement : MonoBehaviour
             if (rb.velocity.magnitude > playerStats.MaxSpeed)
                 rb.velocity = rb.velocity.normalized * playerStats.MaxSpeed;
 
-            // CRUISE SPEED LIMITATION       
+            // Cruise Speed Limitation
             if (rb.velocity.magnitude > playerStats.MaxSpeed/2f)
                 LimitSpeedToCruiseSpeed(); 
 
-            // PLAYER STOP IN PLACE
+            // Player Stop in Place
             if (Inputs.Instance.Controls.Player.LeftAlt.ReadValue<float>() != 0)
-            StopInPlace();
+                StopInPlace();
         }
 
         // Show speed in HUD
@@ -252,18 +235,10 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity *= Mathf.Pow(dampening, Time.deltaTime);
             return;
         }
-
-        // Limit sideway velocity when using booster - Experimental
-        /*
-        Vector3 perpendicularSpeed = Vector3.Dot(rb.velocity.normalized, boosterAcceleration.normalized) * boosterAcceleration.normalized;
-        rb.velocity -= perpendicularSpeed * driftDampening * Time.deltaTime;        
-        */
     }
 
     private void StopRotations()
     {
-        // Hinder player from falling down
-        Vector3 startRot = rb.transform.rotation.eulerAngles;
         // Stop current rotation
         rb.angularVelocity = Vector3.zero;
         // Reset player to upright position
@@ -312,23 +287,16 @@ public class PlayerMovement : MonoBehaviour
             float oldAngle = tilt.localRotation.eulerAngles.x;
             float rotationAngle = (-mouseMove[1] * LookSensitivity);
             
+            // Fix players rotation within limits Up and down
             float resultAngle = oldAngle + rotationAngle;
             if (rotationAngle > 0 && oldAngle <= RotationLowerLimit + 1 && oldAngle >= RotationLowerLimit - 20f && resultAngle >= RotationLowerLimit)
-            {
-                //Debug.Log("Changing valid rotationangle");
                 rotationAngle = RotationLowerLimit - oldAngle;
-            }
             else if (rotationAngle < 0 && oldAngle >= RotationUpperLimit - 1 && oldAngle <= RotationUpperLimit + 20f && resultAngle <= RotationUpperLimit)
-            {
-                //Debug.Log("Changing to max rotationangle");
-
                 rotationAngle = RotationUpperLimit - oldAngle;
-            }
+
             tilt.transform.Rotate(rotationAngle, 0, 0, Space.Self);
             uiController.SetTilt(tilt.transform.localRotation.eulerAngles.x);
             uiController.SetPlayerTilt(rb.transform.localRotation.eulerAngles);
-            // At 334 degrees
-
         }
     }
 
@@ -340,15 +308,16 @@ public class PlayerMovement : MonoBehaviour
         throwCoroutine = StartCoroutine(ThrowPlayerCO(doorThrower));
     }
 
+    // The thrower routine is triggered when the player moves in and out of doors. It makes the process of entering and exiting doors automatic
+    //  and the player wont have control over the movement during this process. Player is lined up and trown in the correct direction.
+
     private IEnumerator ThrowPlayerCO(DoorThrower thrower)
     {
-        Debug.Log("Throw coroutine STARTED");
+        // Throw coroutine STARTED;
         // Move player towards trigger, when close enough throw against target
 
         Vector3 direction = (thrower.transform.position - rb.transform.position).normalized;
         rb.velocity = direction * maxSpeed;
-        // Have to disable gravity or velocity wont take player to target
-        //rb.useGravity = false;
 
         float currentDistance = (thrower.transform.position - rb.transform.position).magnitude;
 
@@ -359,8 +328,8 @@ public class PlayerMovement : MonoBehaviour
             currentDistance = (thrower.transform.position - rb.transform.position).magnitude;
         }
         
+        // Player is at thrower position, line up and send him towards the target
         rb.transform.position = thrower.transform.position;
-        //Debug.Log("Player is at thrower position, send him towards target:" + thrower.target.name);
 
         yield return null;
         // Now at thrower
