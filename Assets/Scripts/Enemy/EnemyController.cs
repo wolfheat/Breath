@@ -55,13 +55,15 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
     public void PlayerDied()
     {
         Debug.Log(" Boss recieved player dies info, set to Idle");
-        isAttacking = false;
-        idleState.SetActive(true);
-        attackState.SetActive(false);
+        ResetBossValues();
+    }
+
+    private void ResetBossValues()
+    {
+        SetToIdle();
         StopAllCoroutines();
-        animator.CrossFade("Idle",0.1f);
-        animator.SetBool("web", false); // Go back to Idle
-        animator.SetBool("pinch", false); // Go back to Idle
+
+        animator.CrossFade("Idle", 0.1f);
         agitateTimer = 0.1f;
         agitated = false;
     }
@@ -74,32 +76,28 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
         // Check if should change to pich attack
         if (pichAttackController.PlayerInRange)
         {
-            Debug.Log("Player in pinch range while doing web attack, change to pinch attack");
-            animator.SetBool("web", false); // Go back to Idle
-            isAttacking = false;
-            Debug.Log(" Attack set to false");
-            idleState.SetActive(true);
-            attackState.SetActive(false);
+            // Player in pinch range while doing web attack, change to pinch attack via idle
+            SetToIdle();
             attackWaitTimer = 1f;
         }
         else if (attackcounter == 0)
         {
-            animator.SetBool("web", false); // Go back to Idle
-            isAttacking = false;
-            Debug.Log(" Attack set to false");
-            idleState.SetActive(true);
-            attackState.SetActive(false);
+            // Enemy completed all its attacks
+            SetToIdle();
         }
     }
-    
-    public void PinchAttackAnimationComplete()
-    {        
-        animator.SetBool("pinch", false); // Go back to Idle
+
+    private void SetToIdle()
+    {
         isAttacking = false;
+        animator.SetBool("web", false); 
+        animator.SetBool("pinch", false); 
         idleState.SetActive(true);
         attackState.SetActive(false);
     }
-    
+
+    public void PinchAttackAnimationComplete() => SetToIdle();
+
     public void LeftPinchAttackPerformed()
     {
         leftArm.gameObject.SetActive(true);
@@ -124,16 +122,11 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
     
     public void DoWebStormAttack()
     {
-        Debug.Log(" Enemy Physically Attacking");
-        
+        // Web storm attack - Enemy sends a mass of web projectiles in the direction of the player
         Debug.Log("Pew");
 
-        Quaternion direction = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
-
         BulletCreator.Instance.GenerateBulletStorm(shootPoint.position, player.transform.position,35,webDamage);
-        //BulletCreator.Instance.GenerateBullet(shootPoint.transform.position,player.transform.position);
         SoundMaster.Instance.PlaySound(SoundName.EnemyShoot, true);
-        
     }
     
     public void StartAttack(AttackType type = AttackType.Web)
@@ -148,7 +141,7 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
             animator.SetBool("pinch", true);
                 break;
             case AttackType.Cocoon:
-            animator.SetBool("cocoon", true);
+            animator.SetBool("cocoon", true); // Not yet implemented attack
                 break;
             case AttackType.Web:
             attackcounter = 3;
@@ -169,6 +162,7 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
             {
                 agitated = false;
                 Debug.Log(" Enemy no longer agitated");
+                // Agitator is a debugging feature showing red dot on top of enemy when he is in an agitated state
                 agitator.SetActive(false);
             }
         }
@@ -179,7 +173,7 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
             attackWaitTimer -= Time.deltaTime;            
             if (attackWaitTimer <= 0)
             {
-                Debug.Log("attackWaitTimer run out, check for what attack to perform");
+                // attackWaitTimer run out, check for what attack to perform
                 // Check if player is within strike range
                 if (pichAttackController.PlayerInRange)
                 {
@@ -187,15 +181,12 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
                     StartCoroutine(FaceAndAttack(player.transform.position,AttackType.Pinch));
                     
                 }else
+                    // Face player then web attack
                     StartCoroutine(FaceAndAttack(player.transform.position, AttackType.Web));
 
                 attackWaitTimer += AttackDelayTime;
             }
-
-
         }
-
-
     }
 
     private IEnumerator FaceAndAttack(Vector3 target,AttackType attackType)
@@ -205,40 +196,38 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
         Vector3 targetDirection = target-transform.position;
 
         // Get max angle or angle towards player in z direction
-        //float ZAngle = Vector3.Angle(Mathf.Cos)
-        // If decided enemy can do pinch then pinch towards that posint without limitations?
-
+        
+        // If decided enemy can do pinch then pinch towards that pos without limitations?
 
         targetDirection.y = 0; 
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.down,targetDirection);
-        //float angle = Quaternion.Angle(rotation, targetRotation);
+        
         float angle = Vector3.Angle(transform.up, targetDirection);
         Debug.Log("Turn angle " + angle);   
         const float AngleVelocity = 80f;
         float turnTime = angle / AngleVelocity;
         float timer = 0;
+
+        // Rotate to face player
         while (timer < turnTime)
         {
             rb.transform.rotation = Quaternion.Lerp(rotation, targetRotation, timer / turnTime);
-            //Debug.Log("Turning towards player "+(Vector3.Angle(transform.forward,targetDirection)));
             timer += Time.deltaTime;
             yield return null;
         }
 
-        Debug.Log("Turning complete. Now Tilt");
+        // Turning complete. Now Tilt
         targetDirection = target - transform.position;
         angle = Vector3.SignedAngle(transform.up, targetDirection,Vector3.right);
-        Debug.Log("Tilt angle "+angle);
         turnTime = angle / AngleVelocity;
         timer = 0;
         while (timer < turnTime)
         {
             rb.transform.rotation = Quaternion.Lerp(rotation, targetRotation, timer / turnTime);
-            //Debug.Log("Turning towards player "+(Vector3.Angle(transform.forward,targetDirection)));
             timer += Time.deltaTime;
             yield return null;
         }
-        Debug.Log("Tilt complete.");
+        // Tilt complete, Start attack
 
         rb.transform.rotation = targetRotation;
         StartAttack(attackType);
@@ -252,32 +241,24 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
             Agitate();
             
             Bullet bullet = other.GetComponentInParent<Bullet>();
-            Debug.Log(" Enemy Hit by player bullet, damage"+bullet?.Damage);
+            // Enemy Hit by player bullet
             health -= bullet.Damage;
             if (health <= 0 && !isDead)
-            {
                 Die();
-            }
         }
+        // Player inside enemy pinch area
         else if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            Debug.Log("PLayer inside enemy pinch area");
             Agitate();
-        }
     }
 
+    // Enemy is getting hit
     private void Agitate()
     {
         agitateTimer = AgitateTimeOutTime;
-        // Enemy is getting hit
         if (!agitated)
-        {
             attackWaitTimer = 1f;
-            Debug.Log("Enemy set to Agitated");
-        }
         agitated = true;
         agitator.SetActive(true);
-
     }
 
     // Not currently used, the position is set the same way as items, directly to the transform
@@ -294,14 +275,13 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
             transform.rotation = rot;
         }
     }
-    public (Vector3 pos, Vector3 forward, Vector3 up) GetLocation()
-    {
-        return (rb.position,rb.transform.forward, rb.transform.up);
-    }
+    
+    public (Vector3 pos, Vector3 forward, Vector3 up) GetLocation() => (rb.position, rb.transform.forward, rb.transform.up);
+
     private void Die()
     {
+        // Enemy has died, player wins
         isDead = true;
-        Debug.Log("Enemy has died, player wins");
         animator.CrossFade("Death",1f);
         if(deathProcess == null)
             deathProcess = StartCoroutine(DeathProcess());
@@ -315,7 +295,7 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
 
     private IEnumerator DeathProcess()
     {
-        Debug.Log("Deathprocess started");
+        // Deathprocess started
         float explodeTimer = 4f;
         const float ExplosionInterval = 0.3f;
         while (explodeTimer >= 0)
@@ -329,7 +309,7 @@ public class EnemyController : BaseObjectWithType, IObjectWithType
             explodeTimer -= ExplosionInterval;
         }
         yield return new WaitForSeconds(3f);
-        Debug.Log("Show PLayer win screen here");
+        // Show player Win screen
         UIController.Instance.ShowWinScreen();
     }
 }
