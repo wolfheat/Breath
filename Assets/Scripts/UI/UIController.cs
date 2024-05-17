@@ -6,24 +6,39 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    // Debug main object and panel texts
+    [SerializeField] GameObject debugHelpText;
     [SerializeField] TextMeshProUGUI speed;
     [SerializeField] TextMeshProUGUI tilt;
     [SerializeField] TextMeshProUGUI playerTilt;
     [SerializeField] TextMeshProUGUI oxygenText;
+
+    // Post processing volume for darkening effect
     [SerializeField] Volume volume;
+
+    // Win Lose Pause
     [SerializeField] DeathScreen deathScreen;
     [SerializeField] WinScreen winScreen;
-    [SerializeField] GameObject debugHelpText;
     [SerializeField] PauseController pauseScreen;
+
+    // Screen darkening image
+    [SerializeField] Image image;
+
+    // Crosshair showing only when not in menu or paused
     [SerializeField] GameObject tempHair;
 
+    // Inventory
     [SerializeField] InventoryUI inventoryUI;
     [SerializeField] ToggleMenu inventoryToggle;
+
+    // Crafting
     [SerializeField] CraftingUI craftingUI;
     [SerializeField] ToggleMenu craftingToggle;
 
+    // Hud icons showing on interactable items
     [SerializeField] HUDIcons hudIcons;
-    [SerializeField] Image image;
+
+    // Player related
     [SerializeField] Player player;
     [SerializeField] PlayerStats playerStats;
 
