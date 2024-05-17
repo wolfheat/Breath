@@ -55,12 +55,12 @@ public class UIController : MonoBehaviour
         Inputs.Instance.Controls.Player.Tab.started += Toggle;
         Inputs.Instance.Controls.Player.Esc.started += Pause;
 
+        // Start by setting game to unpaused
         Pause(false);
     }
     
     public void OnDisable()
-    {
-        
+    {        
         Inputs.Instance.Controls.Player.Tab.started -= Toggle;
         Inputs.Instance.Controls.Player.Esc.started -= Pause;
     }
@@ -71,6 +71,7 @@ public class UIController : MonoBehaviour
         // Player can not toggle pause when dead
         if (playerStats.IsDead) return;
 
+        // Toggle pause
         bool doPause = GameState.state == GameStates.Running;
         Pause(doPause);
         pauseScreen.SetActive(doPause);
@@ -78,94 +79,73 @@ public class UIController : MonoBehaviour
 
     public void Pause(bool pause = true)
     {
+        // Setting state and timescale
         GameState.state = pause?GameStates.Paused:GameStates.Running;
-        Debug.Log("Gamestate set to "+ GameState.state);
         Time.timeScale = pause?0f:1f;
     }
 
     public void Toggle(InputAction.CallbackContext context)
     {
-        // Disable interact when inventory
+        // Disable toggle when game is paused
         if (GameState.IsPaused)
-        {
-            Debug.Log("Cannot toggle inventory because game is paused");
             return;
-        }
 
         // Request To toggle inventory
         if (craftingToggle.IsActive)
         {
-            Debug.Log("Trying to Toggle inventory but crafting is active");
             craftingUI.Reset();
             craftingToggle.HideMenu();
         }
         else
-        {
             inventoryToggle.Toggle();
-        }
     }
 
-    public void SetSpeed(Vector3 s)
-    {
-        speed.text = "Speed: ("+s.x.ToString("F")+","+s.y.ToString("F") + ","+s.z.ToString("F") + ")("+s.magnitude.ToString("F") + ")";
-    }
+    public void SetSpeed(Vector3 s) => speed.text = "Speed: (" + s.x.ToString("F") + "," + s.y.ToString("F") + "," + s.z.ToString("F") + ")(" + s.magnitude.ToString("F") + ")";
+
     public void ShowHUDIconAt(HUDIconType type, Interactable follow)
     {
         bool canInteractWith = true;
         if (follow is DestructableItem)
         {
+            // Destructable and player can interact if he have the correct tool
             DestructableItem destructableItem = (DestructableItem)follow; 
             canInteractWith = Inventory.Instance.PlayerHasEquipped(destructableItem.Data.destructType);
-            Debug.Log("This is Destructable and player can interact: "+canInteractWith);
         }
+        // Show the icon
         hudIcons.Set(type, follow,canInteractWith);
     }
-    public void HideHUDIcon()
-    {
-        hudIcons.Disable();
-    }
-    public void HideTempHair()
-    {
-        tempHair.SetActive(false);
-    }
+    public void HideHUDIcon() => hudIcons.Disable();
 
-    public void InventoryChanged()
-    {
-        inventoryUI.UpdateInventory();
-        
-    }
+    public void HideTempHair() => tempHair.SetActive(false);
 
-    public void SetTilt(float x)
-    {
-        tilt.text = "Tilt: (" + x + ")";
-    }
+    public void InventoryChanged() => inventoryUI.UpdateInventory();
 
-    public void SetPlayerTilt(Vector3 a)
-    {
-        playerTilt.text = "PlayerTilt: ("+a.x+","+a.y+","+a.z+")";
-    }
+    public void SetTilt(float x) => tilt.text = "Tilt: (" + x + ")";
 
-    public void SetOxygen(float oxygen, int maxOxygen)
-    {
-        oxygenText.text = "Oxygen: (" + oxygen.ToString("F") + "/" + maxOxygen + ")";
-    }
+    public void SetPlayerTilt(Vector3 a) => playerTilt.text = "PlayerTilt: (" + a.x + "," + a.y + "," + a.z + ")";
+
+    public void SetOxygen(float oxygen, int maxOxygen) => oxygenText.text = "Oxygen: (" + oxygen.ToString("F") + "/" + maxOxygen + ")";
+
     public void UpdateScreenDarkening(float percent)
     {
+        // Setting darkening effect to specific percent
         image.color = new Color() { a = percent };
         volume.weight = percent;
     }
+
     public void ShowDeathScreen()
     {
         Pause();
         playerStats.SetToDead();
         deathScreen.ShowScreen();
     }
+
     public void ShowWinScreen()
     {
-        Debug.Log("Player WON");
         GameState.state = GameStates.Paused;
         winScreen.ShowScreen();
     }
+
     public void ResetPlayer(bool keepStats = false)
     {
         player.ResetPlayer(keepStats);
